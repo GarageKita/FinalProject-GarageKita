@@ -2,6 +2,7 @@ import React from 'react'
 
 import MainImage from '../imgs/main.jpg'
 import MainLogo from '../imgs/GarageKita-logo.png'
+import { Link } from 'react-router-dom'
 
 function Landing() {
     return (
@@ -19,29 +20,28 @@ function Landing() {
                         <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                             <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                             <div className="flex items-center justify-between w-full md:w-auto">
-                                <a href="#">
-                                <span className="sr-only">Workflow</span>
-                                <img className="h-8 w-auto sm:h-10" src={MainLogo} />
-                                </a>
+                                <Link to="/">
+                                    <img className="h-8 w-auto sm:h-10" src={MainLogo} alt="Main logo GarageKita"/>
+                                </Link>
                                 <div className="-mr-2 flex items-center md:hidden">
                                 <button type="button" className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
                                     <span className="sr-only">Open main menu</span>
                                     {/* <!-- Heroicon name: outline/menu --> */}
                                     <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                                     </svg>
                                 </button>
                                 </div>
                             </div>
                             </div>
                             <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-                            <a href="#" className="font-medium text-gray-500 hover:text-gray-900">Product</a>
+                                <Link className="font-medium text-gray-500 hover:text-gray-900">Product</Link>
 
-                            <a href="#" className="font-medium text-gray-500 hover:text-gray-900">Marketplace</a>
+                                <Link className="font-medium text-gray-500 hover:text-gray-900">Marketplace</Link>
 
-                            <a href="#" className="font-medium text-gray-500 hover:text-gray-900">Company</a>
+                                <Link className="font-medium text-gray-500 hover:text-gray-900">Company</Link>
 
-                            <a href="#" className="font-medium text-teal-600 hover:text-teal-500">Log in</a>
+                                <Link to="/users/login" className="font-medium text-teal-600 hover:text-teal-500">Log in</Link>
                             </div>
                         </nav>
                         </div>    
@@ -60,14 +60,14 @@ function Landing() {
                         </p>
                         <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                             <div className="rounded-md shadow">
-                            <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 md:py-4 md:text-lg md:px-10">
-                                Get started
-                            </a>
+                            <Link to="/users/register" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 md:py-4 md:text-lg md:px-10">
+                                Coba sekarang!
+                            </Link>
                             </div>
                             <div className="mt-3 sm:mt-0 sm:ml-3">
-                            <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-teal-600 bg-teal-100 hover:bg-teal-200 md:py-4 md:text-lg md:px-10">
-                                Live demo
-                            </a>
+                            <Link href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-teal-600 bg-teal-100 hover:bg-teal-200 md:py-4 md:text-lg md:px-10">
+                                Cara kerja
+                            </Link>
                             </div>
                         </div>
                         </div>
@@ -81,12 +81,12 @@ function Landing() {
             </div>
 
             {/* MAIN LANDING PAGE - TENGAH */}
-            <div className="py-12 bg-white">
+            <div className="py-12 bg-teal-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="lg:text-center">
-                        <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Transactions</h2>
+                        <h2 className="text-base text-teal-600 font-semibold tracking-wide">Kenapa GarageKita?</h2>
                         <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                            A better way to send money
+                            Cara lebih hemat untuk berbelanja
                         </p>
                         <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
                             Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam.
@@ -96,33 +96,33 @@ function Landing() {
                     <div className="mt-10">
                     <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
                         <div className="relative">
-                        <dt>
-                            <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                            {/* <!-- Heroicon name: outline/globe-alt --> */}
-                            <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                            </svg>
-                            </div>
-                            <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Competitive exchange rates</p>
-                        </dt>
-                        <dd className="mt-2 ml-16 text-base text-gray-500">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
-                        </dd>
+                            <dt>
+                                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-teal-600 text-white">
+                                {/* <!-- Heroicon name: outline/globe-alt --> */}
+                                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                                </svg>
+                                </div>
+                                <p className="ml-16 text-lg leading-6 font-medium text-teal-600">Jaminan barang berfungsi baik</p>
+                            </dt>
+                            <dd className="mt-2 ml-16 text-base text-gray-500">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                            </dd>
                         </div>
 
                         <div className="relative">
-                        <dt>
-                            <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                            {/* <!-- Heroicon name: outline/scale --> */}
-                            <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                            </svg>
-                            </div>
-                            <p className="ml-16 text-lg leading-6 font-medium text-gray-900">No hidden fees</p>
-                        </dt>
-                        <dd className="mt-2 ml-16 text-base text-gray-500">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
-                        </dd>
+                            <dt>
+                                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-teal-600 text-white">
+                                {/* <!-- Heroicon name: outline/scale --> */}
+                                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                                </svg>
+                                </div>
+                                <p className="ml-16 text-lg leading-6 font-medium text-teal-600">Tawar sampai deal!</p>
+                            </dt>
+                            <dd className="mt-2 ml-16 text-base text-gray-500">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                            </dd>
                         </div>
                         
                         </dl>
