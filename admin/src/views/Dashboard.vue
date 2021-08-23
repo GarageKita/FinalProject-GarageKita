@@ -260,7 +260,7 @@
               striped
               :items="items"
               :fields="fields"
-              :items-per-page="5"
+              :items-per-page="10"
               clickable-rows
               :active-page="activePage"
               @row-clicked="rowClicked"
@@ -420,31 +420,31 @@ export default {
     },
   },
   methods: {
-    color(value) {
-      let $color;
-      if (value <= 25) {
-        $color = 'info';
-      } else if (value > 25 && value <= 50) {
-        $color = 'success';
-      } else if (value > 50 && value <= 75) {
-        $color = 'warning';
-      } else if (value > 75 && value <= 100) {
-        $color = 'danger';
-      }
-      return $color;
-    },
+    // color(value) {
+    //   let $color;
+    //   if (value <= 25) {
+    //     $color = 'info';
+    //   } else if (value > 25 && value <= 50) {
+    //     $color = 'success';
+    //   } else if (value > 50 && value <= 75) {
+    //     $color = 'warning';
+    //   } else if (value > 75 && value <= 100) {
+    //     $color = 'danger';
+    //   }
+    //   return $color;
+    // },
     getBadge(status) {
       switch (status) {
-        case 'Active':
+        case 'Success':
           return 'success';
-        case 'Inactive':
-          return 'secondary';
-        case 'Pending':
+        case 'Received':
+          return 'primary';
+        case 'Sending':
           return 'warning';
-        case 'Banned':
+        case 'Canceled':
           return 'danger';
         default:
-          'primary';
+          'secondary';
       }
     },
     rowClicked(item, index) {

@@ -6,7 +6,7 @@
       <CIcon name="logo" height="48" alt="Logo" />
     </CHeaderBrand> -->
     <CHeaderNav class="d-md-down-none mr-auto">
-      <CHeaderNavItem class="px-3">
+      <CHeaderNavItem class="px-3 h3">
         <CHeaderNavLink to="/dashboard">
           GarageKita
         </CHeaderNavLink>
@@ -30,6 +30,9 @@
         </button>
       </CHeaderNavItem>
       <TheHeaderDropdownNotif />
+      <CHeaderNavItem class="px-3 c-d-legacy-none">
+        <CButton size="sm" block color="danger" shape="pill" @click="logout">Logout</CButton>
+      </CHeaderNavItem>
       <!-- <TheHeaderDropdownTasks/> -->
       <!-- <TheHeaderDropdownMssgs/> -->
       <!-- <TheHeaderDropdownAccnt/> -->
@@ -59,6 +62,13 @@ export default {
     TheHeaderDropdownNotif,
     // TheHeaderDropdownTasks,
     // TheHeaderDropdownMssgs,
+  },
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$store.commit('users/setIsLogin', false);
+      this.$router.push('/pages/login');
+    },
   },
 };
 </script>
