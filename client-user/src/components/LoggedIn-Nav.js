@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MainLogo from '../imgs/GarageKita-logo.png'
 import { Link } from 'react-router-dom'
 
 function LoggedInNavbar(){
+
+    const [ mockUser, setMockUser ] = useState('rama.shinta@gmail.com')
 
     return (
         <>
@@ -29,9 +31,12 @@ function LoggedInNavbar(){
                     </div>
 
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                        <button type="button" className="bg-teal-600 py-2 px-4 rounded-md text-teal-50 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <p className="mr-3 py-2 px-4 text-sm rounded-md text-teal-600 ">
+                            Hello, <span className="font-semibold">{mockUser}</span>
+                        </p>
+                        <Link to="/" className="bg-teal-600 py-2 px-4 rounded-md text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white">
                             Log out
-                        </button>
+                        </Link>
                     </div>
 
                     </div>
