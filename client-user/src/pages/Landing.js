@@ -34,14 +34,14 @@ function Landing() {
                                 </div>
                             </div>
                             </div>
-                            <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
+                            <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-6">
                                 <Link className="font-medium text-gray-500 hover:text-gray-900">Product</Link>
 
                                 <Link className="font-medium text-gray-500 hover:text-gray-900">Marketplace</Link>
 
                                 <Link className="font-medium text-gray-500 hover:text-gray-900">Company</Link>
 
-                                <Link to="/users/login" className="font-bold text-teal-600 hover:text-teal-500">Log in</Link>
+                                <Link to="/users/login" className="bg-teal-300 rounded-md px-3 py-2 font-bold text-teal-600 hover:text-teal-500">Log in</Link>
                             </div>
                         </nav>
                         </div>    
@@ -83,12 +83,12 @@ function Landing() {
             {/* MAIN LANDING PAGE - TENGAH */}
             <div className="py-12 bg-teal-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="lg:text-center">
+                    <div className="lg:text-center text-center">
                         <h2 className="text-base text-teal-600 font-semibold tracking-wide">Kenapa GarageKita?</h2>
-                        <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        <p className="mt-2 text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                             Cara lebih hemat untuk berbelanja
                         </p>
-                        <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                        <p className="mt-4 text-center max-w-2xl text-xl text-gray-500 lg:mx-auto">
                             Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam.
                         </p>
                     </div>

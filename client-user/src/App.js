@@ -6,6 +6,8 @@ import Landing from './pages/Landing'
 import Login from './pages/LogIn'
 import Register from './pages/Register'
 import PembeliMain from './pages/Pembeli-Main'
+import PembeliRequestDetail from './pages/Pembeli-RequestDetail'
+import PembeliAllProducts from './pages/Pembeli-AllProducts';
 
 function App() {
     return (
@@ -16,7 +18,9 @@ function App() {
                 <Route exact path="/" component={Landing} />
                 <Route path="/users/login" component={Login} />
                 <Route path="/users/register" component={Register} />
+                <Route path="/requests/:id" component={PembeliRequestDetail} />
                 <Route path="/myrequests" component={PembeliMain} />
+                <Route path="/products" component={PembeliAllProducts} />
             </Switch>
 
             {/* FOOTER */}
