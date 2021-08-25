@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import LoggedInNavbar from '../components/LoggedIn-Nav.js'
 import FormRequest from '../pages/Pembeli-FormRequest.js'
@@ -115,9 +116,9 @@ function PembeliMain() {
                                     </li>
 
                                     <li className="my-2">
-                                        <a href="#" className="text-teal-600 hover:text-teal-700">
-                                        Lihat Produk tersedia
-                                        </a>
+                                        <Link to="/products" className="text-teal-600 hover:text-teal-700">
+                                            Lihat Product tersedia
+                                        </Link>
                                     </li>
                                 </ul>
 

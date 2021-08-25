@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 import DeleteModal from '../components/Pembeli-DeleteModal.js'
 import LoggedInNavbar from '../components/LoggedIn-Nav.js'
 import FormRequest from '../pages/Pembeli-FormRequest.js'
-import NegoOfferModal from '../components/Pembeli-BidModal.js'
+import TolakOfferModal from '../components/Pembeli-TolakOfferModal.js'
 
 function PembeliRequestDetail() {
 
     const [ deleteModal, setDeleteModal ] = useState(false)
-    const [ negoOfferModal, setNegoOfferModal ] = useState(false)
+    const [ tolakOfferModal, setTolakOfferModal ] = useState(false)
 
     const [ modalStatus, setModalStatus ] = useState(false)
     const [ formType, setFormType ] = useState('')
@@ -23,8 +23,8 @@ function PembeliRequestDetail() {
         setModalStatus(prev => !prev)
     }
 
-    function openNegoOffer(){
-        setNegoOfferModal(prev => !prev)
+    function openTolakOfferModal(){
+        setTolakOfferModal(prev => !prev)
     }
 
     const categories = [
@@ -51,8 +51,8 @@ function PembeliRequestDetail() {
             <FormRequest openFormRequest={openFormRequest} categories={categories} formType={formType}></FormRequest>
             : null }
 
-            { negoOfferModal === true ?
-            <NegoOfferModal openNegoOffer={openNegoOffer} />
+            { tolakOfferModal === true ?
+            <TolakOfferModal openTolakOfferModal={openTolakOfferModal} />
             : null }
 
             <div className="bg-white">
@@ -94,9 +94,9 @@ function PembeliRequestDetail() {
                                     </li>
 
                                     <li className="my-2">
-                                        <a href="#" className="text-teal-600 hover:text-teal-700">
-                                        Lihat Produk tersedia
-                                        </a>
+                                        <Link to="/products" className="text-teal-600 hover:text-teal-700">
+                                            Lihat Product tersedia
+                                        </Link>
                                     </li>
                                 </ul>
 
@@ -167,35 +167,15 @@ function PembeliRequestDetail() {
                                             </span>
                                         </div>
                                         <div className="ml-4 flex-shrink-0">
-                                            <a onClick={() => openNegoOffer()} className="font-medium mr-4 text-teal-600 hover:text-teal-500">
-                                            Tawar Dulu
+                                            <a onClick={() => openTolakOfferModal()} className="font-medium mr-4 text-red-600 hover:text-red-500 cursor-pointer">
+                                            Tolak Offer
                                             </a>
                                             <a href="#" className="bg-teal-600 rounded-md px-5 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out">
                                             Langsung Terima
                                             </a>
                                         </div>
                                     </li>
-                                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                                        
-                                        <div className="w-0 flex-1 flex items-center">
-                                            {/* <!-- Heroicon name: solid/paper-clip --> */}
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                                            </svg>
-                                            <span className="ml-3 font-bold flex-1 w-0 truncate">
-                                            Rp2.100.000
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">dari <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            </span>
-                                        </div>
-                                        <div className="ml-4 flex-shrink-0">
-                                            <a href="#" className="font-medium mr-4 text-teal-600 hover:text-teal-500">
-                                            Tawar Dulu
-                                            </a>
-                                            <a href="#" className="bg-teal-600 rounded-md px-5 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out">
-                                            Langsung Terima
-                                            </a>
-                                        </div>
-                                    </li>
+                                    
                                     
                                 </ul>
                                 </dd>

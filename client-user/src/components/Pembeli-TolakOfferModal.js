@@ -1,8 +1,8 @@
 import React from 'react'
 
-function PembeliDeleteModal(props) {
+function PembeliTolakOfferModal(props) {
 
-    const { openBidModal } = props
+    const { openTolakOfferModal } = props
 
     return (
         <React.Fragment>
@@ -45,11 +45,11 @@ function PembeliDeleteModal(props) {
                         </div>
                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                            Tawar Harga
+                            Tolak Offer
                             </h3>
                             <div className="mt-2">
                             <p className="text-sm text-gray-600">
-                                Yakin mau hapus Request ini? Request yang dihapus beserta datanya tidak akan bisa dikembalikan.
+                                Yakin mau menolak Offer ini dan memberitahu Penjual? Offer yang sudah ditolak tidak bisa dikembalikan.
                             </p>
                             </div>
                         </div>
@@ -57,10 +57,10 @@ function PembeliDeleteModal(props) {
                     </div>
                     <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
-                        Set Bid
+                        Tolak Offer
                         </button>
-                        <button onClick={() => openBidModal(null)} type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                        Kembali
+                        <button onClick={() => openTolakOfferModal(null)} type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Batal
                         </button>
                     </div>
                     </div>
@@ -71,4 +71,4 @@ function PembeliDeleteModal(props) {
     )
 }
 
-export default PembeliDeleteModal
+export default PembeliTolakOfferModal
