@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import LoggedInNavbar from '../components/LoggedIn-Nav.js'
 import FormRequest from '../pages/Pembeli-FormRequest.js'
 import PembeliMyRequest from '../components/Pembeli-MyRequest.js'
-import PembeliRequestDetail from '../components/Pembeli-RequestDetail.js'
 import KategoriFilter from '../components/KategoriFilter.js'
 
 function PembeliMain() {
@@ -139,11 +138,7 @@ function PembeliMain() {
                                 ?
                                 <PembeliMyRequest openFormRequest={openFormRequest} requestList={mockRequests} changePage={changePage} />
                                 :
-                                    currentPage === 'requestDetail'
-                                    ?
-                                    <PembeliRequestDetail openFormRequest={openFormRequest} />
-                                    :
-                                    null
+                                null
                                 }
                                 
 

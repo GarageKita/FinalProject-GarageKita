@@ -44,9 +44,9 @@ function PembeliMyRequest(props) {
                                             <td className="px-2 py-4 whitespace-nowrap">
                                                 <div className="flex text-left">
                                                     <div className="ml-4">
-                                                        <a onClick={() => changePage('requestDetail')} className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500">
+                                                        <Link to={`/requests/${request.id}`} className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500">
                                                         {request.name}
-                                                        </a>
+                                                        </Link>
                                                         <div className="text-sm text-gray-500">
                                                         Rp{request.budget}
                                                         </div>

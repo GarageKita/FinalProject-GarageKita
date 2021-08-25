@@ -2,11 +2,15 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 import MainLogo from '../imgs/GarageKita-logo.png'
+import EmailActivation from '../components/EmailActivation'
 
 function Register() {
 
     return (
         <>
+            
+            <EmailActivation />
+
                 <div id="register-section" className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                     <div className="max-w-md space-y-8">
 
