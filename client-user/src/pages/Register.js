@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
-
-import { registerPost } from '../store/userSlice';
-import MainLogo from '../imgs/GarageKita-logo.png'
-import EmailActivation from '../components/EmailActivation'
+import { registerPost } from '../store/slices/userSlice';
+import MainLogo from '../imgs/GarageKita-logo.png';
+import EmailActivation from '../components/EmailActivation';
 
 function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [registered, setRegistered] = useState(false);
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
 
   const emailBinding = (e) => {
     setEmail(e.target.value);
@@ -24,17 +24,19 @@ function Register() {
 
   const register = (e) => {
     e.preventDefault();
+    setRegistered(false);
     dispatch(registerPost({ email, password })).then(() => {
       setEmail('');
       setPassword('');
-      history.push('/users/login');
+      setRegistered(true);
+      // history.push('/users/login');
     });
   };
 
   return (
     <>
-     <EmailActivation />
-    
+      {registered && <EmailActivation />}
+
       <div id="register-section" className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md space-y-8">
           <Link to="/">
