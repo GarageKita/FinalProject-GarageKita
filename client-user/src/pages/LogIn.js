@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import MainLogo from '../imgs/GarageKita-logo.png';
-import { loginPost } from '../store/userSlice';
+import { loginPost } from '../store/slices/userSlice';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -20,9 +20,12 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
-    dispatch(loginPost({ email, password })).then(() => history.push('/'));
+    const { error } = await dispatch(loginPost({ email, password }));
+    if (!error) {
+      history.push('/myrequests');
+    }
   };
 
   return (

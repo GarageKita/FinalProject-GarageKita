@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const baseURL = 'https://garagekita-db-server.herokuapp.com';
+const baseURL = 'https://garage-kita.herokuapp.com';
 
 export const registerPost = createAsyncThunk('user/registerPost', async (payload) => {
   return await axios({
@@ -24,17 +24,19 @@ const userSlice = createSlice({
   initialState: {
     loading: false,
     error: false,
+    email: '',
   },
 
   reducers: {},
 
   extraReducers: {
-    [loginPost.pending]: (state) => {
+    [loginPost.pending]: (state, response) => {
+      state.email = response.meta.arg.email;
       state.loading = true;
     },
-    [loginPost.fulfilled]: (state, { payload }) => {
+    [loginPost.fulfilled]: (state, response) => {
       state.loading = false;
-      localStorage.setItem('access_token', payload.data.access_token);
+      localStorage.setItem('access_token', response.payload.data.access_token);
     },
     [loginPost.rejected]: (state) => {
       state.loading = false;
@@ -44,7 +46,7 @@ const userSlice = createSlice({
     [registerPost.pending]: (state) => {
       state.loading = true;
     },
-    [registerPost.fulfilled]: (state, { payload }) => {
+    [registerPost.fulfilled]: (state) => {
       state.loading = false;
     },
     [registerPost.rejected]: (state) => {

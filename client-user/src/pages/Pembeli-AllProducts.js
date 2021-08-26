@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import LoggedInNavbar from '../components/LoggedIn-Nav.js'
+import LoggedInNavbar from '../components/Pembeli-NavBar.js'
 import FormRequest from '../pages/Pembeli-FormRequest.js'
-// import PembeliMyRequest from '../components/Pembeli-MyRequest.js'
 import KategoriFilter from '../components/KategoriFilter.js'
 import ProductBidModal from '../components/Pembeli-ProductBid.js'
 
@@ -78,7 +77,7 @@ function PembeliAllProducts() {
                     
                     <main className="pt-10 max-w-7xl mx-auto px-4 lg:px-8">
                         <div className="flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
-                            <h1 className="text-3xl font-extrabold tracking-tight text-teal-700">Mode Pembeli</h1>
+                            <h1 className="text-3xl font-extrabold tracking-tight text-teal-700">Mode Pembeli: <span className="font-normal">All Products</span></h1>
 
                             <div className="flex items-center">
                             
