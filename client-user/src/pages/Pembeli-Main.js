@@ -6,42 +6,65 @@ import FormRequest from '../pages/Pembeli-FormRequest.js';
 import PembeliMyRequest from '../components/Pembeli-MyRequest.js';
 import KategoriFilter from '../components/KategoriFilter.js';
 
+import { getMyRequests } from '../store/slices/requestSlice.js';
+import { getCategories } from '../store/slices/categorySlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 function PembeliMain() {
   const [currentPage, setCurrentPage] = useState('myRequests');
   const [modalStatus, setModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
 
-  const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
+  const dispatch = useDispatch();
 
-  const mockRequests = [
-    {
-      id: 1,
-      name: 'HP Xiaomi Redmi',
-      budget: 1800000,
-      description:
-        'Dicari: kondisi tampilan 80% ke atas, fungsionalitas 100%. Retak bocel sedikit nggak masalah yg penting berfungsi baik seperti baru. Prioritas warna hitam/abu.',
-      qty: 1,
-      consumer_id: 20,
-      category: {
-        id: 2,
-        name: 'Handphone & Tablet',
-      },
-    },
-    {
-      id: 2,
-      name: 'Casio F-91W',
-      budget: 250000,
-      description: 'Tampilan mulus 90%, harus masih berfungsi baik. Warna apa aja.',
-      qty: 2,
-      consumer_id: 20,
-      category: {
-        id: 1,
-        name: 'Elektronik',
-      },
-    },
-  ];
+  const { myRequests } = useSelector((state) => state.request);
+  const { categories } = useSelector((state) => state.category);
 
-  useEffect(() => {}, [currentPage]);
+  // const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
+
+  // const categories = {
+  //   Elektronik: 1,
+  //   'Handphone & Tablet': 2,
+  //   Komputer: 3,
+  //   Otomotif: 4,
+  //   'Mainan & Hobi': 5,
+  //   'Buku & Alat Tulis': 6,
+  //   Kesehatan: 7,
+  //   'Lain-lain': 8,
+  // };
+
+  // const mockRequests = [
+  //   {
+  //     id: 1,
+  //     name: 'HP Xiaomi Redmi',
+  //     budget: 1800000,
+  //     description:
+  //       'Dicari: kondisi tampilan 80% ke atas, fungsionalitas 100%. Retak bocel sedikit nggak masalah yg penting berfungsi baik seperti baru. Prioritas warna hitam/abu.',
+  //     qty: 1,
+  //     consumer_id: 20,
+  //     category: {
+  //       id: 2,
+  //       name: 'Handphone & Tablet',
+  //     },
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Casio F-91W',
+  //     budget: 250000,
+  //     description: 'Tampilan mulus 90%, harus masih berfungsi baik. Warna apa aja.',
+  //     qty: 2,
+  //     consumer_id: 20,
+  //     category: {
+  //       id: 1,
+  //       name: 'Elektronik',
+  //     },
+  //   },
+  // ];
+
+  useEffect(() => {
+    dispatch(getMyRequests());
+    dispatch(getCategories());
+  }, [dispatch]);
 
   function openFormRequest(formToLoad) {
     setFormType(formToLoad);
@@ -115,9 +138,7 @@ function PembeliMain() {
                 <div className="lg:col-span-3 h-full min-w-full pl-4 overflow-y-auto overflow-x-auto">
                   {/* <!-- Replace with your content --> */}
 
-                  {currentPage === 'myRequests' ? (
-                    <PembeliMyRequest openFormRequest={openFormRequest} requestList={mockRequests} changePage={changePage} />
-                  ) : null}
+                  {myRequests ? <PembeliMyRequest openFormRequest={openFormRequest} requestList={myRequests} changePage={changePage} /> : null}
 
                   {/* <!-- /End replace --> */}
                 </div>

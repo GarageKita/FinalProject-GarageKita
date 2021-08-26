@@ -73,7 +73,7 @@ const requestSlice = createSlice({
     },
     [getMyRequests.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.myRequests = payload.data;
+      state.myRequests = payload.data.data;
     },
     [getMyRequests.rejected]: (state) => {
       state.loading = false;
@@ -98,8 +98,8 @@ const requestSlice = createSlice({
       state.loading = true;
     },
     [postRequest.fulfilled]: (state, response) => {
-      console.log(response);
       state.loading = false;
+      getMyRequests();
     },
     [postRequest.rejected]: (state) => {
       state.loading = false;
