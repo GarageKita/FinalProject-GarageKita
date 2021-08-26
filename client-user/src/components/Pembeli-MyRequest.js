@@ -55,7 +55,7 @@ function PembeliMyRequest(props) {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
-                            {request.category.name}
+                            {request.Category.name}
                           </span>
                         </td>
                         <td className="flex flex-col px-6 py-4 whitespace-nowrap text-center text-sm">

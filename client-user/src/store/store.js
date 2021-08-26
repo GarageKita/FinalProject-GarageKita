@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlice';
 import requestReducer from './slices/requestSlice';
+import categoryReducer from './slices/categorySlice';
 
 const reducer = {
   user: userReducer,
   request: requestReducer,
+  category: categoryReducer,
 };
 
 export default configureStore({

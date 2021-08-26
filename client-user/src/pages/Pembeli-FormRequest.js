@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { postRequest } from '../store/slices/requestSlice';
 
 function PembeliFormRequest(props) {
   const { openFormRequest, categories, formType } = props;
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [name, setName] = useState('');
+  const [budget, setBudget] = useState(0);
+  const [budgetCeil, setBudgetCeil] = useState(0);
+  const [description, setDescription] = useState('');
+  const [qty, setQty] = useState(0);
+  const [category_id, setCategory_id] = useState(0);
+
+  const categoriesHandler = (e) => {
+    const category = categories.find((el) => el.name === e.target.value);
+    setCategory_id(category.id);
+  };
+
+  const submitPostRequest = async (e) => {
+    e.preventDefault();
+    console.log(name, budget, budgetCeil, description, qty, category_id);
+    const { error } = await dispatch(postRequest({ name, budget, budgetCeil, description, qty, category_id }));
+    if (!error) {
+      openFormRequest();
+      // todo page belum autoupdate
+    }
+  };
 
   if (formType === 'post') {
     return (
@@ -16,24 +44,26 @@ function PembeliFormRequest(props) {
             <div className="inline-block align-bottom bg-white min-w-full rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <p className="mt-6 mb-4 mx-8 text-left font-semibold text-gray-900 text-2xl">Buat Request baru</p>
 
-              <form action="#" method="POST">
-                <div class="shadow overflow-hidden sm:rounded-md">
-                  <div class="px-8 py-5 bg-white">
-                    <div class="grid grid-cols-6 gap-6">
-                      <div class="col-span-6 sm:col-span-6">
-                        <label for="name" class="block text-sm font-medium text-gray-700">
+              <form action="#" method="POST" onSubmit={(e) => submitPostRequest(e)}>
+                <div className="shadow overflow-hidden sm:rounded-md">
+                  <div className="px-8 py-5 bg-white">
+                    <div className="grid grid-cols-6 gap-6">
+                      <div className="col-span-6 sm:col-span-6">
+                        <label for="name" className="block text-sm font-medium text-gray-700">
                           Nama
                         </label>
                         <input
                           type="text"
                           name="name"
                           id="name"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="budget" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label for="budget" className="block text-sm font-medium text-gray-700">
                           Budget
                         </label>
                         <input
@@ -41,12 +71,14 @@ function PembeliFormRequest(props) {
                           min="1000"
                           name="budget"
                           id="budget"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={budget}
+                          onChange={(e) => setBudget(e.target.value)}
                         />
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="budgetCeiling" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label for="budgetCeiling" className="block text-sm font-medium text-gray-700">
                           Budget Ceiling
                         </label>
                         <input
@@ -54,12 +86,14 @@ function PembeliFormRequest(props) {
                           min="1000"
                           name="budgetCeiling"
                           id="budgetCeiling"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={budgetCeil}
+                          onChange={(e) => setBudgetCeil(e.target.value)}
                         />
                       </div>
 
-                      <div class="col-span-6">
-                        <label for="description" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6">
+                        <label for="description" className="block text-sm font-medium text-gray-700">
                           Desription
                         </label>
                         <textarea
@@ -67,27 +101,30 @@ function PembeliFormRequest(props) {
                           rows="4"
                           name="description"
                           id="description"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
                         />
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="category" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label for="category" className="block text-sm font-medium text-gray-700">
                           Kategori
                         </label>
                         <select
                           id="category"
                           name="category"
-                          class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                          onChange={(e) => categoriesHandler(e)}
                         >
                           {categories.map((category, i) => {
-                            return <option key={`category-${i}`}>{category}</option>;
+                            return <option key={`category-${i}`}>{category.name}</option>;
                           })}
                         </select>
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="quantity" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label for="quantity" className="block text-sm font-medium text-gray-700">
                           Jumlah
                         </label>
                         <input
@@ -95,7 +132,9 @@ function PembeliFormRequest(props) {
                           min="0"
                           name="quantity"
                           id="quantity"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
                         />
                       </div>
                     </div>
@@ -106,7 +145,8 @@ function PembeliFormRequest(props) {
               <div className="bg-gray-50 px-4 pt-3 pb-6 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="submit"
-                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  onClick={(e) => submitPostRequest(e)}
                 >
                   Submit Request
                 </button>
@@ -138,23 +178,23 @@ function PembeliFormRequest(props) {
               <p className="mt-6 mb-4 mx-8 text-left font-semibold text-gray-900 text-2xl">Edit Request saya</p>
 
               <form action="#" method="POST">
-                <div class="shadow overflow-hidden sm:rounded-md">
-                  <div class="px-8 py-5 bg-white">
-                    <div class="grid grid-cols-6 gap-6">
-                      <div class="col-span-6 sm:col-span-6">
-                        <label for="name" class="block text-sm font-medium text-gray-700">
+                <div className="shadow overflow-hidden sm:rounded-md">
+                  <div className="px-8 py-5 bg-white">
+                    <div className="grid grid-cols-6 gap-6">
+                      <div className="col-span-6 sm:col-span-6">
+                        <label for="name" className="block text-sm font-medium text-gray-700">
                           Nama
                         </label>
                         <input
                           type="text"
                           name="name"
                           id="name"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
                         />
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="budget" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label for="budget" className="block text-sm font-medium text-gray-700">
                           Budget
                         </label>
                         <input
@@ -162,12 +202,12 @@ function PembeliFormRequest(props) {
                           min="1000"
                           name="budget"
                           id="budget"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
                         />
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="budgetCeiling" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label for="budgetCeiling" className="block text-sm font-medium text-gray-700">
                           Budget Ceiling
                         </label>
                         <input
@@ -175,12 +215,12 @@ function PembeliFormRequest(props) {
                           min="1000"
                           name="budgetCeiling"
                           id="budgetCeiling"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
                         />
                       </div>
 
-                      <div class="col-span-6">
-                        <label for="description" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6">
+                        <label for="description" className="block text-sm font-medium text-gray-700">
                           Desription
                         </label>
                         <textarea
@@ -188,18 +228,18 @@ function PembeliFormRequest(props) {
                           rows="4"
                           name="description"
                           id="description"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
                         />
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="category" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label for="category" className="block text-sm font-medium text-gray-700">
                           Kategori
                         </label>
                         <select
                           id="category"
                           name="category"
-                          class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
                         >
                           {categories.map((category, i) => {
                             return <option key={`category-${i}`}>{category}</option>;
@@ -207,8 +247,8 @@ function PembeliFormRequest(props) {
                         </select>
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="quantity" class="block text-sm font-medium text-gray-700">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label for="quantity" className="block text-sm font-medium text-gray-700">
                           Jumlah
                         </label>
                         <input

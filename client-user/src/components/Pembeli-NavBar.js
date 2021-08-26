@@ -9,7 +9,6 @@ function PembeliNavBar() {
   // const [mockUser, setMockUser] = useState('rama.shinta@gmail.com');
 
   const user = useSelector((state) => state.user.email);
-  console.log(user);
 
   const logout = () => {
     localStorage.removeItem('access_token');
