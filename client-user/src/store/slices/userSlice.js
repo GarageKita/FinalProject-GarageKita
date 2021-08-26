@@ -30,13 +30,12 @@ const userSlice = createSlice({
   reducers: {},
 
   extraReducers: {
-    [loginPost.pending]: (state) => {
+    [loginPost.pending]: (state, response) => {
+      state.email = response.meta.arg.email;
       state.loading = true;
     },
     [loginPost.fulfilled]: (state, response) => {
-      console.log(response);
       state.loading = false;
-      state.email = response.meta.arg.email;
       localStorage.setItem('access_token', response.payload.data.access_token);
     },
     [loginPost.rejected]: (state) => {

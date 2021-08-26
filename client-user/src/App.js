@@ -7,7 +7,11 @@ import Login from './pages/LogIn'
 import Register from './pages/Register'
 import PembeliMain from './pages/Pembeli-Main'
 import PembeliRequestDetail from './pages/Pembeli-RequestDetail'
-import PembeliAllProducts from './pages/Pembeli-AllProducts';
+import PembeliAllProducts from './pages/Pembeli-AllProducts'
+import PembeliMyBids from './pages/Pembeli-MyBids'
+import PembeliIndividualBid from './pages/Pembeli-IndividualBid'
+import MyDeals from './pages/Both-MyDeals'
+import IndividualDeal from './pages/Both-IndividualDeal'
 
 function App() {
     return (
@@ -21,6 +25,10 @@ function App() {
                 <Route path="/requests/:id" component={PembeliRequestDetail} />
                 <Route path="/myrequests" component={PembeliMain} />
                 <Route path="/products" component={PembeliAllProducts} />
+                <Route path="/bids/mybids" component={PembeliMyBids} />
+                <Route path="/bids/:bidID" component={PembeliIndividualBid} />
+                <Route path="/deals" component={MyDeals} />
+                <Route path="/deals/:id" component={IndividualDeal} />
             </Switch>
 
             {/* FOOTER */}

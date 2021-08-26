@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import MainLogo from '../imgs/GarageKita-logo.png';
+// import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function LoggedInNavbar() {
-  const user = useSelector((state) => state.email);
+import MainLogo from '../imgs/GarageKita-logo.png';
+import PembeliDropdownMenu from './Pembeli-DropdownMenu.js';
+
+function PembeliNavBar() {
+  // const [mockUser, setMockUser] = useState('rama.shinta@gmail.com');
+
+  const user = useSelector((state) => state.user.email);
+  console.log(user);
 
   const logout = () => {
     localStorage.removeItem('access_token');
@@ -25,12 +30,8 @@ function LoggedInNavbar() {
 
               <div className="hidden sm:block sm:ml-6">
                 <div className="flex space-x-4 pt-2 pl-4">
-                  <Link to="/" className=" cursor-pointer font-medium text-gray-500 hover:text-gray-900 mx-4">
+                  <Link to="/products" className=" cursor-pointer font-medium text-gray-500 hover:text-gray-900 mx-4">
                     Browse semua Produk
-                  </Link>
-
-                  <Link to="/" className=" cursor-pointer font-bold text-teal-600 hover:text-teal-500 mx-4">
-                    Ganti ke mode Penjual
                   </Link>
                 </div>
               </div>
@@ -40,9 +41,12 @@ function LoggedInNavbar() {
               <p className="mr-3 py-2 px-4 text-sm rounded-md text-teal-600 ">
                 Hello, <span className="font-semibold">{user}</span>
               </p>
+
+              <PembeliDropdownMenu />
+
               <Link
                 to="/"
-                className="bg-teal-600 py-2 px-4 rounded-md text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white"
+                className=" font-semibold py-2 px-4 text-teal-600 hover:text-teal-400 transition duration-150 ease-in-out"
                 onClick={logout}
               >
                 Log out
@@ -55,4 +59,4 @@ function LoggedInNavbar() {
   );
 }
 
-export default LoggedInNavbar;
+export default PembeliNavBar;
