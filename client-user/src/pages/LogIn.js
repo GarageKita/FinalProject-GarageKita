@@ -26,6 +26,9 @@ function Login() {
                                     Daftar sekarang!
                                     </Link>
                                 </p>
+                                <p className="mt-2 text-center text-sm text-red-500">
+                                Email/Password yang kamu masukkan salah.    
+                                </p>
                             </div>
                     
                             <form id="login-form" className="mt-8 space-y-6">

@@ -9,7 +9,7 @@ export default function PembeliMyDeals(props) {
         <div>
             
             <div className="flex flex-row justify-between">
-                <p className="mb-1 text-left font-bold text-gray-900 text-xl">Keranjang: <span className="font-normal">Product yang akan kamu lepas ke Pembeli</span></p>
+                <p className="mb-1 text-left font-bold text-rust-600 text-xl">Keranjang: <span className="font-normal">Product yang akan kamu lepas ke Pembeli</span></p>
                 <a onClick={() => changeMode('pembeli')} className="flex flex-row cursor-pointer max-h-max h-4 text-teal-600 hover:text-teal-400 transition duration-150 ease-in-out">
                     <p className="mb-1 text-left font-bold text-sm">Product yang akan kamu beli</p>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,13 +50,13 @@ export default function PembeliMyDeals(props) {
                                     <div className="flex-1 flex items-end justify-between text-sm">
                                     <div>
                                        
-                                        <p className="text-xs text-left font-medium py-1 text-teal-600">Status: <span className="px-2 inline-flex text-xs leading-5 font-normal rounded-full bg-red-100 text-gray-600">{deal.payment_status} release</span></p>
-                                        <p className="text-xs text-left font-medium text-teal-600">Jumlah Barang: <span className="text-xs font-normal text-gray-500">{deal.deal_qty}</span></p>
+                                        <p className="text-xs text-left font-medium py-1 text-gray-700">Status: <span className="px-2 inline-flex text-xs leading-5 font-normal rounded-full bg-red-100 text-gray-600">{deal.payment_status} release</span></p>
+                                        <p className="text-xs text-left font-medium text-gray-700">Jumlah Barang: <span className="text-xs font-normal text-gray-500">{deal.deal_qty}</span></p>
                                         
                                     </div>
 
                                         <div className="flex flex-row">
-                                            <a href="#" className="text-white bg-teal-600 rounded-md mr-4 px-5 py-3 cursor-pointer hover:bg-teal-700 font-medium transition duration-150 ease-in-out">Lepas Product Sekarang</a>
+                                            <a href="#" className="text-white bg-rust-600 rounded-md mr-4 px-5 py-3 cursor-pointer hover:bg-rust-700 font-medium transition duration-150 ease-in-out">Lepas Product Sekarang</a>
                                             <a href="#" className="text-gray-700 bg-gray-200 rounded-md px-5 py-3 cursor-pointer hover:bg-gray-300 font-normal transition duration-150 ease-in-out">Batalkan</a>
                                         </div>
                                     </div>

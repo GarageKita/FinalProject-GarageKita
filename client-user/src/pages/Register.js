@@ -30,6 +30,9 @@ function Register() {
                                     Masuk ke sini!
                                     </Link>
                                 </p>
+                                <p className="mt-2 text-center text-sm text-red-500">
+                                Email sudah pernah dipakai mendaftar.    
+                                </p>
                             </div>
                     
                             <form id="register-form" className="mt-8 space-y-6">

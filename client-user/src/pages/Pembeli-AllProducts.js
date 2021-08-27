@@ -141,158 +141,12 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
                                                 <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
                                                 Fashion
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        <img src={guitar} className="bg-cover rounded-md bg-center h-48 bg-gray-200" />
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Mainan & Hobi
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        
-                                        <img src={watch} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
-                                        
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Aksesoris
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        
-                                        <img src={shoes} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Fashion
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        <img src={guitar} className="bg-cover rounded-md bg-center h-48 bg-gray-200" />
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Mainan & Hobi
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        <img src={watch} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Aksesoris
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        <img src={shoes} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Fashion
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        <img src={guitar} className="bg-cover rounded-md bg-center h-48 bg-gray-200" />
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Mainan & Hobi
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        <img src={watch} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Aksesoris
                                                 </span>
                                             </div>
                                         </div>
@@ -304,10 +158,144 @@ function PembeliAllProducts() {
                                         <img src={shoes} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
 
                                         <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
+                                            <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
+                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
+                                                Fashion
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
+                                        
+                                        <img src={shoes} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
+
+                                        <div className="text-left">
+                                            <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
+                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
+                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
+                                                Fashion
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
+                                        
+                                        <img src={guitar} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
+
+                                        <div className="text-left">
+                                            <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
+                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
+                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
+                                                Fashion
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
+                                        
+                                        <img src={watch} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
+
+                                        <div className="text-left">
+                                            <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
+                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
+                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
+                                                Fashion
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
+                                        
+                                        <img src={shoes} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
+
+                                        <div className="text-left">
+                                            <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
+                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
+                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
+                                                Fashion
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
+                                        
+                                        <img src={guitar} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
+
+                                        <div className="text-left">
+                                            <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
+                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
+                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
+                                                Fashion
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
+                                        
+                                        <img src={watch} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
+
+                                        <div className="text-left">
+                                            <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
+                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
+                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
+                                                Fashion
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
+                                        
+                                        <img src={shoes} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
+
+                                        <div className="text-left">
+                                            <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
+                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
+                                            <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
                                                 <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
                                                 Fashion
@@ -317,41 +305,7 @@ function PembeliAllProducts() {
 
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        <img src={guitar} className="bg-cover rounded-md bg-center h-48 bg-gray-200" />
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Mainan & Hobi
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3 h-48 justify-start">
-                                        
-                                        <img src={watch} className="bg-cover  rounded-mdbg-center h-48 bg-gray-200" />
-
-                                        <div className="text-left">
-                                            <p className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</p>
-                                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-1 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
-                                            <p className="text-xs text-gray-500 font-normal">stok: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">2</span></p>
-                                            <div className="py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-500">
-                                                Aksesoris
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                    
                                     
                                 </div>
                                 

@@ -24,7 +24,7 @@ function PembeliFormRequest(props) {
                                 <div class="px-8 py-5 bg-white">
                                     <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-6">
-                                        <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
+                                        <label for="name" class="block text-sm font-medium text-gray-700">Nama Request</label>
                                         <input type="text" name="name" id="name" class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md" />
                                     </div>
     
@@ -99,7 +99,7 @@ function PembeliFormRequest(props) {
                                 <div class="px-8 py-5 bg-white">
                                     <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-6">
-                                        <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
+                                        <label for="name" class="block text-sm font-medium text-gray-700">Nama Request</label>
                                         <input type="text" name="name" id="name" class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md" />
                                     </div>
     
@@ -114,7 +114,7 @@ function PembeliFormRequest(props) {
                                     </div>
     
                                     <div class="col-span-6">
-                                        <label for="description" class="block text-sm font-medium text-gray-700">Desription</label>
+                                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                                         <textarea type="text" rows="4" name="description" id="description" class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md" />
                                     </div>
     

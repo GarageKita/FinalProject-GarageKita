@@ -5,11 +5,18 @@ import { Switch, Route } from 'react-router-dom'
 import Landing from './pages/Landing'
 import Login from './pages/LogIn'
 import Register from './pages/Register'
+
 import PembeliMain from './pages/Pembeli-Main'
 import PembeliRequestDetail from './pages/Pembeli-RequestDetail'
 import PembeliAllProducts from './pages/Pembeli-AllProducts'
 import PembeliMyBids from './pages/Pembeli-MyBids'
 import PembeliIndividualBid from './pages/Pembeli-IndividualBid'
+import PembeliPaymentSuccess from './pages/Pembeli-PaymentSuccess'
+
+import PenjualMain from './pages/Penjual-Main'
+import PenjualProductDetail from './pages/Penjual-ProductDetail'
+import PenjualAllRequests from './pages/Penjual-AllRequests'
+
 import MyDeals from './pages/Both-MyDeals'
 import IndividualDeal from './pages/Both-IndividualDeal'
 
@@ -22,17 +29,25 @@ function App() {
                 <Route exact path="/" component={Landing} />
                 <Route path="/users/login" component={Login} />
                 <Route path="/users/register" component={Register} />
+
                 <Route path="/requests/:id" component={PembeliRequestDetail} />
+                <Route path="/requests" component={PenjualAllRequests} />
                 <Route path="/myrequests" component={PembeliMain} />
+
+                <Route path="/products/myproducts" component={PenjualMain} />
+                <Route path="/products/:id" component={PenjualProductDetail} />
                 <Route path="/products" component={PembeliAllProducts} />
+
                 <Route path="/bids/mybids" component={PembeliMyBids} />
                 <Route path="/bids/:bidID" component={PembeliIndividualBid} />
-                <Route path="/deals" component={MyDeals} />
+                
                 <Route path="/deals/:id" component={IndividualDeal} />
+                <Route path="/deals" component={MyDeals} />
+                <Route path="/payments/success" component={PembeliPaymentSuccess} />
             </Switch>
 
             {/* FOOTER */}
-            <footer className="border-2 border-gray-200 border-solid">
+            <footer className="relative max-h-screen border-2 border-gray-200 border-solid">
                 
                 <div className="flex flex-row min-w-full h-48 bg-white ">
 
