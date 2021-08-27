@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -25,6 +26,10 @@ function PembeliRequestDetail() {
 
     function openTolakOfferModal(){
         setTolakOfferModal(prev => !prev)
+    }
+
+    function openAcceptOfferModal() {
+        console.log('insert transaksi disini');
     }
 
     const categories = [
@@ -170,7 +175,7 @@ function PembeliRequestDetail() {
                                             <a onClick={() => openTolakOfferModal()} className="font-medium mr-4 text-red-600 hover:text-red-500 cursor-pointer">
                                             Tolak Offer
                                             </a>
-                                            <a href="#" className="bg-teal-600 rounded-md px-5 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out">
+                                            <a onClick={() => openAcceptOfferModal()} className="bg-teal-600 rounded-md px-5 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out">
                                             Langsung Terima
                                             </a>
                                         </div>

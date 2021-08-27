@@ -12,6 +12,7 @@ import PembeliMyBids from './pages/Pembeli-MyBids'
 import PembeliIndividualBid from './pages/Pembeli-IndividualBid'
 import MyDeals from './pages/Both-MyDeals'
 import IndividualDeal from './pages/Both-IndividualDeal'
+import SuccessPayment from './pages/Success-Payment';
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/bids/:bidID" component={PembeliIndividualBid} />
                 <Route path="/deals" component={MyDeals} />
                 <Route path="/deals/:id" component={IndividualDeal} />
+                <Route path="/succeess-payment" component={SuccessPayment} />
             </Switch>
 
             {/* FOOTER */}
