@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createStore } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const baseURL = 'https://garage-kita.herokuapp.com';

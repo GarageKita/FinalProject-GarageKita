@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlice';
 import requestReducer from './slices/requestSlice';
 import categoryReducer from './slices/categorySlice';
+import offerReducer from './slices/offerSlice';
 
 const reducer = {
   user: userReducer,
   request: requestReducer,
   category: categoryReducer,
+  offer: offerReducer,
 };
 
 export default configureStore({
