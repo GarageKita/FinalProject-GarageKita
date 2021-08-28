@@ -46,7 +46,6 @@ function PembeliRequestDetail() {
   }
 
   function openTolakOfferModal(offer) {
-    console.log(offer);
     setOfferToReject(offer);
     setTolakOfferModal((prev) => !prev);
   }

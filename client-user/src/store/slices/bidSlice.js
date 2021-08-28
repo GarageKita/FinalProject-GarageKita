@@ -3,7 +3,8 @@ import axios from 'axios';
 
 const baseURL = 'https://garage-kita.herokuapp.com';
 
-export const postBid = createAsyncThunk('bid/post', async ({ payload, productId }) => {
+export const postBid = createAsyncThunk('bid/post', async ({ payload, productId }, thunkAPI) => {
+  console.log(payload, productId);
   const response = await axios({
     method: 'post',
     url: baseURL + '/bids/' + productId,
@@ -12,6 +13,7 @@ export const postBid = createAsyncThunk('bid/post', async ({ payload, productId 
       access_token: localStorage.access_token,
     },
   });
+  thunkAPI.dispatch(getMyBids());
   return response;
 });
 
