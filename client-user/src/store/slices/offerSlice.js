@@ -15,7 +15,7 @@ export const postOffer = createAsyncThunk('offer/post', async ({ payload, reques
   return response;
 });
 
-export const getMyOffers = createAsyncThunk('offer/getMyRequest', async () => {
+export const getMyOffers = createAsyncThunk('offer/getMyOffers', async () => {
   return await axios({
     method: 'get',
     url: baseURL + '/offers/myoffers',
@@ -35,11 +35,11 @@ export const getOffersByRequestId = createAsyncThunk('offer/getById', async (req
   });
 });
 
-export const editOffer = createAsyncThunk('offer/put', async ({ payload, offerId }) => {
+export const editOffer = createAsyncThunk('offer/put', async (offer) => {
   const response = await axios({
     method: 'put',
-    url: baseURL + '/offers/' + offerId,
-    data: payload,
+    url: baseURL + '/offers/' + offer.id,
+    data: offer,
     headers: {
       access_token: localStorage.access_token,
     },
@@ -127,6 +127,7 @@ const offerSlice = createSlice({
     [deleteOffer.fulfilled]: (state, { meta: { arg } }) => {
       state.loading = false;
       state.myOffers = state.myOffers.filter((el) => el.id !== arg);
+      state.offersByRequestId = state.offersByRequestId.filter((el) => el.id !== arg);
     },
     [deleteOffer.rejected]: (state) => {
       state.loading = false;
@@ -135,5 +136,4 @@ const offerSlice = createSlice({
   },
 });
 
-export const { filterByCategory } = offerSlice.actions;
 export default offerSlice.reducer;

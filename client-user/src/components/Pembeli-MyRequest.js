@@ -85,9 +85,13 @@ function PembeliMyRequest(props) {
                           </span>
                         </td>
                         <td className="flex flex-col px-6 py-4 whitespace-nowrap text-center text-sm">
-                          <a href="#" className="text-teal-600 hover:text-teal-400 my-2 font-bold">
+                          <Link
+                            to={`/requests/${request.id}`}
+                            className="text-teal-600 hover:text-teal-400 my-2 font-bold"
+                            onClick={() => getRequestDetail(request.id)}
+                          >
                             Lihat Tawaran
-                          </a>
+                          </Link>
                           <a
                             onClick={() => openFormRequest('put', request)}
                             className="text-gray-500 cursor-pointer hover:text-gray-400 my-1 font-medium"
