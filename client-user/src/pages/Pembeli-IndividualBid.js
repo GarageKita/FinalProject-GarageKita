@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import LoggedInNavbar from '../components/Pembeli-NavBar.js';
+import { editBid } from '../store/slices/bidSlice.js';
+import DeleteModal from '../components/Pembeli-BidDeleteModal.js';
 
 function PembeliMain() {
   function dateFormatter(input_date) {
@@ -12,9 +15,43 @@ function PembeliMain() {
     return cleanTime;
   }
 
+  const [offered_price, setOfferedPrice] = useState('');
+  const [deleteBid, setDeleteBid] = useState(false);
+  const [bidIdToDelete, setBidIdToDelete] = useState({});
+
+  const dispatch = useDispatch();
+
+  const { bidByProductId: bid, loading } = useSelector((state) => state.bid);
+
+  useEffect(() => {
+    if (!loading) {
+      setOfferedPrice(bid.offered_price);
+    }
+  }, [loading]);
+
+  function triggerDeleteModal(e, bidId) {
+    e.preventDefault();
+    setBidIdToDelete(bidId);
+    setDeleteBid((prev) => !prev);
+  }
+
+  function closeDeleteModal() {
+    setDeleteBid((prev) => !prev);
+  }
+
+  const submitEditBid = async (e, bidId) => {
+    e.preventDefault();
+    const { error } = await dispatch(editBid({ id: bid.id, payload: { offered_price } }));
+    if (!error) {
+      setOfferedPrice(0);
+    }
+  };
+
   return (
     <>
       <LoggedInNavbar />
+
+      {deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} bidId={bidIdToDelete} closeDeleteModal={closeDeleteModal} /> : null}
 
       <div className="bg-white">
         <div>
@@ -66,73 +103,69 @@ function PembeliMain() {
                         <section className="flex flex-row">
                           {/* <!-- PRODUCT CARD - START --> */}
                           <div className="w-full relative flex text-left items-center bg-white pt-14 pb-8  rounded-xl border-gray-200 border border-solid sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                            <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
-                              <div className="aspect-w-2 aspect-h-3 shadow-lg rounded-lg bg-gray-100  sm:col-span-4 lg:col-span-5">
-                                <img
-                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK2elDtfiP76kGYe01IClR5w8KX5EfIodL1A&usqp=CAU"
-                                  alt="Product shot"
-                                  className="object-center object-cover"
-                                />
-                              </div>
+                            {!loading && (
+                              <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
+                                <div className="aspect-w-2 aspect-h-3 shadow-lg rounded-lg bg-gray-100  sm:col-span-4 lg:col-span-5">
+                                  <img src={bid.Product && bid.Product.image_url} alt="Product shot" className="object-center object-cover" />
+                                </div>
 
-                              <div className="flex flex-col justify-between sm:col-span-8 lg:col-span-7">
-                                <div>
-                                  <h2 className="text-2xl cursor-pointer hover:text-gray-600 transition duration-150 ease-in-out font-bold text-gray-800 sm:pr-12">
-                                    Jam Tangan Rolex bekas
-                                  </h2>
+                                <div className="flex flex-col justify-between sm:col-span-8 lg:col-span-7">
+                                  <div>
+                                    <h2 className="text-2xl cursor-pointer hover:text-gray-600 transition duration-150 ease-in-out font-bold text-gray-800 sm:pr-12">
+                                      {bid.Product && bid.Product.name}
+                                    </h2>
 
-                                  <section aria-labelledby="information-heading" className="mt-1">
-                                    <p className="mt-1 text-xs text-gray-500 font-normal">
-                                      milik{' '}
-                                      <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
-                                        Penjual #1233
-                                      </span>
-                                    </p>
-
-                                    <div className="mt-6">
-                                      <p className="text-sm font-bold text-teal-600">Product Description</p>
-                                      <p className="text-sm font-normal text-gray-500">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec feugiat dignissim nisl, vitae cursus est luctus
-                                        id. Nullam ullamcorper lacinia diam, nec feugiat risus aliquam at. In scelerisque placerat libero quis congue.
-                                        Curabitur ornare sapien eros, pharetra maximus sapien porttitor sed.
+                                    <section aria-labelledby="information-heading" className="mt-1">
+                                      <p className="mt-1 text-xs text-gray-500 font-normal">
+                                        milik{' '}
+                                        <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
+                                          Penjual #{bid.Product && bid.Product.seller_id}
+                                        </span>
                                       </p>
-                                    </div>
 
-                                    <div className="border-t border-solid border-gray-200 mt-6 pt-2">
-                                      <div className="mt-3">
-                                        <p className="text-lg font-bold text-gray-800">Detil Bid kamu</p>
+                                      <div className="mt-6">
+                                        <p className="text-sm font-bold text-teal-600">Product Description</p>
+                                        <p className="text-sm font-normal text-gray-500">{bid.Product && bid.Product.description}</p>
                                       </div>
-                                      <div className="mt-3">
-                                        <p className="text-sm font-bold text-teal-600">
-                                          Jumlah Bid: <span className="text-sm font-normal text-gray-500">1</span>
-                                        </p>
-                                      </div>
-                                      <div className="mt-3">
-                                        <p className="text-sm font-bold text-teal-600">
-                                          Harga Bid: <span className="text-sm font-normal text-gray-500">Rp18000000</span>
-                                        </p>
-                                      </div>
-                                      <div className="mt-3">
-                                        <p className="text-sm font-bold text-teal-600">
-                                          Waktu Bid:{' '}
-                                          <span className="text-sm font-normal text-gray-500">{dateFormatter('2021-08-23T13:39:35.534Z')}</span>
-                                        </p>
-                                      </div>
-                                      <div className="mt-3">
-                                        <p className="text-sm font-bold text-teal-600">
-                                          Status Bid:
-                                          <span className="text-sm pl-2 text-gray-500">
-                                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600">
-                                              Menunggu Penjual
+
+                                      <div className="border-t border-solid border-gray-200 mt-6 pt-2">
+                                        <div className="mt-3">
+                                          <p className="text-lg font-bold text-gray-800">Detil Bid kamu</p>
+                                        </div>
+                                        <div className="mt-3">
+                                          <p className="text-sm font-bold text-teal-600">
+                                            Jumlah Bid: <span className="text-sm font-normal text-gray-500">1</span>
+                                          </p>
+                                        </div>
+                                        <div className="mt-3">
+                                          <p className="text-sm font-bold text-teal-600">
+                                            Harga Bid:{' '}
+                                            <span className="text-sm font-normal text-gray-500">
+                                              Rp. {bid.offered_price && bid.offered_price.toLocaleString('id-ID')}
                                             </span>
-                                          </span>
-                                        </p>
+                                          </p>
+                                        </div>
+                                        <div className="mt-3">
+                                          <p className="text-sm font-bold text-teal-600">
+                                            Waktu Bid: <span className="text-sm font-normal text-gray-500">{dateFormatter(bid.updatedAt)}</span>
+                                          </p>
+                                        </div>
+                                        <div className="mt-3">
+                                          <p className="text-sm font-bold text-teal-600">
+                                            Status Bid:
+                                            <span className="text-sm pl-2 text-gray-500">
+                                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600">
+                                                {bid.status}
+                                              </span>
+                                            </span>
+                                          </p>
+                                        </div>
                                       </div>
-                                    </div>
-                                  </section>
+                                    </section>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
+                            )}
                           </div>
                           {/* <!-- PRODUCT CARD - END --> */}
 
@@ -150,10 +183,13 @@ function PembeliMain() {
                                     type="number"
                                     className="focus:outline-none focus:ring-1 focus:ring-offset-none focus:ring-teal-500 px-6 py-3 w-full rounded-md border border-solid border-gray-300"
                                     placeholder="Bid baru"
+                                    value={offered_price}
+                                    onChange={(e) => setOfferedPrice(e.target.value)}
                                   />
                                   <button
                                     type="submit"
                                     className="mt-4 w-full bg-teal-600 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-white hover:bg-teal-700 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                                    onClick={(e) => submitEditBid(e)}
                                   >
                                     Submit harga Bid baru
                                   </button>
@@ -172,7 +208,7 @@ function PembeliMain() {
                                   <p className="text-left mt-1 text-sm text-gray-500 font-normal">Data Bid yang dihapus tidak bisa kembali.</p>
 
                                   <button
-                                    type="submit"
+                                    onClick={(e) => triggerDeleteModal(e, bid.id)}
                                     className="mt-4 w-full bg-gray-300 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                                   >
                                     Hapus Bid

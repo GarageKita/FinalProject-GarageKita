@@ -25,7 +25,17 @@ export const getMyBids = createAsyncThunk('bid/getMyBids', async () => {
   });
 });
 
-export const getBidsByProductId = createAsyncThunk('bid/getById', async (productId) => {
+export const getBidById = createAsyncThunk('bid/getById', async (bidId) => {
+  return await axios({
+    method: 'get',
+    url: 'https://garagekita-db-server.herokuapp.com/bids/checkbid/' + bidId,
+    headers: {
+      access_token: localStorage.access_token,
+    },
+  });
+});
+
+export const getBidByProductId = createAsyncThunk('bid/getByProductId', async (productId) => {
   return await axios({
     method: 'get',
     url: baseURL + '/bids/' + productId,
@@ -35,15 +45,16 @@ export const getBidsByProductId = createAsyncThunk('bid/getById', async (product
   });
 });
 
-export const editBid = createAsyncThunk('bid/put', async (bid) => {
+export const editBid = createAsyncThunk('bid/put', async ({ id, payload }, thunkAPI) => {
   const response = await axios({
     method: 'put',
-    url: baseURL + '/bids/' + bid.id,
-    data: bid,
+    url: baseURL + '/bids/' + id,
+    data: payload,
     headers: {
       access_token: localStorage.access_token,
     },
   });
+  thunkAPI.dispatch(getBidById(id)).then(() => thunkAPI.dispatch(getMyBids()));
   return response;
 });
 
@@ -63,7 +74,7 @@ const bidSlice = createSlice({
     loading: false,
     error: false,
     myBids: [],
-    bidsByProductId: [],
+    bidByProductId: {},
   },
 
   reducers: {},
@@ -82,16 +93,28 @@ const bidSlice = createSlice({
       state.error = true;
     },
 
-    // get bid by product id
-    [getBidsByProductId.pending]: (state) => {
-      state.bidsByProductId = {};
+    // get bid by id
+    [getBidById.pending]: (state) => {
+      state.bidByProductId = {};
       state.loading = true;
     },
-    [getBidsByProductId.fulfilled]: (state, { payload }) => {
+    [getBidById.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.bidsByProductId = payload.data.data;
+      state.bidByProductId = payload.data.data;
     },
-    [getBidsByProductId.rejected]: (state) => {
+    [getBidById.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
+    // get bid by product id
+    [getBidByProductId.pending]: (state) => {
+      state.loading = true;
+    },
+    [getBidByProductId.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+    },
+    [getBidByProductId.rejected]: (state) => {
       state.loading = false;
       state.error = true;
     },
@@ -126,8 +149,8 @@ const bidSlice = createSlice({
     },
     [deleteBid.fulfilled]: (state, { meta: { arg } }) => {
       state.loading = false;
+      console.log(arg);
       state.myBids = state.myBids.filter((el) => el.id !== arg);
-      state.bidsByProductId = state.bidsByProductId.filter((el) => el.id !== arg);
     },
     [deleteBid.rejected]: (state) => {
       state.loading = false;

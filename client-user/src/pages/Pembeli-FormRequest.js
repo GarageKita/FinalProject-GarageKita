@@ -196,7 +196,7 @@ function PembeliFormRequest(props) {
             <div className="inline-block align-bottom bg-white min-w-full rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <p className="mt-6 mb-4 mx-8 text-left font-semibold text-gray-900 text-2xl">Edit Request saya</p>
 
-              <form action="#" method="POST">
+              <form action="#" method="POST" onSubmit={(e) => submitPostRequest(e, request.id)}>
                 <div className="shadow overflow-hidden sm:rounded-md">
                   <div className="px-8 py-5 bg-white">
                     <div className="grid grid-cols-6 gap-6">
