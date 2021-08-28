@@ -4,6 +4,7 @@ import requestReducer from './slices/requestSlice';
 import categoryReducer from './slices/categorySlice';
 import offerReducer from './slices/offerSlice';
 import dealReducer from './slices/dealSlice';
+import bidReducer from './slices/bidSlice';
 
 const reducer = {
   user: userReducer,
@@ -11,6 +12,7 @@ const reducer = {
   category: categoryReducer,
   offer: offerReducer,
   deal: dealReducer,
+  bid: bidReducer,
 };
 
 export default configureStore({
