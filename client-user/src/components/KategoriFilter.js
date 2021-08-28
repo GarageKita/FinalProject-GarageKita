@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { filterByCategory } from '../store/slices/requestSlice';
 
 export default function KategoriFilter(props) {
   const { categories } = props;
+
+  const [filterBy, setFilterBy] = useState([]);
+
+  const dispatch = useDispatch();
+
+  const filterRequests = (e) => {
+    if (e.target.checked) {
+      setFilterBy([...filterBy, e.target.value]);
+    } else {
+      setFilterBy(filterBy.filter((category) => category != e.target.value));
+    }
+  };
+
+  useEffect(() => {
+    dispatch(filterByCategory(filterBy));
+  }, [dispatch, filterBy]);
 
   return (
     <div>
@@ -22,13 +40,14 @@ export default function KategoriFilter(props) {
           <div className="space-y-4">
             {categories.map((category, i) => {
               return (
-                <div className="flex items-center">
+                <div key={i} className="flex items-center">
                   <input
                     id={`category-${i}`}
-                    name="category[]"
-                    value="sale"
+                    name={category.name}
+                    value={category.name}
                     type="checkbox"
                     className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                    onChange={(e) => filterRequests(e)}
                   />
                   <label htmlFor={`category-${i}`} className="ml-3 text-sm text-gray-600">
                     {category.name}
