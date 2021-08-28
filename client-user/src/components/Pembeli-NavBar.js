@@ -6,8 +6,6 @@ import MainLogo from '../imgs/GarageKita-logo.png';
 import PembeliDropdownMenu from './Pembeli-DropdownMenu.js';
 
 function PembeliNavBar() {
-  // const [mockUser, setMockUser] = useState('rama.shinta@gmail.com');
-
   const user = useSelector((state) => state.user.email);
 
   const logout = () => {
