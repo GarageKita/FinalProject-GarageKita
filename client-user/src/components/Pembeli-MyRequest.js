@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteRequest } from '../store/slices/requestSlice';
 
 function PembeliMyRequest(props) {
   const { openFormRequest, requestList, changePage } = props;
+
+  const dispatch = useDispatch();
+
+  const deleteMyRequest = (e, id) => {
+    e.preventDefault();
+    dispatch(deleteRequest(id));
+  };
 
   return (
     <React.Fragment>
@@ -62,10 +71,13 @@ function PembeliMyRequest(props) {
                           <a href="#" className="text-teal-600 hover:text-teal-400 my-2 font-bold">
                             Lihat Tawaran
                           </a>
-                          <a onClick={() => openFormRequest('put')} className="text-gray-500 cursor-pointer hover:text-gray-400 my-1 font-medium">
+                          <a
+                            onClick={() => openFormRequest('put', request)}
+                            className="text-gray-500 cursor-pointer hover:text-gray-400 my-1 font-medium"
+                          >
                             Edit
                           </a>
-                          <a href="#" className="text-red-600 hover:text-red-400 my-1 font-medium">
+                          <a href="" className="text-red-600 hover:text-red-400 my-1 font-medium" onClick={(e) => deleteMyRequest(e, request.id)}>
                             Hapus
                           </a>
                         </td>

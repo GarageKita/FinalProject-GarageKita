@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createStore } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const baseURL = 'https://garage-kita.herokuapp.com';
@@ -23,8 +23,8 @@ export const getRequestById = createAsyncThunk('request/getById', async (id) => 
   });
 });
 
-export const postRequest = createAsyncThunk('request/post', async (payload) => {
-  return await axios({
+export const postRequest = createAsyncThunk('request/post', async (payload, thunkAPI) => {
+  const response = await axios({
     method: 'post',
     url: baseURL + '/requests',
     data: payload,
@@ -32,17 +32,22 @@ export const postRequest = createAsyncThunk('request/post', async (payload) => {
       access_token: localStorage.access_token,
     },
   });
+  thunkAPI.dispatch(getMyRequests());
+  return response;
 });
 
-export const editRequest = createAsyncThunk('request/put', async (id, payload) => {
-  return await axios({
+export const editRequest = createAsyncThunk('request/put', async (data, thunkAPI) => {
+  console.log(data.id, data.payload);
+  const response = await axios({
     method: 'put',
-    url: baseURL + '/requests/' + id,
-    data: payload,
+    url: baseURL + '/requests/' + data.id,
+    data: data.payload,
     headers: {
       access_token: localStorage.access_token,
     },
   });
+  thunkAPI.dispatch(getMyRequests());
+  return response;
 });
 
 export const deleteRequest = createAsyncThunk('request/delete', async (id) => {
@@ -64,7 +69,11 @@ const requestSlice = createSlice({
     requestById: {},
   },
 
-  reducers: {},
+  reducers: {
+    updateState(state, payload) {
+      state.myRequests = payload;
+    },
+  },
 
   extraReducers: {
     // get my requests
@@ -97,9 +106,8 @@ const requestSlice = createSlice({
     [postRequest.pending]: (state) => {
       state.loading = true;
     },
-    [postRequest.fulfilled]: (state, response) => {
+    [postRequest.fulfilled]: (state) => {
       state.loading = false;
-      getMyRequests();
     },
     [postRequest.rejected]: (state) => {
       state.loading = false;
@@ -123,9 +131,9 @@ const requestSlice = createSlice({
     [deleteRequest.pending]: (state) => {
       state.loading = true;
     },
-    [deleteRequest.fulfilled]: (state, response) => {
-      console.log(response);
+    [deleteRequest.fulfilled]: (state, { meta: { arg } }) => {
       state.loading = false;
+      state.myRequests = state.myRequests.filter((el) => el.id != arg);
     },
     [deleteRequest.rejected]: (state) => {
       state.loading = false;

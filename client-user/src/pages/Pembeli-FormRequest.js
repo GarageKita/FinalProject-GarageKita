@@ -1,33 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { postRequest } from '../store/slices/requestSlice';
+import { postRequest, editRequest } from '../store/slices/requestSlice';
 
 function PembeliFormRequest(props) {
-  const { openFormRequest, categories, formType } = props;
+  const { openFormRequest, categories, formType, closeModal, request } = props;
 
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [name, setName] = useState('');
-  const [budget, setBudget] = useState(0);
-  const [budgetCeil, setBudgetCeil] = useState(0);
+  const [budget, setBudget] = useState('');
+  const [budgetCeil, setBudgetCeil] = useState('');
   const [description, setDescription] = useState('');
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState('');
   const [category_id, setCategory_id] = useState(0);
+  const [categoryName, setCategoryName] = useState('');
+
+  useEffect(() => {
+    if (formType === 'put') {
+      setName(request.name);
+      setBudget(request.budget);
+      setBudgetCeil(request.budgetCeil);
+      setDescription(request.description);
+      setQty(request.qty);
+      setCategory_id(request.category_id);
+      setCategoryName(request.Category.name);
+    }
+  }, []);
 
   const categoriesHandler = (e) => {
     const category = categories.find((el) => el.name === e.target.value);
     setCategory_id(category.id);
+    console.log(category.id);
   };
 
-  const submitPostRequest = async (e) => {
+  const submitPostRequest = async (e, id) => {
     e.preventDefault();
     console.log(name, budget, budgetCeil, description, qty, category_id);
-    const { error } = await dispatch(postRequest({ name, budget, budgetCeil, description, qty, category_id }));
-    if (!error) {
-      openFormRequest();
-      // todo page belum autoupdate
+    if (id) {
+      const { error } = await dispatch(editRequest({ id, payload: { name, budget, budgetCeil, description, qty, category_id } }));
+      if (!error) {
+        closeModal({ name, budget, budgetCeil, description, qty, category_id });
+      }
+    } else {
+      const { error } = await dispatch(postRequest({ name, budget, budgetCeil, description, qty, category_id }));
+      if (!error) {
+        closeModal({ name, budget, budgetCeil, description, qty, category_id });
+      }
     }
   };
 
@@ -117,6 +137,9 @@ function PembeliFormRequest(props) {
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
                           onChange={(e) => categoriesHandler(e)}
                         >
+                          <option selected disabled>
+                            -- pilih category --
+                          </option>
                           {categories.map((category, i) => {
                             return <option key={`category-${i}`}>{category.name}</option>;
                           })}
@@ -190,6 +213,8 @@ function PembeliFormRequest(props) {
                           name="name"
                           id="name"
                           className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
 
@@ -203,6 +228,8 @@ function PembeliFormRequest(props) {
                           name="budget"
                           id="budget"
                           className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={budget}
+                          onChange={(e) => setBudget(e.target.value)}
                         />
                       </div>
 
@@ -216,6 +243,8 @@ function PembeliFormRequest(props) {
                           name="budgetCeiling"
                           id="budgetCeiling"
                           className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={budgetCeil}
+                          onChange={(e) => setBudgetCeil(e.target.value)}
                         />
                       </div>
 
@@ -229,6 +258,8 @@ function PembeliFormRequest(props) {
                           name="description"
                           id="description"
                           className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
                         />
                       </div>
 
@@ -240,9 +271,15 @@ function PembeliFormRequest(props) {
                           id="category"
                           name="category"
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                          onChange={(e) => categoriesHandler(e)}
                         >
+                          <option disabled>-- pilih category --</option>
                           {categories.map((category, i) => {
-                            return <option key={`category-${i}`}>{category}</option>;
+                            return (
+                              <option selected={categoryName == category.name && true} key={`category-${i}`}>
+                                {category.name}
+                              </option>
+                            );
                           })}
                         </select>
                       </div>
@@ -256,7 +293,9 @@ function PembeliFormRequest(props) {
                           min="0"
                           name="quantity"
                           id="quantity"
-                          class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
                         />
                       </div>
                     </div>
@@ -268,6 +307,7 @@ function PembeliFormRequest(props) {
                 <button
                   type="submit"
                   class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  onClick={(e) => submitPostRequest(e, request.id)}
                 >
                   Edit Request
                 </button>

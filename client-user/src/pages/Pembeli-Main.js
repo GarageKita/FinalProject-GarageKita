@@ -6,6 +6,7 @@ import FormRequest from '../pages/Pembeli-FormRequest.js';
 import PembeliMyRequest from '../components/Pembeli-MyRequest.js';
 import KategoriFilter from '../components/KategoriFilter.js';
 
+import store from '../store/store';
 import { getMyRequests } from '../store/slices/requestSlice.js';
 import { getCategories } from '../store/slices/categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +15,7 @@ function PembeliMain() {
   const [currentPage, setCurrentPage] = useState('myRequests');
   const [modalStatus, setModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
+  const [requestToEdit, setRequestToEdit] = useState({});
 
   const dispatch = useDispatch();
 
@@ -66,8 +68,17 @@ function PembeliMain() {
     dispatch(getCategories());
   }, [dispatch]);
 
-  function openFormRequest(formToLoad) {
+  // useEffect(() => {
+  //   setMyRequest(myRequestsState);
+  // }, [myRequestsState]);
+
+  function openFormRequest(formToLoad, request) {
+    if (request) setRequestToEdit(request);
     setFormType(formToLoad);
+    setModalStatus((prev) => !prev);
+  }
+
+  function closeModal() {
     setModalStatus((prev) => !prev);
   }
 
@@ -79,7 +90,15 @@ function PembeliMain() {
     <>
       <LoggedInNavbar />
 
-      {modalStatus === true ? <FormRequest openFormRequest={openFormRequest} categories={categories} formType={formType}></FormRequest> : null}
+      {modalStatus === true ? (
+        <FormRequest
+          openFormRequest={openFormRequest}
+          categories={categories}
+          formType={formType}
+          closeModal={closeModal}
+          request={requestToEdit}
+        ></FormRequest>
+      ) : null}
 
       <div className="bg-white">
         <div>
