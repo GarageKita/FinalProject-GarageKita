@@ -56,6 +56,10 @@ function PembeliRequestDetail() {
     setStatusOngkirModal((prev) => !prev);
   }
 
+  function openAcceptOfferModal() {
+    console.log('insert transaksi disini');
+  }
+
   return (
     <React.Fragment>
       {deleteModal === true ? <DeleteModal openDeleteRequest={openDeleteRequest} id={requestIdToDelete} /> : null}
@@ -164,7 +168,9 @@ function PembeliRequestDetail() {
                           </div>
                           <div className="bg-white text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Budget</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Rp {request.budget.toLocaleString('id-ID')}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                              Rp {request.budget && request.budget.toLocaleString('id-ID')}
+                            </dd>
                           </div>
                           <div className="bg-teal-50 text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Category</dt>
@@ -195,7 +201,7 @@ function PembeliRequestDetail() {
                                           />
                                         </svg>
                                         <span className="ml-3 font-bold flex-1 w-0 truncate">
-                                          Rp {offer.offered_price.toLocaleString('id-ID')}
+                                          Rp {offer.offered_price && offer.offered_price.toLocaleString('id-ID')}
                                           <p className="mt-1 text-xs text-gray-500 font-normal">
                                             dari{' '}
                                             <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
