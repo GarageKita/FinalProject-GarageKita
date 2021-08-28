@@ -100,6 +100,27 @@ function MyDeals() {
                             {/* <!-- Filters --> */}
                             <form className="hidden lg:block">
 
+                            <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
+                                    
+                                    <a className="mt-2 mb-4">
+                                        <a href="#" className="text-teal-600 hover:text-teal-700">
+                                        Menunggu Pembayaran
+                                        </a>
+                                    </a>
+
+                                    <li className="my-2">
+                                        <a href="#" className="text-teal-600 hover:text-teal-700">
+                                        Dalam Proses
+                                        </a>
+                                    </li>
+
+                                    <li className="my-2">
+                                        <Link to="/products" className="text-teal-600 hover:text-teal-700">
+                                            Tiba di Tujuan
+                                        </Link>
+                                    </li>
+                                </ul>
+
                                 <KategoriFilter categories={categories} />
 
                             </form>

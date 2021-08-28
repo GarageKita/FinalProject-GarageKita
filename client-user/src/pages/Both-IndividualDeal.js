@@ -24,7 +24,7 @@ function PembeliMain() {
                     <main className="pt-10 max-w-7xl mx-auto px-4 lg:px-8">
                     
                         <div className="flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
-                            <h1 className="text-3xl font-extrabold tracking-tight text-teal-700">Mode Pembeli: <span className="font-normal">MyBids</span></h1>
+                            <h1 className="text-3xl font-extrabold tracking-tight text-teal-700">MyDeals <span className="font-normal">Checkout</span></h1>
 
                             <div className="flex items-center">
                             
@@ -53,7 +53,7 @@ function PembeliMain() {
                                             <svg xmlns="http://www.w3.org/2000/svg" className="mt-1 mr-2 h-5 w-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                                             </svg>
-                                            <Link to="/bids/mybids" className="mb-3 font-semibold text-lg">Daftar MyBids saya</Link>
+                                            <Link to="/deals" className="mb-3 font-semibold text-lg">Daftar MyDeals saya</Link>
                                         </div>
                                         
                                         {/* <!-- CARD Individual MyBids - START --> */}
@@ -85,22 +85,25 @@ function PembeliMain() {
 
                                                             <div className="border-t border-solid border-gray-200 mt-6 pt-2">
                                                                 <div className="mt-3">
-                                                                    <p className="text-lg font-bold text-gray-800">Detil Bid kamu</p>
+                                                                    <p className="text-lg font-bold text-gray-800">Detil Deal kamu</p>
                                                                 </div>
                                                                 <div className="mt-3">
-                                                                    <p className="text-sm font-bold text-teal-600">Jumlah Bid: <span className="text-sm font-normal text-gray-500">1</span></p>
+                                                                    <p className="text-sm font-bold text-teal-600">Jumlah Deal: <span className="text-sm font-normal text-gray-500">1</span></p>
                                                                 </div>
                                                                 <div className="mt-3">
-                                                                    <p className="text-sm font-bold text-teal-600">Harga Bid: <span className="text-sm font-normal text-gray-500">Rp18000000</span></p>
+                                                                    <p className="text-sm font-bold text-teal-600">Harga Deal: <span className="text-sm font-normal text-gray-500">Rp18000000</span></p>
                                                                 </div>
                                                                 <div className="mt-3">
-                                                                    <p className="text-sm font-bold text-teal-600">Waktu Bid: <span className="text-sm font-normal text-gray-500">{dateFormatter('2021-08-23T13:39:35.534Z')}</span></p>
+                                                                    <p className="text-sm font-bold text-teal-600">Harga Ongkir: <span className="text-sm font-normal text-gray-500">Rp39000</span></p>
                                                                 </div>
                                                                 <div className="mt-3">
-                                                                    <p className="text-sm font-bold text-teal-600">Status Bid:
+                                                                    <p className="text-sm font-bold text-teal-600">Waktu Deal: <span className="text-sm font-normal text-gray-500">{dateFormatter('2021-08-23T13:39:35.534Z')}</span></p>
+                                                                </div>
+                                                                <div className="mt-3">
+                                                                    <p className="text-sm font-bold text-teal-600">Status Deal:
                                                                     <span className="text-sm pl-2 text-gray-500">
-                                                                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600">
-                                                                        Menunggu Penjual
+                                                                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-gray-600">
+                                                                        awaiting payment
                                                                         </span>
                                                                     </span>
                                                                     </p>
@@ -124,12 +127,14 @@ function PembeliMain() {
                                                     <section aria-labelledby="options-heading" >
                                                         <form>
                                                             <div className="flex flex-row justify-between align-top">
-                                                                <p className="text-left mb-3 text-md font-semibold">Edit harga Bid</p>
-                                                                <p className="text-right text-xs mt-1 font-semibold text-teal-600">Edit berhasil!</p>
+                                                                <p className="text-left mb-1 text-md font-semibold">Total harga Deal
+                                                                <span className="text-xs font-light"> (termasuk ongkos kirim)</span>
+                                                                </p>
                                                             </div>
-                                                            <input type="number" className="focus:outline-none focus:ring-1 focus:ring-offset-none focus:ring-teal-500 px-6 py-3 w-full rounded-md border border-solid border-gray-300" placeholder="Bid baru" />
-                                                            <button type="submit" className="mt-4 w-full bg-teal-600 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-white hover:bg-teal-700 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">Submit harga Bid baru</button>
-                                                            <p className=" text-center mt-1 text-xs text-gray-500 font-normal">Email notifikasi perubahan harga Bid akan dikirim ke Penjual.</p>
+                                                                <p className="text-left mb-3 text-xl font-bold">Rp18.039.000</p>
+                                                            {/* <input type="number" className="focus:outline-none focus:ring-1 focus:ring-offset-none focus:ring-teal-500 px-6 py-3 w-full rounded-md border border-solid border-gray-300" placeholder="Bid baru" /> */}
+                                                            <button type="submit" className="mt-4 w-full bg-teal-600 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-white hover:bg-teal-700 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">Bayar sekarang</button>
+                                                            <p className=" text-center mt-1 text-xs text-gray-500 font-normal">Kamu akan dialihkan ke 3rd party payment gateway untuk pembayaran.</p>
                                                         </form>
                                                     </section>
                                                 </div>
@@ -138,11 +143,11 @@ function PembeliMain() {
                                                 <div>
                                                     <section aria-labelledby="options-heading" className="border-t border-solid border-gray-200 pt-4 mt-6" >
                                                         <form>
-                                                            <p className="text-left mb-3 text-md font-semibold text-red-500">Hapus Bid</p>
-                                                            <p className="text-left mt-1 text-sm text-gray-500 font-normal">Data Bid yang dihapus tidak bisa kembali.</p>
+                                                            <p className="text-left mb-3 text-md font-semibold text-red-500">Batalkan Deal</p>
+                                                            <p className="text-left mt-1 text-sm text-gray-500 font-normal">Data Deal yang dihapus tidak bisa kembali.</p>
                                                             
-                                                            <button type="submit" className="mt-4 w-full bg-gray-300 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">Hapus Bid</button>
-                                                            <p className=" text-center mt-1 text-xs text-gray-500 font-normal">Email notifikasi penghapusan harga Bid akan dikirim ke Penjual.</p>
+                                                            <button type="submit" className="mt-4 w-full bg-gray-300 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">Batal Deal</button>
+                                                            <p className=" text-center mt-1 text-xs text-gray-500 font-normal">Email notifikasi pembatalan Bid akan dikirim ke Penjual.</p>
                                                         </form>
                                                     </section>
                                                 </div>
