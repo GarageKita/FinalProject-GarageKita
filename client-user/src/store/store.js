@@ -23,6 +23,7 @@ export default configureStore({
         ignoredActions: ['user/loginPost/fulfilled', 'user/registerPost/fulfilled', 'deals/getDeals/fulfilled'],
         ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
         // Ignore these paths in the state
+        //
         ignoredPaths: ['items.dates'],
       },
     }),
