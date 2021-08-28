@@ -1,20 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteRequest } from '../store/slices/requestSlice';
+import { deleteRequest, getRequestById } from '../store/slices/requestSlice';
+
+import DeleteModal from '../components/Pembeli-DeleteModal.js';
 
 function PembeliMyRequest(props) {
   const { openFormRequest, requestList, changePage } = props;
 
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [requestIdToDelete, setRequestIdToDelete] = useState('');
+
   const dispatch = useDispatch();
 
-  const deleteMyRequest = (e, id) => {
-    e.preventDefault();
-    dispatch(deleteRequest(id));
+  function openDeleteRequest(id) {
+    setRequestIdToDelete(id);
+    setDeleteModal((prev) => !prev);
+  }
+
+  const getRequestDetail = (id) => {
+    dispatch(getRequestById(id));
   };
 
   return (
     <React.Fragment>
+      {deleteModal === true ? <DeleteModal openDeleteRequest={openDeleteRequest} id={requestIdToDelete} /> : null}
+
       <div className="flex flex-col">
         <div className="sm:-mx-6 lg:-mx-8">
           <div className=" align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -49,7 +60,11 @@ function PembeliMyRequest(props) {
                         <td className="px-2 py-4 whitespace-nowrap">
                           <div className="flex text-left">
                             <div className="ml-4">
-                              <Link to={`/requests/${request.id}`} className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500">
+                              <Link
+                                to={`/requests/${request.id}`}
+                                className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500"
+                                onClick={() => getRequestDetail(request.id)}
+                              >
                                 {request.name}
                               </Link>
                               <div className="text-sm text-gray-500">Rp{request.budget}</div>
@@ -77,7 +92,10 @@ function PembeliMyRequest(props) {
                           >
                             Edit
                           </a>
-                          <a href="" className="text-red-600 hover:text-red-400 my-1 font-medium" onClick={(e) => deleteMyRequest(e, request.id)}>
+                          <a
+                            className="text-red-600 cursor-pointer hover:text-red-400 my-1 font-medium"
+                            onClick={() => openDeleteRequest(request.id)}
+                          >
                             Hapus
                           </a>
                         </td>

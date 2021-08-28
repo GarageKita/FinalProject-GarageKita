@@ -37,7 +37,6 @@ export const postRequest = createAsyncThunk('request/post', async (payload, thun
 });
 
 export const editRequest = createAsyncThunk('request/put', async (data, thunkAPI) => {
-  console.log(data.id, data.payload);
   const response = await axios({
     method: 'put',
     url: baseURL + '/requests/' + data.id,
@@ -91,11 +90,12 @@ const requestSlice = createSlice({
 
     // get request by id
     [getRequestById.pending]: (state) => {
+      state.requestById = {};
       state.loading = true;
     },
     [getRequestById.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.requestById = payload.data;
+      state.requestById = payload.data.data;
     },
     [getRequestById.rejected]: (state) => {
       state.loading = false;

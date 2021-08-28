@@ -13,7 +13,7 @@ function PembeliFormRequest(props) {
   const [description, setDescription] = useState('');
   const [qty, setQty] = useState('');
   const [category_id, setCategory_id] = useState(0);
-  const [categoryName, setCategoryName] = useState('');
+  const [category_name, setCategory_name] = useState('');
 
   useEffect(() => {
     if (formType === 'put') {
@@ -23,28 +23,26 @@ function PembeliFormRequest(props) {
       setDescription(request.description);
       setQty(request.qty);
       setCategory_id(request.category_id);
-      setCategoryName(request.Category.name);
+      setCategory_name(request.Category.name);
     }
   }, []);
 
   const categoriesHandler = (e) => {
     const category = categories.find((el) => el.name === e.target.value);
     setCategory_id(category.id);
-    console.log(category.id);
   };
 
-  const submitPostRequest = async (e, id) => {
+  const submitPostRequest = async (e, requestId) => {
     e.preventDefault();
-    console.log(name, budget, budgetCeil, description, qty, category_id);
-    if (id) {
-      const { error } = await dispatch(editRequest({ id, payload: { name, budget, budgetCeil, description, qty, category_id } }));
+    if (requestId) {
+      const { payload, error } = await dispatch(editRequest({ id: requestId, payload: { name, budget, budgetCeil, description, qty, category_id } }));
       if (!error) {
-        closeModal({ name, budget, budgetCeil, description, qty, category_id });
+        closeModal(payload.data.data.id);
       }
     } else {
-      const { error } = await dispatch(postRequest({ name, budget, budgetCeil, description, qty, category_id }));
+      const { payload, error } = await dispatch(postRequest({ name, budget, budgetCeil, description, qty, category_id }));
       if (!error) {
-        closeModal({ name, budget, budgetCeil, description, qty, category_id });
+        closeModal(payload.data.data.id);
       }
     }
   };
@@ -274,7 +272,7 @@ function PembeliFormRequest(props) {
                           <option disabled>-- pilih category --</option>
                           {categories.map((category, i) => {
                             return (
-                              <option selected={categoryName == category.name && true} key={`category-${i}`}>
+                              <option selected={category_name == category.name && true} key={`category-${i}`}>
                                 {category.name}
                               </option>
                             );
