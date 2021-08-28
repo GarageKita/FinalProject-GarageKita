@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { postRequest, editRequest } from '../store/slices/requestSlice';
 
 function PembeliFormRequest(props) {
   const { openFormRequest, categories, formType, closeModal, request } = props;
 
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const [name, setName] = useState('');
   const [budget, setBudget] = useState('');

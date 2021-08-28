@@ -6,7 +6,6 @@ import FormRequest from '../pages/Pembeli-FormRequest.js';
 import PembeliMyRequest from '../components/Pembeli-MyRequest.js';
 import KategoriFilter from '../components/KategoriFilter.js';
 
-import store from '../store/store';
 import { getMyRequests } from '../store/slices/requestSlice.js';
 import { getCategories } from '../store/slices/categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,55 +21,10 @@ function PembeliMain() {
   const { myRequests } = useSelector((state) => state.request);
   const { categories } = useSelector((state) => state.category);
 
-  // const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
-
-  // const categories = {
-  //   Elektronik: 1,
-  //   'Handphone & Tablet': 2,
-  //   Komputer: 3,
-  //   Otomotif: 4,
-  //   'Mainan & Hobi': 5,
-  //   'Buku & Alat Tulis': 6,
-  //   Kesehatan: 7,
-  //   'Lain-lain': 8,
-  // };
-
-  // const mockRequests = [
-  //   {
-  //     id: 1,
-  //     name: 'HP Xiaomi Redmi',
-  //     budget: 1800000,
-  //     description:
-  //       'Dicari: kondisi tampilan 80% ke atas, fungsionalitas 100%. Retak bocel sedikit nggak masalah yg penting berfungsi baik seperti baru. Prioritas warna hitam/abu.',
-  //     qty: 1,
-  //     consumer_id: 20,
-  //     category: {
-  //       id: 2,
-  //       name: 'Handphone & Tablet',
-  //     },
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Casio F-91W',
-  //     budget: 250000,
-  //     description: 'Tampilan mulus 90%, harus masih berfungsi baik. Warna apa aja.',
-  //     qty: 2,
-  //     consumer_id: 20,
-  //     category: {
-  //       id: 1,
-  //       name: 'Elektronik',
-  //     },
-  //   },
-  // ];
-
   useEffect(() => {
     dispatch(getMyRequests());
     dispatch(getCategories());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   setMyRequest(myRequestsState);
-  // }, [myRequestsState]);
 
   function openFormRequest(formToLoad, request) {
     if (request) setRequestToEdit(request);
