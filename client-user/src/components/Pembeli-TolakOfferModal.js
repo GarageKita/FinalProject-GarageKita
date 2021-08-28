@@ -3,14 +3,19 @@ import { useDispatch } from 'react-redux';
 import { deleteOffer, editOffer } from '../store/slices/offerSlice';
 
 function PembeliTolakOfferModal(props) {
-  const { openTolakOfferModal, offer, offerId } = props;
+  const { openTolakOfferModal, offer, closeTolakOfferModal } = props;
 
   const dispatch = useDispatch();
 
   const rejectOffer = () => {
-    // dispatch(deleteOffer(offerId));
-    dispatch(editOffer(offer));
-    openTolakOfferModal(null);
+    dispatch(
+      editOffer({
+        id: offer.id,
+        request_id: offer.request_id,
+        payload: { offered_price: offer.offered_price, product_id: offer.product_id, status: 'rejected' },
+      })
+    );
+    closeTolakOfferModal();
   };
 
   return (

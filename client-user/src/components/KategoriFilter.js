@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { filterByCategory } from '../store/slices/requestSlice';
+import { useLocation } from 'react-router-dom';
+import { filterProducts } from '../store/slices/productSlice';
+import { filterRequest } from '../store/slices/requestSlice';
 
 export default function KategoriFilter(props) {
   const { categories } = props;
@@ -8,6 +10,7 @@ export default function KategoriFilter(props) {
   const [filterBy, setFilterBy] = useState([]);
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const filterRequests = (e) => {
     if (e.target.checked) {
@@ -18,8 +21,12 @@ export default function KategoriFilter(props) {
   };
 
   useEffect(() => {
-    dispatch(filterByCategory(filterBy));
-  }, [dispatch, filterBy]);
+    if (location.pathname == '/myrequests') {
+      dispatch(filterRequest(filterBy));
+    } else if (location.pathname == '/products') {
+      dispatch(filterProducts(filterBy));
+    }
+  }, [dispatch, filterBy, location.pathname]);
 
   return (
     <div>

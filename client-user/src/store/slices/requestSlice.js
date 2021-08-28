@@ -64,17 +64,17 @@ const requestSlice = createSlice({
   initialState: {
     loading: false,
     error: false,
-    rawMyRequest: [],
+    rawMyRequests: [],
     myRequests: [],
     requestById: {},
   },
 
   reducers: {
-    filterByCategory(state, { payload }) {
+    filterRequest(state, { payload }) {
       if (payload.length > 0) {
         const filtered = [];
         payload.forEach((category) => {
-          state.myRequests = state.rawMyRequest;
+          state.myRequests = state.rawMyRequests;
           state.myRequests = state.myRequests.find((request) => {
             return request.Category.name == category;
           });
@@ -82,7 +82,7 @@ const requestSlice = createSlice({
         });
         state.myRequests = filtered;
       } else {
-        state.myRequests = state.rawMyRequest;
+        state.myRequests = state.rawMyRequests;
       }
     },
   },
@@ -94,7 +94,7 @@ const requestSlice = createSlice({
     },
     [getMyRequests.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.rawMyRequest = state.myRequests = payload.data.data;
+      state.rawMyRequests = state.myRequests = payload.data.data;
     },
     [getMyRequests.rejected]: (state) => {
       state.loading = false;
@@ -146,7 +146,7 @@ const requestSlice = createSlice({
     },
     [deleteRequest.fulfilled]: (state, { meta: { arg } }) => {
       state.loading = false;
-      state.rawMyRequest = state.myRequests = state.myRequests.filter((el) => el.id !== arg);
+      state.rawMyRequests = state.myRequests = state.myRequests.filter((el) => el.id !== arg);
     },
     [deleteRequest.rejected]: (state) => {
       state.loading = false;
@@ -155,5 +155,5 @@ const requestSlice = createSlice({
   },
 });
 
-export const { filterByCategory } = requestSlice.actions;
+export const { filterRequest } = requestSlice.actions;
 export default requestSlice.reducer;

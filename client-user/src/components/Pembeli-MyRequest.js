@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteRequest, getRequestById } from '../store/slices/requestSlice';
+import { getRequestById } from '../store/slices/requestSlice';
 
 import DeleteModal from '../components/Pembeli-DeleteModal.js';
 import { getOffersByRequestId } from '../store/slices/offerSlice';
 
 function PembeliMyRequest(props) {
-  const { openFormRequest, requestList, changePage } = props;
+  const { openFormRequest, requestList } = props;
 
   const [deleteModal, setDeleteModal] = useState(false);
   const [requestIdToDelete, setRequestIdToDelete] = useState('');
