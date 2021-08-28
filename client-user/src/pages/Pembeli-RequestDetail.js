@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import DeleteModal from '../components/Pembeli-DeleteModal.js';
@@ -23,8 +23,13 @@ function PembeliRequestDetail() {
 
   const history = useHistory();
 
-  let { requestById: request, loading } = useSelector((state) => state.request);
+  const { requestById: request, loading } = useSelector((state) => state.request);
+  const { offersByRequestId: offers } = useSelector((state) => state.offer);
   const { categories } = useSelector((state) => state.category);
+
+  // useEffect(() => {
+  //   console.log(offer);
+  // });
 
   function openDeleteRequest(id) {
     setRequestIdToDelete(id);
@@ -159,7 +164,7 @@ function PembeliRequestDetail() {
                           </div>
                           <div className="bg-white text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Budget</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Rp{request.budget}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Rp {request.budget.toLocaleString('id-ID')}</dd>
                           </div>
                           <div className="bg-teal-50 text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Category</dt>
@@ -168,52 +173,58 @@ function PembeliRequestDetail() {
 
                           <div className="bg-white text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
                             <dt className="text-sm font-bold text-teal-600">Offer dari Penjual</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                              <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                                  <div className="w-0 flex-1 flex items-center">
-                                    {/* <!-- Heroicon name: solid/paper-clip --> */}
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      class="h-6 w-6 text-teal-300"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
-                                    >
-                                      <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
-                                      />
-                                    </svg>
-                                    <span className="ml-3 font-bold flex-1 w-0 truncate">
-                                      Rp2.100.000
-                                      <p className="mt-1 text-xs text-gray-500 font-normal">
-                                        dari{' '}
-                                        <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
-                                          Penjual #1233
+                            {offers.length > 0 ? (
+                              offers.map((offer) => (
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                  <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                                      <div className="w-0 flex-1 flex items-center">
+                                        {/* <!-- Heroicon name: solid/paper-clip --> */}
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          class="h-6 w-6 text-teal-300"
+                                          fill="none"
+                                          viewBox="0 0 24 24"
+                                          stroke="currentColor"
+                                        >
+                                          <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                                          />
+                                        </svg>
+                                        <span className="ml-3 font-bold flex-1 w-0 truncate">
+                                          Rp {offer.offered_price.toLocaleString('id-ID')}
+                                          <p className="mt-1 text-xs text-gray-500 font-normal">
+                                            dari{' '}
+                                            <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
+                                              Penjual #{offer.seller_id}
+                                            </span>
+                                          </p>
                                         </span>
-                                      </p>
-                                    </span>
-                                  </div>
-                                  <div className="ml-4 flex-shrink-0">
-                                    <a
-                                      onClick={() => openTolakOfferModal()}
-                                      className="font-medium mr-4 transition duration-150 ease-in-out text-gray-500 hover:text-gray-400 cursor-pointer"
-                                    >
-                                      Tolak Offer
-                                    </a>
-                                    <a
-                                      onClick={() => openCekOngkirModal()}
-                                      className="bg-teal-600 transition duration-150 ease-in-out cursor-pointer rounded-md px-5 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out"
-                                    >
-                                      Cek Ongkir
-                                    </a>
-                                  </div>
-                                </li>
-                              </ul>
-                            </dd>
+                                      </div>
+                                      <div className="ml-4 flex-shrink-0">
+                                        <a
+                                          onClick={() => openTolakOfferModal()}
+                                          className="font-medium mr-4 transition duration-150 ease-in-out text-gray-500 hover:text-gray-400 cursor-pointer"
+                                        >
+                                          Tolak Offer
+                                        </a>
+                                        <a
+                                          onClick={() => openCekOngkirModal()}
+                                          className="bg-teal-600 transition duration-150 ease-in-out cursor-pointer rounded-md px-5 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out"
+                                        >
+                                          Cek Ongkir
+                                        </a>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </dd>
+                              ))
+                            ) : (
+                              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 font-bold sm:col-span-2">Belum ada offer dari penjual</dd>
+                            )}
                           </div>
                         </dl>
                       </div>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { deleteRequest, getRequestById } from '../store/slices/requestSlice';
 
 import DeleteModal from '../components/Pembeli-DeleteModal.js';
+import { getOffersByRequestId } from '../store/slices/offerSlice';
 
 function PembeliMyRequest(props) {
   const { openFormRequest, requestList, changePage } = props;
@@ -18,8 +19,9 @@ function PembeliMyRequest(props) {
     setDeleteModal((prev) => !prev);
   }
 
-  const getRequestDetail = (id) => {
-    dispatch(getRequestById(id));
+  const getRequestDetail = (requestId) => {
+    dispatch(getRequestById(requestId));
+    dispatch(getOffersByRequestId(requestId));
   };
 
   return (
@@ -67,7 +69,7 @@ function PembeliMyRequest(props) {
                               >
                                 {request.name}
                               </Link>
-                              <div className="text-sm text-gray-500">Rp{request.budget}</div>
+                              <div className="text-sm text-gray-500">Rp {request.budget.toLocaleString('id-ID')}</div>
                             </div>
                           </div>
                         </td>

@@ -25,7 +25,7 @@ export const getMyOffers = createAsyncThunk('offer/getMyRequest', async () => {
   });
 });
 
-export const getOfferByRequestId = createAsyncThunk('offer/getById', async (requestId) => {
+export const getOffersByRequestId = createAsyncThunk('offer/getById', async (requestId) => {
   return await axios({
     method: 'get',
     url: baseURL + '/offers/' + requestId,
@@ -63,7 +63,7 @@ const offerSlice = createSlice({
     loading: false,
     error: false,
     myOffers: [],
-    offerByRequestId: {},
+    offersByRequestId: [],
   },
 
   reducers: {},
@@ -83,15 +83,15 @@ const offerSlice = createSlice({
     },
 
     // get offer by request id
-    [getOfferByRequestId.pending]: (state) => {
-      state.offerByRequestId = {};
+    [getOffersByRequestId.pending]: (state) => {
+      state.offersByRequestId = {};
       state.loading = true;
     },
-    [getOfferByRequestId.fulfilled]: (state, { payload }) => {
+    [getOffersByRequestId.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.offerByRequestId = payload.data.data;
+      state.offersByRequestId = payload.data.data;
     },
-    [getOfferByRequestId.rejected]: (state) => {
+    [getOffersByRequestId.rejected]: (state) => {
       state.loading = false;
       state.error = true;
     },
