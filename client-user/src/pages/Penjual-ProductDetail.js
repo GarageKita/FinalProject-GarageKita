@@ -131,7 +131,7 @@ function PenjualProductDetail() {
                                         <div className="border-t border-gray-200">
                                             <dl>
 
-                                                <div className="bg-rust-50 text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
+                                                <div className="bg-gray-100 text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
                                                     <dt className="text-sm font-medium text-gray-500">
                                                     Description
                                                     </dt>
@@ -147,7 +147,7 @@ function PenjualProductDetail() {
                                                     Rp6.500.000
                                                     </dd>
                                                 </div>
-                                                <div className="bg-rust-50 text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
+                                                <div className="bg-gray-100 text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
                                                     <dt className="text-sm font-medium text-gray-500">
                                                     Category
                                                     </dt>
@@ -172,14 +172,14 @@ function PenjualProductDetail() {
                                                                 </svg>
                                                                 <span className="ml-3 font-bold flex-1 w-0 truncate">
                                                                 Rp6.250.000
-                                                                <p className="mt-1 text-xs text-gray-500 font-normal">dari <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Pembeli #0926</span></p>
+                                                                <p className="mt-1 text-xs text-gray-500 font-normal">dari <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Pembeli #0926</span></p>
                                                                 </span>
                                                             </div>
                                                             <div className="ml-4 flex-shrink-0">
                                                                 <a onClick={() => openTolakBidModal()} className="font-medium mr-4 transition duration-150 ease-in-out text-gray-500 hover:text-gray-400 cursor-pointer">
                                                                 Tolak Bid
                                                                 </a>
-                                                                <a href="#" className="bg-rust-600 cursor-pointer rounded-md px-5 py-2 font-medium text-rust-50 hover:bg-rust-500 transition duration-150 ease-in-out">
+                                                                <a href="#" className="bg-rust-600 cursor-pointer rounded-md px-5 py-2 font-medium text-rust-50 hover:bg-gray-1000 transition duration-150 ease-in-out">
                                                                 Terima Bid
                                                                 </a>
                                                             </div>
@@ -193,14 +193,14 @@ function PenjualProductDetail() {
                                                                 </svg>
                                                                 <span className="ml-3 font-bold flex-1 w-0 truncate">
                                                                 Rp6.100.000
-                                                                <p className="mt-1 text-xs text-gray-500 font-normal">dari <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Pembeli #7766</span></p>
+                                                                <p className="mt-1 text-xs text-gray-500 font-normal">dari <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Pembeli #7766</span></p>
                                                                 </span>
                                                             </div>
                                                             <div className="ml-4 flex-shrink-0">
                                                                 <a onClick={() => openTolakBidModal()} className="font-medium mr-4 transition duration-150 ease-in-out text-gray-500 hover:text-gray-400 cursor-pointer">
                                                                 Tolak Bid
                                                                 </a>
-                                                                <a href="#" className="bg-rust-600 cursor-pointer rounded-md px-5 py-2 font-medium text-rust-50 hover:bg-rust-500 transition duration-150 ease-in-out">
+                                                                <a href="#" className="bg-rust-600 cursor-pointer rounded-md px-5 py-2 font-medium text-rust-50 hover:bg-gray-1000 transition duration-150 ease-in-out">
                                                                 Terima Bid
                                                                 </a>
                                                             </div>

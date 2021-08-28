@@ -16,6 +16,8 @@ import PembeliPaymentSuccess from './pages/Pembeli-PaymentSuccess'
 import PenjualMain from './pages/Penjual-Main'
 import PenjualProductDetail from './pages/Penjual-ProductDetail'
 import PenjualAllRequests from './pages/Penjual-AllRequests'
+import PenjualMyOffers from './pages/Penjual-MyOffers'
+import PenjualIndividualOffer from './pages/Penjual-IndividualOffer'
 
 import MyDeals from './pages/Both-MyDeals'
 import IndividualDeal from './pages/Both-IndividualDeal'
@@ -33,14 +35,17 @@ function App() {
                 <Route path="/requests/:id" component={PembeliRequestDetail} />
                 <Route path="/requests" component={PenjualAllRequests} />
                 <Route path="/myrequests" component={PembeliMain} />
+                
+                <Route path="/bids/mybids" component={PembeliMyBids} />
+                <Route path="/bids/:bidID" component={PembeliIndividualBid} />
 
                 <Route path="/products/myproducts" component={PenjualMain} />
                 <Route path="/products/:id" component={PenjualProductDetail} />
                 <Route path="/products" component={PembeliAllProducts} />
 
-                <Route path="/bids/mybids" component={PembeliMyBids} />
-                <Route path="/bids/:bidID" component={PembeliIndividualBid} />
-                
+                <Route path="/offers/myoffers" component={PenjualMyOffers} />
+                <Route path="/offers/:offerID" component={PenjualIndividualOffer} />
+
                 <Route path="/deals/:id" component={IndividualDeal} />
                 <Route path="/deals" component={MyDeals} />
                 <Route path="/payments/success" component={PembeliPaymentSuccess} />
