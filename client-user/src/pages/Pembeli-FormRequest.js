@@ -12,8 +12,8 @@ function PembeliFormRequest(props) {
   const [budgetCeil, setBudgetCeil] = useState('');
   const [description, setDescription] = useState('');
   const [qty, setQty] = useState('');
-  const [category_id, setCategory_id] = useState(0);
-  const [category_name, setCategory_name] = useState('');
+  const [category_id, setCategoryId] = useState(0);
+  const [category_name, setCategoryName] = useState('');
 
   useEffect(() => {
     if (formType === 'put') {
@@ -22,14 +22,14 @@ function PembeliFormRequest(props) {
       setBudgetCeil(request.budgetCeil);
       setDescription(request.description);
       setQty(request.qty);
-      setCategory_id(request.category_id);
-      setCategory_name(request.Category.name);
+      setCategoryId(request.category_id);
+      setCategoryName(request.Category.name);
     }
   }, []);
 
   const categoriesHandler = (e) => {
     const category = categories.find((el) => el.name === e.target.value);
-    setCategory_id(category.id);
+    setCategoryId(category.id);
   };
 
   const submitPostRequest = async (e, requestId) => {

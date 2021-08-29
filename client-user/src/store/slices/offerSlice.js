@@ -36,8 +36,7 @@ export const getOffersByRequestId = createAsyncThunk('offer/getById', async (req
   });
 });
 
-export const editOffer = createAsyncThunk('offer/put', async ({ id, request_id, payload }, thunkAPI) => {
-  console.log(request_id);
+export const editOffer = createAsyncThunk('offer/put', async ({ id, payload }, thunkAPI) => {
   const response = await axios({
     method: 'put',
     url: baseURL + '/offers/' + id,
@@ -117,7 +116,6 @@ const offerSlice = createSlice({
       state.loading = true;
     },
     [editOffer.fulfilled]: (state, { meta, payload }) => {
-      console.log(meta, payload);
       state.loading = false;
       state.offersByRequestId = state.offersByRequestId.filter((el) => el.id != meta.arg.id);
     },

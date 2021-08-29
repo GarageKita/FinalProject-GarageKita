@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { allCitiesInProvince } from '../store/slices/ongkirSlice';
 import { editProduct, postProduct } from '../store/slices/productSlice';
 
 function PembeliFormRequest(props) {
-  const { openFormProduct, categories, formType, closeModal, product } = props;
+  const { openFormProduct, categories, provinces, formType, closeModal, product } = props;
 
   const dispatch = useDispatch();
+
+  const { citiesInProvince } = useSelector((state) => state.ongkir);
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -14,50 +17,95 @@ function PembeliFormRequest(props) {
   const [image_url, setImageUrl] = useState('');
   const [description, setDescription] = useState('');
   const [province_id, setProvinceId] = useState('');
+  const [province, setProvince] = useState('');
   const [city_id, setCityId] = useState('');
-  const [category_id, setCategory_id] = useState(0);
-  const [category_name, setCategory_name] = useState('');
+  const [city_name, setCityName] = useState('');
+  const [category_id, setCategoryId] = useState(0);
+  const [category_name, setCategoryName] = useState('');
 
   useEffect(() => {
     if (formType === 'put') {
+      console.log(product);
       setName(product.name);
       setPrice(product.price);
-      setWeight(product.weigth);
+      setWeight(product.weight);
       setStock(product.stock);
       setDescription(product.description);
       setImageUrl(product.image_url);
       setProvinceId(product.province_id);
       setCityId(product.city_id);
-      setCategory_id(product.category_id);
-      setCategory_name(product.Category.name);
+      setCategoryId(product.category_id);
+      setCategoryName(product.Category.name);
+      provinces.forEach((el) => {
+        if (el.province_id == product.province_id) {
+          setProvince(el.province);
+        }
+      });
     }
   }, []);
 
+  useEffect(() => {
+    citiesInProvince.forEach((el) => {
+      if (el.city_id == product.city_id) {
+        setCityName(el.city_name);
+      }
+    });
+  }, [citiesInProvince]);
+
+  useEffect(() => {
+    dispatch(allCitiesInProvince(province_id));
+  }, [province, province_id, dispatch]);
+
   const categoriesHandler = (e) => {
     const category = categories.find((el) => el.name === e.target.value);
-    setCategory_id(category.id);
+    setCategoryId(category.id);
   };
 
   const provinceHandler = (e) => {
-    setProvinceId();
+    const province = provinces.find((el) => el.province === e.target.value);
+    setProvinceId(province.province_id);
   };
 
   const cityHandler = (e) => {
-    setCityId();
+    const city = citiesInProvince.find((el) => el.city_name === e.target.value);
+    setCityId(city.city_id);
   };
 
   const submitPostProduct = async (e, productId) => {
     e.preventDefault();
     if (productId) {
       const { payload, error } = await dispatch(
-        editProduct({ id: productId, payload: { name, price, weight, stock, description, image_url, province_id, city_id, category_id } })
+        editProduct({
+          id: productId,
+          payload: {
+            name,
+            price,
+            weight,
+            stock,
+            description,
+            image_url,
+            province_id,
+            city_id,
+            category_id,
+          },
+        })
       );
       if (!error) {
         closeModal(payload.data.data.id);
       }
     } else {
       const { payload, error } = await dispatch(
-        postProduct({ name, price, weight, stock, description, image_url, province_id, city_id, category_id })
+        postProduct({
+          name,
+          price,
+          weight,
+          stock,
+          description,
+          image_url,
+          province_id,
+          city_id,
+          category_id,
+        })
       );
       if (!error) {
         closeModal(payload.data.data.id);
@@ -111,7 +159,7 @@ function PembeliFormRequest(props) {
                         />
                       </div>
 
-                      <div className="col-span-6 sm:col-span-2">
+                      {/* <div className="col-span-6 sm:col-span-2">
                         <label for="budgetCeiling" className="block text-sm font-medium text-gray-700">
                           Price Floor
                         </label>
@@ -122,7 +170,7 @@ function PembeliFormRequest(props) {
                           id="budgetCeiling"
                           className="mt-1 focus:ring-rust-500 focus:border-rust-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
                         />
-                      </div>
+                      </div> */}
 
                       <div className="col-span-6 sm:col-span-2">
                         <label for="weight" className="block text-sm font-medium text-gray-700">
@@ -136,6 +184,21 @@ function PembeliFormRequest(props) {
                           className="mt-1 focus:ring-rust-500 focus:border-rust-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
                           value={weight}
                           onChange={(e) => setWeight(e.target.value)}
+                        />
+                      </div>
+
+                      <div className="col-span-6 sm:col-span-2">
+                        <label for="weight" className="block text-sm font-medium text-gray-700">
+                          Image URL
+                        </label>
+                        <input
+                          type="text"
+                          min="0"
+                          name="image_url"
+                          id="image_url"
+                          className="mt-1 focus:ring-rust-500 focus:border-rust-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={image_url}
+                          onChange={(e) => setImageUrl(e.target.value)}
                         />
                       </div>
 
@@ -154,11 +217,6 @@ function PembeliFormRequest(props) {
                         />
                       </div>
 
-                      {/* <div className="col-span-3">
-                                        <label for="description" className="block text-sm font-medium text-gray-700">Image URL</label>
-                                        <input type="text" name="description" id="description" className="mt-1 focus:ring-rust-500 focus:border-rust-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md" />
-                                    </div> */}
-
                       <div className="col-span-3">
                         <label className="text-sm font-medium text-gray-700">Image</label>
                         <div className=" flex justify-center px-6 pt-4 pb-4 border-2 border-gray-300 border-dashed rounded-md">
@@ -176,33 +234,22 @@ function PembeliFormRequest(props) {
                                 for="file-upload"
                                 className="relative cursor-pointer bg-white rounded-md text-xs font-medium text-rust-600 hover:text-rust-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-rust-500"
                               >
-                                <span>Unggah foto produk kamu</span>
-                                <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                {/* <span>Unggah foto produk kamu</span> */}
+                                <input
+                                  id="file-upload"
+                                  name="file-upload"
+                                  type="file"
+                                  multiple
+                                  accept="image/*"
+                                  // className="sr-only"
+                                  onChange={(e) => console.log(e.target.value)}
+                                />
                               </label>
-                              <p className="pl-1 text-xs">atau: drag & drop</p>
+                              {/* <p className="pl-1 text-xs">atau: drag & drop</p> */}
                             </div>
                             <p className="text-xs text-gray-500">PNG atau JPG maksimal 10MB</p>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="col-span-3 sm:col-span-3">
-                        <label for="category" className="block text-sm font-medium text-gray-700">
-                          Kategori
-                        </label>
-                        <select
-                          id="category"
-                          name="category"
-                          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
-                          onChange={(e) => categoriesHandler(e)}
-                        >
-                          <option selected disabled>
-                            -- pilih category --
-                          </option>
-                          {categories.map((category, i) => {
-                            return <option key={`category-${i}`}>{category.name}</option>;
-                          })}
-                        </select>
                       </div>
 
                       <div className="col-span-6 sm:col-span-3">
@@ -218,8 +265,8 @@ function PembeliFormRequest(props) {
                           <option selected disabled>
                             -- pilih provinsi --
                           </option>
-                          {categories.map((category, i) => {
-                            return <option key={`category-${i}`}>{category.name}</option>;
+                          {provinces.map((el, i) => {
+                            return <option key={i}>{el.province}</option>;
                           })}
                         </select>
                       </div>
@@ -236,6 +283,26 @@ function PembeliFormRequest(props) {
                         >
                           <option selected disabled>
                             -- pilih kota --
+                          </option>
+                          {citiesInProvince.length > 0 &&
+                            citiesInProvince.map((el, i) => {
+                              return <option key={i}>{el.city_name}</option>;
+                            })}
+                        </select>
+                      </div>
+
+                      <div className="col-span-3 sm:col-span-3">
+                        <label for="category" className="block text-sm font-medium text-gray-700">
+                          Kategori
+                        </label>
+                        <select
+                          id="category"
+                          name="category"
+                          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
+                          onChange={(e) => categoriesHandler(e)}
+                        >
+                          <option selected disabled>
+                            -- pilih category --
                           </option>
                           {categories.map((category, i) => {
                             return <option key={`category-${i}`}>{category.name}</option>;
@@ -330,7 +397,7 @@ function PembeliFormRequest(props) {
                         />
                       </div>
 
-                      <div className="col-span-6 sm:col-span-2">
+                      {/* <div className="col-span-6 sm:col-span-2">
                         <label for="budgetCeiling" className="block text-sm font-medium text-gray-700">
                           Price Floor
                         </label>
@@ -341,7 +408,7 @@ function PembeliFormRequest(props) {
                           id="budgetCeiling"
                           className="mt-1 focus:ring-rust-500 focus:border-rust-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
                         />
-                      </div>
+                      </div> */}
 
                       <div className="col-span-6 sm:col-span-2">
                         <label for="weight" className="block text-sm font-medium text-gray-700">
@@ -355,6 +422,21 @@ function PembeliFormRequest(props) {
                           className="mt-1 focus:ring-rust-500 focus:border-rust-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
                           value={weight}
                           onChange={(e) => setWeight(e.target.value)}
+                        />
+                      </div>
+
+                      <div className="col-span-6 sm:col-span-2">
+                        <label for="weight" className="block text-sm font-medium text-gray-700">
+                          Image URL
+                        </label>
+                        <input
+                          type="text"
+                          min="0"
+                          name="image_url"
+                          id="image_url"
+                          className="mt-1 focus:ring-rust-500 focus:border-rust-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
+                          value={image_url}
+                          onChange={(e) => setImageUrl(e.target.value)}
                         />
                       </div>
 
@@ -373,11 +455,6 @@ function PembeliFormRequest(props) {
                         />
                       </div>
 
-                      {/* <div className="col-span-3">
-                                        <label for="description" className="block text-sm font-medium text-gray-700">Image URL</label>
-                                        <input type="text" name="description" id="description" className="mt-1 focus:ring-rust-500 focus:border-rust-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md" />
-                                    </div> */}
-
                       <div className="col-span-3">
                         <label className="text-sm font-medium text-gray-700">Image</label>
                         <div className=" flex justify-center px-6 pt-4 pb-4 border-2 border-gray-300 border-dashed rounded-md">
@@ -395,35 +472,22 @@ function PembeliFormRequest(props) {
                                 for="file-upload"
                                 className="relative cursor-pointer bg-white rounded-md text-xs font-medium text-rust-600 hover:text-rust-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-rust-500"
                               >
-                                <span>Unggah foto produk kamu</span>
-                                <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                {/* <span>Unggah foto produk kamu</span> */}
+                                <input
+                                  id="file-upload"
+                                  name="file-upload"
+                                  type="file"
+                                  // className="sr-only"
+                                  multiple
+                                  accept="image/png, image/jpg, image/jpeg"
+                                  onChange={(e) => console.log(e.target.value)}
+                                />
                               </label>
-                              <p className="pl-1 text-xs">atau: drag & drop</p>
+                              {/* <p className="pl-1 text-xs">atau: drag & drop</p> */}
                             </div>
                             <p className="text-xs text-gray-500">PNG atau JPG maksimal 10MB</p>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="col-span-3 sm:col-span-3">
-                        <label for="category" className="block text-sm font-medium text-gray-700">
-                          Kategori
-                        </label>
-                        <select
-                          id="category"
-                          name="category"
-                          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
-                          onChange={(e) => categoriesHandler(e)}
-                        >
-                          <option disabled>-- pilih category --</option>
-                          {categories.map((category, i) => {
-                            return (
-                              <option selected={category_name == category.name && true} key={`category-${i}`}>
-                                {category.name}
-                              </option>
-                            );
-                          })}
-                        </select>
                       </div>
 
                       <div className="col-span-6 sm:col-span-3">
@@ -436,9 +500,15 @@ function PembeliFormRequest(props) {
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
                           onChange={(e) => provinceHandler(e)}
                         >
-                          <option disabled>-- pilih provinsi --</option>
-                          {categories.map((category, i) => {
-                            return <option key={`category-${i}`}>{category.name}</option>;
+                          <option selected disabled>
+                            -- pilih provinsi --
+                          </option>
+                          {provinces.map((el, i) => {
+                            return (
+                              <option selected={province == el.province && true} key={i}>
+                                {el.province}
+                              </option>
+                            );
                           })}
                         </select>
                       </div>
@@ -453,9 +523,39 @@ function PembeliFormRequest(props) {
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
                           onChange={(e) => cityHandler(e)}
                         >
-                          <option disabled>-- pilih kota --</option>
+                          <option selected disabled>
+                            -- pilih kota --
+                          </option>
+                          {citiesInProvince.length > 0 &&
+                            citiesInProvince.map((el, i) => {
+                              return (
+                                <option selected={city_name == el.city_name && true} key={i}>
+                                  {el.city_name}
+                                </option>
+                              );
+                            })}
+                        </select>
+                      </div>
+
+                      <div className="col-span-3 sm:col-span-3">
+                        <label for="category" className="block text-sm font-medium text-gray-700">
+                          Kategori
+                        </label>
+                        <select
+                          id="category"
+                          name="category"
+                          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
+                          onChange={(e) => categoriesHandler(e)}
+                        >
+                          <option selected disabled>
+                            -- pilih category --
+                          </option>
                           {categories.map((category, i) => {
-                            return <option key={`category-${i}`}>{category.name}</option>;
+                            return (
+                              <option selected={category_name == category.name && true} key={`category-${i}`}>
+                                {category.name}
+                              </option>
+                            );
                           })}
                         </select>
                       </div>
