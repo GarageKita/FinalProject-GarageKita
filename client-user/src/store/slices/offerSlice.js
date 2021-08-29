@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const baseURL = 'https://garage-kita.herokuapp.com';
 
-export const postOffer = createAsyncThunk('offer/post', async ({ payload, requestId }) => {
+export const postOffer = createAsyncThunk('offer/post', async ({ payload, requestId }, thunkAPI) => {
   const response = await axios({
     method: 'post',
     url: baseURL + '/offers/' + requestId,
@@ -12,6 +12,7 @@ export const postOffer = createAsyncThunk('offer/post', async ({ payload, reques
       access_token: localStorage.access_token,
     },
   });
+  thunkAPI.dispatch(getMyOffers());
   return response;
 });
 
@@ -35,15 +36,16 @@ export const getOffersByRequestId = createAsyncThunk('offer/getById', async (req
   });
 });
 
-export const editOffer = createAsyncThunk('offer/put', async (offer) => {
+export const editOffer = createAsyncThunk('offer/put', async ({ id, payload }, thunkAPI) => {
   const response = await axios({
     method: 'put',
-    url: baseURL + '/offers/' + offer.id,
-    data: offer,
+    url: baseURL + '/offers/' + id,
+    data: payload,
     headers: {
       access_token: localStorage.access_token,
     },
   });
+  // thunkAPI.dispatch(getOffersByRequestId(request_id));
   return response;
 });
 
@@ -74,6 +76,7 @@ const offerSlice = createSlice({
       state.loading = true;
     },
     [getMyOffers.fulfilled]: (state, { payload }) => {
+      console.log(payload.data.data);
       state.loading = false;
       state.myOffers = payload.data.data;
     },
@@ -89,7 +92,7 @@ const offerSlice = createSlice({
     },
     [getOffersByRequestId.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.offersByRequestId = payload.data.data;
+      state.offersByRequestId = payload.data.data.filter((offer) => offer.status !== 'rejected');
     },
     [getOffersByRequestId.rejected]: (state) => {
       state.loading = false;
@@ -112,8 +115,9 @@ const offerSlice = createSlice({
     [editOffer.pending]: (state) => {
       state.loading = true;
     },
-    [editOffer.fulfilled]: (state, response) => {
+    [editOffer.fulfilled]: (state, { meta, payload }) => {
       state.loading = false;
+      state.offersByRequestId = state.offersByRequestId.filter((el) => el.id != meta.arg.id);
     },
     [editOffer.rejected]: (state) => {
       state.loading = false;
@@ -126,8 +130,8 @@ const offerSlice = createSlice({
     },
     [deleteOffer.fulfilled]: (state, { meta: { arg } }) => {
       state.loading = false;
-      state.myOffers = state.myOffers.filter((el) => el.id !== arg);
-      state.offersByRequestId = state.offersByRequestId.filter((el) => el.id !== arg);
+      state.myOffers = state.myOffers.filter((el) => el.id !== arg.id);
+      state.offersByRequestId = state.offersByRequestId.filter((el) => el.id !== arg.id);
     },
     [deleteOffer.rejected]: (state) => {
       state.loading = false;

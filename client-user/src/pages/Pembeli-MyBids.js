@@ -7,11 +7,13 @@ import DeleteModal from '../components/Pembeli-BidDeleteModal.js';
 import EditFormBid from '../pages/Pembeli-FormBid.js';
 import { getCategories } from '../store/slices/categorySlice.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyBids } from '../store/slices/bidSlice.js';
+import { getBidById, getMyBids } from '../store/slices/bidSlice.js';
 
 function PembeliMain() {
   const [deleteBid, setDeleteBid] = useState(false);
   const [editBid, setEditBid] = useState(false);
+  const [bidToEdit, setBidToEdit] = useState({});
+  const [bidIdToDelete, setBidIdToDelete] = useState({});
 
   const dispatch = useDispatch();
 
@@ -23,12 +25,18 @@ function PembeliMain() {
     dispatch(getCategories());
   }, [dispatch]);
 
-  function triggerDeleteModal() {
+  function triggerDeleteModal(bidId) {
+    setBidIdToDelete(bidId);
     setDeleteBid((prev) => !prev);
   }
 
-  function triggerEditModal() {
+  function triggerEditModal(bid) {
+    setBidToEdit(bid);
     setEditBid((prev) => !prev);
+  }
+
+  function getBidDetail(bidId) {
+    dispatch(getBidById(bidId));
   }
 
   //   const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
@@ -60,8 +68,9 @@ function PembeliMain() {
     <>
       <LoggedInNavbar />
 
-      {deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} /> : null}
-      {editBid ? <EditFormBid triggerEditModal={triggerEditModal} /> : null}
+      {deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} bidId={bidIdToDelete} /> : null}
+
+      {editBid ? <EditFormBid triggerEditModal={triggerEditModal} bid={bidToEdit} /> : null}
 
       <div className="bg-white">
         <div>
@@ -131,14 +140,18 @@ function PembeliMain() {
                                     <td className="whitespace-nowrap py-3">
                                       <div className="flex text-left">
                                         <div className="ml-4">
-                                          <Link to="/bids/1" className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500">
-                                            Jam tangan Rolex bekas
+                                          <Link
+                                            to={`/bids/${bid.id}`}
+                                            className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500"
+                                            onClick={() => getBidDetail(bid.id)}
+                                          >
+                                            {bid.Product && bid.Product.name}
                                           </Link>
                                         </div>
                                       </div>
                                     </td>
                                     <td className="whitespace-wrap text-left">
-                                      <div className="text-xs text-gray-500">{bid.offered_price}</div>
+                                      <div className="text-xs text-gray-500">Rp{bid.offered_price.toLocaleString('id-ID')}</div>
                                     </td>
                                     <td className="whitespace-nowrap text-left">
                                       <div className="text-sm text-gray-500">{bid.qty}</div>
@@ -149,10 +162,16 @@ function PembeliMain() {
                                       </span>
                                     </td>
                                     <td className="flex flex-row align-middle pt-3 space-x-4 whitespace-nowrap text-center text-sm">
-                                      <a onClick={() => triggerEditModal()} className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium">
+                                      <a
+                                        onClick={() => triggerEditModal(bid)}
+                                        className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"
+                                      >
                                         Edit
                                       </a>
-                                      <a onClick={() => triggerDeleteModal()} className="text-red-600 hover:text-red-400 font-medium cursor-pointer">
+                                      <a
+                                        onClick={() => triggerDeleteModal(bid.id)}
+                                        className="text-red-600 hover:text-red-400 font-medium cursor-pointer"
+                                      >
                                         Hapus
                                       </a>
                                     </td>

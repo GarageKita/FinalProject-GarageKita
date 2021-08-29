@@ -3,6 +3,16 @@ import axios from 'axios';
 
 const baseURL = 'https://garage-kita.herokuapp.com';
 
+export const getRequests = createAsyncThunk('request/getRequest', async () => {
+  return await axios({
+    method: 'get',
+    url: baseURL + '/requests',
+    headers: {
+      access_token: localStorage.access_token,
+    },
+  });
+});
+
 export const getMyRequests = createAsyncThunk('request/getMyRequest', async () => {
   return await axios({
     method: 'get',
@@ -64,37 +74,72 @@ const requestSlice = createSlice({
   initialState: {
     loading: false,
     error: false,
-    rawMyRequest: [],
+    rawRequests: [],
+    requests: [],
+    rawMyRequests: [],
     myRequests: [],
     requestById: {},
   },
 
   reducers: {
-    filterByCategory(state, { payload }) {
+    filterAllRequests(state, { payload }) {
       if (payload.length > 0) {
         const filtered = [];
         payload.forEach((category) => {
-          state.myRequests = state.rawMyRequest;
-          state.myRequests = state.myRequests.find((request) => {
+          state.requests = state.rawRequests;
+          state.requests = state.requests.filter((request) => {
             return request.Category.name == category;
           });
-          filtered.push(state.myRequests);
+          state.requests.forEach((el) => {
+            filtered.push(el);
+          });
+        });
+        state.requests = filtered;
+      } else {
+        state.requests = state.rawRequests;
+      }
+    },
+
+    filterMyRequests(state, { payload }) {
+      if (payload.length > 0) {
+        const filtered = [];
+        payload.forEach((category) => {
+          state.myRequests = state.rawMyRequests;
+          state.myRequests = state.myRequests.filter((request) => {
+            return request.Category.name == category;
+          });
+          state.myRequests.forEach((el) => {
+            filtered.push(el);
+          });
         });
         state.myRequests = filtered;
       } else {
-        state.myRequests = state.rawMyRequest;
+        state.myRequests = state.rawMyRequests;
       }
     },
   },
 
   extraReducers: {
+    // get all requests
+    [getRequests.pending]: (state) => {
+      state.loading = true;
+    },
+    [getRequests.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.rawRequests = state.requests = payload.data.data;
+    },
+    [getRequests.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
     // get my requests
     [getMyRequests.pending]: (state) => {
       state.loading = true;
     },
     [getMyRequests.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.rawMyRequest = state.myRequests = payload.data.data;
+      state.rawMyRequests = state.myRequests = payload.data.data;
     },
     [getMyRequests.rejected]: (state) => {
       state.loading = false;
@@ -146,7 +191,7 @@ const requestSlice = createSlice({
     },
     [deleteRequest.fulfilled]: (state, { meta: { arg } }) => {
       state.loading = false;
-      state.rawMyRequest = state.myRequests = state.myRequests.filter((el) => el.id !== arg);
+      state.rawMyRequests = state.myRequests = state.myRequests.filter((el) => el.id !== arg);
     },
     [deleteRequest.rejected]: (state) => {
       state.loading = false;
@@ -155,5 +200,5 @@ const requestSlice = createSlice({
   },
 });
 
-export const { filterByCategory } = requestSlice.actions;
+export const { filterAllRequests, filterMyRequests } = requestSlice.actions;
 export default requestSlice.reducer;
