@@ -4,11 +4,12 @@ import Axios from 'axios';
 Vue.use(Vuex);
 
 export const axios = Axios.create({
-  baseURL: 'https://garagekita-db-server.herokuapp.com/',
+  baseURL: 'https://garage-kita.herokuapp.com/',
 });
 
 import users from './modules/users';
 import transactions from './modules/transactions';
+import categories from './modules//categories';
 
 const mainModule = {
   state: () => ({
@@ -43,5 +44,6 @@ export default new Vuex.Store({
   modules: {
     users,
     transactions,
+    categories,
   },
 });

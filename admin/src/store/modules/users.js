@@ -58,7 +58,7 @@ export default {
           context.commit('setIsLogin', true);
           context.commit('setErrorMessage', '');
           localStorage.setItem('access_token', result.data.access_token);
-          router.push('/');
+          this.dispatch('transactions/fetchTransactionData').then(() => router.push('/'));
         })
         .catch((err) => {
           // context.commit('setErrorMessage', err.response.data.message);

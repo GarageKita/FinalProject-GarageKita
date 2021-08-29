@@ -21,14 +21,14 @@ export default {
     fetchTransactionData(context) {
       axios({
         method: 'GET',
-        url: '/transaction',
+        url: '/deals',
         headers: {
           access_token: localStorage.access_token,
         },
       })
         .then((result) => {
-          console.log(result);
-          context.commit('setTransactionData', result.data);
+          console.log(result.data.data);
+          context.commit('setTransactionData', result.data.data);
           context.commit('setErrorMessage', '');
         })
         .catch((err) => {

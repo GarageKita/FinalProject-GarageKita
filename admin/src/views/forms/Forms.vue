@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CRow>
+    <!-- <CRow>
       <CCol sm="6">
         <CCard>
           <CCardHeader>
@@ -95,10 +95,10 @@
           </CCardBody>
         </CCard>
       </CCol>
-    </CRow>
+    </CRow> -->
     <CRow>
       <CCol md="6">
-        <CCard>
+        <!-- <CCard>
           <CCardHeader>
             <strong>Basic Form</strong> Elements
           </CCardHeader>
@@ -287,40 +287,32 @@
             <CButton type="submit" size="sm" color="primary"><CIcon name="cil-check-circle"/> Submit</CButton>
             <CButton type="reset" size="sm" color="danger"><CIcon name="cil-ban"/> Reset</CButton>
           </CCardFooter>
-        </CCard>
+        </CCard> -->
         <CCard>
           <CCardHeader>
-            <strong>Inline</strong> Form
+            <strong>Add New Category</strong>
           </CCardHeader>
 
           <CCardBody>
             <!-- Bootstrap Vue has some problems with Inline forms that's why we use some standard bootstrap classes -->
-            <CForm inline>
+            <CForm inline @submit.prevent="addCategory">
               <CInput
                 class="mr-2"
-                placeholder="Jane Doe"
+                placeholder="ex: Elektronik"
+                v-model="name"
               >
                 <template #label>
-                  <small>Name:&nbsp;</small>
-                </template>
-              </CInput>
-              <CInput
-                placeholder="jane.doe@example.com"
-                autocomplete="email"
-              >
-                <template #label>
-                  <small>Email:&nbsp;</small>
+                  Category Name:&nbsp;
                 </template>
               </CInput>
             </CForm>
           </CCardBody>
           <CCardFooter>
-            <CButton type="submit" size="sm" color="primary"><CIcon name="cil-check-circle"/> Submit</CButton>
-            <CButton type="reset" size="sm" color="danger"><CIcon name="cil-ban"/> Reset</CButton>
+            <CButton color="primary" @click="addCategory">Add Category</CButton>
           </CCardFooter>
         </CCard>
       </CCol>
-      <CCol md="6">
+      <!-- <CCol md="6">
         <CCard>
           <CCardHeader>
             <strong>Horizontal</strong> Form
@@ -470,9 +462,9 @@
             <CButton type="reset" size="sm" color="danger"><CIcon name="cil-ban"/> Reset</CButton>
           </CCardFooter>
         </CCard>
-      </CCol>
+      </CCol> -->
     </CRow>
-    <CRow>
+    <!-- <CRow>
 
       <CCol sm="12" md="6">
         <CCard>
@@ -888,7 +880,7 @@
           </CCard>
         </transition>
       </CCol>
-    </CRow>
+    </CRow> -->
   </div>
 </template>
 
@@ -914,12 +906,22 @@ export default {
       checkboxNames: ['Checkboxes', 'Inline Checkboxes',
                       'Checkboxes - custom', 'Inline Checkboxes - custom'],
       radioNames: ['Radios', 'Inline Radios',
-                    'Radios - custom', 'Inline Radios - custom']
+                    'Radios - custom', 'Inline Radios - custom'],
+      name: ''
     }
   },
   methods: {
     validator (val) {
       return val ? val.length >= 4 : false
+    },
+
+    addCategory () {
+      console.log(this.name);
+      this.$store.dispatch('categories/addCategory', {
+        name: this.name
+      }).then(() => {
+        this.name = ''
+      })
     }
   }
 }

@@ -11,16 +11,16 @@
           GarageKita
         </CHeaderNavLink>
       </CHeaderNavItem>
-      <!-- <CHeaderNavItem class="px-3">
+      <CHeaderNavItem class="px-3">
         <CHeaderNavLink to="/users" exact>
           Users
         </CHeaderNavLink>
-      </CHeaderNavItem> -->
-      <!-- <CHeaderNavItem class="px-3">
-        <CHeaderNavLink>
-          Settings
+      </CHeaderNavItem>
+      <CHeaderNavItem class="px-3">
+        <CHeaderNavLink to="/forms/basic-forms">
+          Category
         </CHeaderNavLink>
-      </CHeaderNavItem> -->
+      </CHeaderNavItem>
     </CHeaderNav>
     <CHeaderNav>
       <CHeaderNavItem class="px-3 c-d-legacy-none">
@@ -33,10 +33,10 @@
       <CHeaderNavItem class="px-3 c-d-legacy-none">
         <CButton size="sm" block color="danger" shape="pill" @click="logout">Logout</CButton>
       </CHeaderNavItem>
-      <!-- <TheHeaderDropdownTasks/> -->
-      <!-- <TheHeaderDropdownMssgs/> -->
-      <!-- <TheHeaderDropdownAccnt/> -->
-      <!-- <CHeaderNavItem class="px-3">
+       <TheHeaderDropdownTasks/> 
+       <TheHeaderDropdownMssgs/> 
+       <TheHeaderDropdownAccnt/> 
+       <!-- <CHeaderNavItem class="px-3">
         <button class="c-header-nav-btn" @click="$store.commit('toggle', 'asideShow')">
           <CIcon size="lg" name="cil-applications-settings" class="mr-2" />
         </button>
