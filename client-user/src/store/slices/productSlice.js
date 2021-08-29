@@ -99,6 +99,24 @@ const productSlice = createSlice({
         state.products = state.rawProducts;
       }
     },
+
+    filterMyProducts(state, { payload }) {
+      if (payload.length > 0) {
+        const filtered = [];
+        payload.forEach((category) => {
+          state.myProducts = state.rawMyProducts;
+          state.myProducts = state.myProducts.filter((product) => {
+            return product.Category.name == category;
+          });
+          state.myProducts.forEach((el) => {
+            filtered.push(el);
+          });
+        });
+        state.myProducts = filtered;
+      } else {
+        state.myProducts = state.rawMyProducts;
+      }
+    },
   },
 
   extraReducers: {
@@ -182,5 +200,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { filterProducts } = productSlice.actions;
+export const { filterProducts, filterMyProducts } = productSlice.actions;
 export default productSlice.reducer;

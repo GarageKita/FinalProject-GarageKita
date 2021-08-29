@@ -141,7 +141,7 @@ function PembeliMain() {
                                           <p className="text-sm font-bold text-teal-600">
                                             Harga Bid:{' '}
                                             <span className="text-sm font-normal text-gray-500">
-                                              Rp. {bid.offered_price && bid.offered_price.toLocaleString('id-ID')}
+                                              Rp{bid.offered_price && bid.offered_price.toLocaleString('id-ID')}
                                             </span>
                                           </p>
                                         </div>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { filterProducts } from '../store/slices/productSlice';
-import { filterRequest } from '../store/slices/requestSlice';
+// import { filterMyBids } from '../store/slices/bidSlice';
+import { filterProducts, filterMyProducts } from '../store/slices/productSlice';
+import { filterMyRequests, filterAllRequests } from '../store/slices/requestSlice';
 
 export default function KategoriFilter(props) {
   const { categories } = props;
@@ -22,9 +23,15 @@ export default function KategoriFilter(props) {
 
   useEffect(() => {
     if (location.pathname == '/myrequests') {
-      dispatch(filterRequest(filterBy));
+      dispatch(filterMyRequests(filterBy));
+    } else if (location.pathname == '/requests') {
+      dispatch(filterAllRequests(filterBy));
     } else if (location.pathname == '/products') {
       dispatch(filterProducts(filterBy));
+    } else if (location.pathname == '/products/myproducts') {
+      dispatch(filterMyProducts(filterBy));
+      // } else if (location.pathname == '/bids/mybids') {
+      //   dispatch(filterMyBids(filterBy));
     }
   }, [dispatch, filterBy, location.pathname]);
 

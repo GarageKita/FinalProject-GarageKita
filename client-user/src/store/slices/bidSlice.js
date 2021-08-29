@@ -75,12 +75,31 @@ const bidSlice = createSlice({
   initialState: {
     loading: false,
     error: false,
+    rawMyBids: [],
     myBids: [],
     bidById: {},
     bidsByProductId: [],
   },
 
-  reducers: {},
+  reducers: {
+    // filterMyBids(state, { payload }) {
+    //   if (payload.length > 0) {
+    //     const filtered = [];
+    //     payload.forEach((category) => {
+    //       state.myBids = state.rawMyBids;
+    //       state.myBids = state.myBids.filter((product) => {
+    //         return product.Category.name == category;
+    //       });
+    //       state.myBids.forEach((el) => {
+    //         filtered.push(el);
+    //       });
+    //     });
+    //     state.myBids = filtered;
+    //   } else {
+    //     state.myBids = state.rawMyBids;
+    //   }
+    // },
+  },
 
   extraReducers: {
     // get my bids
@@ -89,7 +108,7 @@ const bidSlice = createSlice({
     },
     [getMyBids.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.myBids = payload.data.data;
+      state.rawMyBids = state.myBids = payload.data.data;
     },
     [getMyBids.rejected]: (state) => {
       state.loading = false;
@@ -164,4 +183,5 @@ const bidSlice = createSlice({
   },
 });
 
+// export const { filterMyBids } = bidSlice.actions;
 export default bidSlice.reducer;

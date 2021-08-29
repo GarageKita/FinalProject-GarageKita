@@ -71,7 +71,7 @@ function ProductBid(props) {
                     <h2 className="text-2xl font-bold text-teal-600 sm:pr-12">{product.name}</h2>
 
                     <section aria-labelledby="information-heading" className="mt-1">
-                      <p className="text-2xl text-gray-700">Rp. {product.price && product.price.toLocaleString('id-ID')}</p>
+                      <p className="text-2xl text-gray-700">Rp{product.price && product.price.toLocaleString('id-ID')}</p>
                       <p className="mt-1 text-xs text-gray-500 font-normal">
                         oleh{' '}
                         <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">

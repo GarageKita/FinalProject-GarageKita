@@ -3,6 +3,16 @@ import axios from 'axios';
 
 const baseURL = 'https://garage-kita.herokuapp.com';
 
+export const getRequests = createAsyncThunk('request/getRequest', async () => {
+  return await axios({
+    method: 'get',
+    url: baseURL + '/requests',
+    headers: {
+      access_token: localStorage.access_token,
+    },
+  });
+});
+
 export const getMyRequests = createAsyncThunk('request/getMyRequest', async () => {
   return await axios({
     method: 'get',
@@ -64,21 +74,43 @@ const requestSlice = createSlice({
   initialState: {
     loading: false,
     error: false,
+    rawRequests: [],
+    requests: [],
     rawMyRequests: [],
     myRequests: [],
     requestById: {},
   },
 
   reducers: {
-    filterRequest(state, { payload }) {
+    filterAllRequests(state, { payload }) {
+      if (payload.length > 0) {
+        const filtered = [];
+        payload.forEach((category) => {
+          state.requests = state.rawRequests;
+          state.requests = state.requests.filter((request) => {
+            return request.Category.name == category;
+          });
+          state.requests.forEach((el) => {
+            filtered.push(el);
+          });
+        });
+        state.requests = filtered;
+      } else {
+        state.requests = state.rawRequests;
+      }
+    },
+
+    filterMyRequests(state, { payload }) {
       if (payload.length > 0) {
         const filtered = [];
         payload.forEach((category) => {
           state.myRequests = state.rawMyRequests;
-          state.myRequests = state.myRequests.find((request) => {
+          state.myRequests = state.myRequests.filter((request) => {
             return request.Category.name == category;
           });
-          filtered.push(state.myRequests);
+          state.myRequests.forEach((el) => {
+            filtered.push(el);
+          });
         });
         state.myRequests = filtered;
       } else {
@@ -88,6 +120,19 @@ const requestSlice = createSlice({
   },
 
   extraReducers: {
+    // get all requests
+    [getRequests.pending]: (state) => {
+      state.loading = true;
+    },
+    [getRequests.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.rawRequests = state.requests = payload.data.data;
+    },
+    [getRequests.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
     // get my requests
     [getMyRequests.pending]: (state) => {
       state.loading = true;
@@ -155,5 +200,5 @@ const requestSlice = createSlice({
   },
 });
 
-export const { filterRequest } = requestSlice.actions;
+export const { filterAllRequests, filterMyRequests } = requestSlice.actions;
 export default requestSlice.reducer;
