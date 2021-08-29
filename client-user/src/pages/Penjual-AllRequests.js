@@ -203,7 +203,6 @@ function PenjualAllRequests() {
                             <tbody className="bg-white divide-y divide-gray-200">
                               {!loading &&
                                 requests.map((request, index) => {
-                                  console.log(requests);
                                   return (
                                     <tr key={request.id}>
                                       <td className="px-2 py-4 leading-3">
@@ -232,7 +231,7 @@ function PenjualAllRequests() {
                                       </td>
                                       <td className=" whitespace-nowrap text-center text-sm">
                                         <a
-                                          onClick={() => openRequestToOffer(request)}
+                                          onClick={() => openRequestToOffer(request.id)}
                                           className="text-white rounded-md bg-rust-600 px-4 py-2 cursor-pointer hover:bg-rust-500 transition duration-150 ease-in-out my-1 font-medium"
                                         >
                                           Berikan Offer
