@@ -12,7 +12,7 @@ export const postProduct = createAsyncThunk('product/post', async (payload, thun
       access_token: localStorage.access_token,
     },
   });
-  thunkAPI.dispatch(getMyProducts());
+  thunkAPI.dispatch(getMyProducts()).then(() => thunkAPI.dispatch(getProducts()));
   return response;
 });
 
@@ -55,7 +55,7 @@ export const editProduct = createAsyncThunk('product/put', async ({ id, payload 
       access_token: localStorage.access_token,
     },
   });
-  thunkAPI.dispatch(getProducts());
+  thunkAPI.dispatch(getMyProducts()).then(() => thunkAPI.dispatch(getProducts()));
   return response;
 });
 

@@ -9,6 +9,7 @@ import KategoriFilter from '../components/KategoriFilter.js';
 
 import { getMyProducts } from '../store/slices/productSlice.js';
 import { getCategories } from '../store/slices/categorySlice.js';
+import { allProvinces } from '../store/slices/ongkirSlice.js';
 
 function PembeliMain() {
   const [currentPage, setCurrentPage] = useState('myProducts');
@@ -20,10 +21,12 @@ function PembeliMain() {
 
   const { myProducts } = useSelector((state) => state.product);
   const { categories } = useSelector((state) => state.category);
+  const { provinces } = useSelector((state) => state.ongkir);
 
   useEffect(() => {
     dispatch(getMyProducts());
     dispatch(getCategories());
+    dispatch(allProvinces());
   }, [dispatch]);
 
   // const mockProducts = [
@@ -84,6 +87,7 @@ function PembeliMain() {
         <FormProduct
           openFormProduct={openFormProduct}
           categories={categories}
+          provinces={provinces}
           formType={formType}
           closeModal={closeModal}
           product={productToEdit}

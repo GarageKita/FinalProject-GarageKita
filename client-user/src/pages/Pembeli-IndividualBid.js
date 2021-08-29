@@ -21,7 +21,7 @@ function PembeliMain() {
 
   const dispatch = useDispatch();
 
-  const { bidByProductId: bid, loading } = useSelector((state) => state.bid);
+  const { bidById: bid, loading } = useSelector((state) => state.bid);
 
   useEffect(() => {
     if (!loading) {

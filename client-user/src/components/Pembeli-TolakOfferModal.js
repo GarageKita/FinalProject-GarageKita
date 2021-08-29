@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteOffer, editOffer } from '../store/slices/offerSlice';
+import { editOffer } from '../store/slices/offerSlice';
 
 function PembeliTolakOfferModal(props) {
   const { openTolakOfferModal, offer, closeTolakOfferModal } = props;

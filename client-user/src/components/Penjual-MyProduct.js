@@ -3,21 +3,31 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProductById } from '../store/slices/productSlice';
 
+import DeleteProductModal from '../components/Penjual-DeleteProductModal.js';
+import { getBidsByProductId } from '../store/slices/bidSlice';
+
 function PenjualMyProduct(props) {
   const { openFormProduct, productList } = props;
 
-  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteProductModal, setDeleteProductModal] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState('');
 
   const dispatch = useDispatch();
 
+  function openDeleteProduct(id) {
+    setProductIdToDelete(id);
+    setDeleteProductModal((prev) => !prev);
+  }
+
   const getProductDetail = (productId) => {
     dispatch(getProductById(productId));
-    // dispatch(getOffersByRequestId(requestId));
+    dispatch(getBidsByProductId(productId));
   };
 
   return (
     <React.Fragment>
+      {deleteProductModal === true ? <DeleteProductModal openDeleteProduct={openDeleteProduct} id={productIdToDelete} /> : null}
+
       <div className="flex flex-col">
         <div className="sm:-mx-6 lg:-mx-8">
           <div className=" align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -58,6 +68,7 @@ function PenjualMyProduct(props) {
                               <Link
                                 to={`/products/${product.id}`}
                                 className="cursor-pointer whitespace-normal leading-2 text-sm font-bold text-rust-600 hover:text-rust-500"
+                                onClick={() => getProductDetail(product.id)}
                               >
                                 {product.name}
                               </Link>
@@ -77,16 +88,20 @@ function PenjualMyProduct(props) {
                           </span>
                         </td>
                         <td className="flex flex-col px-6 py-4 whitespace-nowrap text-center text-sm">
-                          <a href="#" className="text-rust-600 hover:text-rust-400 my-2 font-bold">
+                          <Link
+                            to={`/products/${product.id}`}
+                            className="text-rust-600 hover:text-rust-400 my-2 font-bold"
+                            onClick={() => getProductDetail(product.id)}
+                          >
                             Lihat Bids
-                          </a>
+                          </Link>
                           <a
                             onClick={() => openFormProduct('put', product)}
                             className="text-gray-500 cursor-pointer hover:text-gray-400 my-1 font-medium"
                           >
                             Edit
                           </a>
-                          <a href="#" className="text-red-600 hover:text-red-400 my-1 font-medium">
+                          <a href="#" className="text-red-600 hover:text-red-400 my-1 font-medium" onClick={(e) => openDeleteProduct(product.id)}>
                             Hapus
                           </a>
                         </td>

@@ -30,14 +30,14 @@ export const getMyBids = createAsyncThunk('bid/getMyBids', async () => {
 export const getBidById = createAsyncThunk('bid/getById', async (bidId) => {
   return await axios({
     method: 'get',
-    url: 'https://garagekita-db-server.herokuapp.com/bids/checkbid/' + bidId,
+    url: baseURL + '/bids/checkbid/' + bidId,
     headers: {
       access_token: localStorage.access_token,
     },
   });
 });
 
-export const getBidByProductId = createAsyncThunk('bid/getByProductId', async (productId) => {
+export const getBidsByProductId = createAsyncThunk('bid/getByProductId', async (productId) => {
   return await axios({
     method: 'get',
     url: baseURL + '/bids/' + productId,
@@ -76,7 +76,8 @@ const bidSlice = createSlice({
     loading: false,
     error: false,
     myBids: [],
-    bidByProductId: {},
+    bidById: {},
+    bidsByProductId: [],
   },
 
   reducers: {},
@@ -97,12 +98,12 @@ const bidSlice = createSlice({
 
     // get bid by id
     [getBidById.pending]: (state) => {
-      state.bidByProductId = {};
+      state.bidById = {};
       state.loading = true;
     },
     [getBidById.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.bidByProductId = payload.data.data;
+      state.bidById = payload.data.data;
     },
     [getBidById.rejected]: (state) => {
       state.loading = false;
@@ -110,13 +111,14 @@ const bidSlice = createSlice({
     },
 
     // get bid by product id
-    [getBidByProductId.pending]: (state) => {
+    [getBidsByProductId.pending]: (state) => {
       state.loading = true;
     },
-    [getBidByProductId.fulfilled]: (state, { payload }) => {
+    [getBidsByProductId.fulfilled]: (state, { payload }) => {
+      state.bidsByProductId = payload.data.data.filter((bid) => bid.status != 'rejected');
       state.loading = false;
     },
-    [getBidByProductId.rejected]: (state) => {
+    [getBidsByProductId.rejected]: (state) => {
       state.loading = false;
       state.error = true;
     },
@@ -137,8 +139,9 @@ const bidSlice = createSlice({
     [editBid.pending]: (state) => {
       state.loading = true;
     },
-    [editBid.fulfilled]: (state, response) => {
+    [editBid.fulfilled]: (state, { meta, payload }) => {
       state.loading = false;
+      state.bidsByProductId = state.bidsByProductId.filter((el) => el.id != meta.arg.id);
     },
     [editBid.rejected]: (state) => {
       state.loading = false;
