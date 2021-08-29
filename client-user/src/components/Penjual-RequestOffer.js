@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { postOffer } from '../store/slices/offerSlice';
-import { postRequest } from '../store/slices/requestSlice';
 
 function RequestOffer(props) {
-  const { openRequestToOffer, id, closeRequestModal } = props;
+  const { request, closeRequestModal } = props;
 
   const [offered_price, setOfferedPrice] = useState('');
   // ! butuh pilih product atau post product buat dapetin product_id
   const { product_id, setProductId } = useState('');
 
   const dispatch = useDispatch();
-  const { requestById: request, loading } = useSelector((state) => state.request);
 
   const submitOffer = (e) => {
     e.preventDefault();
-    dispatch(postOffer({ requestId: id, payload: { product_id, offered_price } }));
+    dispatch(postOffer({ requestId: request.id, payload: { product_id, offered_price } }));
     closeRequestModal();
   };
 
@@ -77,7 +75,10 @@ function RequestOffer(props) {
                         <span className="text-2xl font-light">Budget: </span> Rp{request.budget && request.budget.toLocaleString('id-ID')}
                       </p>
                       <p className="mt-1 text-xs text-gray-500 font-normal">
-                        request dari <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Pembeli #9977</span>
+                        request dari{' '}
+                        <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">
+                          Pembeli #{request.consumer_id}
+                        </span>
                       </p>
 
                       <div className="mt-6">

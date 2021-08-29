@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { postBid } from '../store/slices/bidSlice';
 
 function ProductBid(props) {
-  const { openProductToBid, id, closeProductModal } = props;
+  const { openProductToBid, product, closeProductModal } = props;
 
   const [offered_price, setOfferedPrice] = useState('');
 
   const dispatch = useDispatch();
-  const { productById: product, loading } = useSelector((state) => state.product);
 
   const submitBid = (e) => {
     e.preventDefault();
-    dispatch(postBid({ productId: id, payload: { qty: 1, offered_price } }));
+    dispatch(postBid({ productId: product.id, payload: { qty: 1, offered_price } }));
     closeProductModal();
   };
 

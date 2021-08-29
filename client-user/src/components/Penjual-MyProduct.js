@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getProductById } from '../store/slices/productSlice';
+// import { getProductById } from '../store/slices/productSlice';
 
 import DeleteProductModal from '../components/Penjual-DeleteProductModal.js';
 import { getBidsByProductId } from '../store/slices/bidSlice';
@@ -20,7 +20,7 @@ function PenjualMyProduct(props) {
   }
 
   const getProductDetail = (productId) => {
-    dispatch(getProductById(productId));
+    // dispatch(getProductById(productId));
     dispatch(getBidsByProductId(productId));
   };
 
@@ -66,7 +66,12 @@ function PenjualMyProduct(props) {
                           <div className="flex text-left">
                             <div className="ml-1">
                               <Link
-                                to={`/products/${product.id}`}
+                                to={{
+                                  pathname: `/products/${product.id}`,
+                                  state: {
+                                    product: product,
+                                  },
+                                }}
                                 className="cursor-pointer whitespace-normal leading-2 text-sm font-bold text-rust-600 hover:text-rust-500"
                                 onClick={() => getProductDetail(product.id)}
                               >
@@ -89,7 +94,12 @@ function PenjualMyProduct(props) {
                         </td>
                         <td className="flex flex-col px-6 py-4 whitespace-nowrap text-center text-sm">
                           <Link
-                            to={`/products/${product.id}`}
+                            to={{
+                              pathname: `/products/${product.id}`,
+                              state: {
+                                product: product,
+                              },
+                            }}
                             className="text-rust-600 hover:text-rust-400 my-2 font-bold"
                             onClick={() => getProductDetail(product.id)}
                           >

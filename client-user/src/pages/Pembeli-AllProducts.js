@@ -11,14 +11,14 @@ import ProductBidModal from '../components/Pembeli-ProductBid.js';
 // import watch from '../imgs/products/watch.jpeg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../store/slices/categorySlice.js';
-import { getProductById, getProducts } from '../store/slices/productSlice.js';
+import { getProducts } from '../store/slices/productSlice.js';
 
 function PembeliAllProducts() {
   const [currentPage, setCurrentPage] = useState('allProducts');
   const [modalStatus, setModalStatus] = useState(false);
   const [productModalStatus, setProductModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
-  const [productId, setProductId] = useState('');
+  const [product, setProduct] = useState('');
 
   const dispatch = useDispatch();
 
@@ -60,10 +60,9 @@ function PembeliAllProducts() {
     setProductModalStatus((prev) => !prev);
   }
 
-  function openProductToBid(productId) {
-    setProductId(productId);
+  function openProductToBid(product) {
+    setProduct(product);
     setProductModalStatus((prev) => !prev);
-    dispatch(getProductById(productId));
   }
 
   return (
@@ -75,7 +74,7 @@ function PembeliAllProducts() {
       ) : null}
 
       {productModalStatus === true ? (
-        <ProductBidModal openProductToBid={openProductToBid} id={productId} closeProductModal={closeProductModal} />
+        <ProductBidModal openProductToBid={openProductToBid} product={product} closeProductModal={closeProductModal} />
       ) : null}
 
       <div className="bg-white">
@@ -145,7 +144,7 @@ function PembeliAllProducts() {
 
                           <div className="text-left">
                             <a
-                              onClick={() => openProductToBid(product.id)}
+                              onClick={() => openProductToBid(product)}
                               className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500"
                             >
                               {product.name}
