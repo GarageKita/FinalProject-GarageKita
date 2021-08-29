@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getDeals } from '../store/slices/dealSlice';
 
 import LoggedInNavbar from '../components/Pembeli-NavBar.js';
@@ -15,11 +15,10 @@ import PenjualMyDeals from '../components/Penjual-MyDeals.js';
 
 function MyDeals() {
   const dispatch = useDispatch();
-  const initDeal = useSelector((state) => state.deal);
   // const [ deleteBid, setDeleteBid ] = useState(false)
   // const [ editBid, setEditBid ] = useState(false)
   const [currentMode, setCurrentMode] = useState('pembeli');
-  const [mockDeals, setMockDeals] = useState(initDeal.dealsData);
+  const [mockDeals, setMockDeals] = useState([]);
   useEffect(() => {
     dispatch(getDeals()).then(({ payload }) => {
       const { data: initData } = payload.data;
