@@ -165,7 +165,7 @@ function PenjualAllRequests() {
                             </form>
 
                             {/* <!-- Product grid --> */}
-                            <div className="lg:col-span-3 h-full min-w-full pl-4 overflow-y-auto overflow-x-auto">
+                            <div className="lg:col-span-3 h-full min-w-full pl-4 overflow-y-auto overflow-x-auto min-h-screen">
                                 {/* <!-- Replace with your content --> */}
                                 
 

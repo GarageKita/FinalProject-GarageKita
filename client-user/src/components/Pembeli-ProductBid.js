@@ -60,7 +60,7 @@ function ProductBid(props) {
                                     <p className="text-2xl text-gray-700">
                                         Rp{mockProduct.price}
                                     </p>
-                                    <p className="mt-1 text-xs text-gray-500 font-normal">oleh <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                    <p className="mt-1 text-xs text-gray-500 font-normal">oleh <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
 
                                     <div className="mt-6">
                                         <p className="text-sm font-bold text-teal-600">Product Description</p>

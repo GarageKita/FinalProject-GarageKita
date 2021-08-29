@@ -127,7 +127,7 @@ function PembeliAllProducts() {
                             </form>
 
                             {/* <!-- Product grid --> */}
-                            <div className="lg:col-span-3 h-full min-w-full pl-4 overflow-y-auto overflow-x-auto">
+                            <div className="lg:col-span-3 h-full min-w-full pl-4 overflow-y-auto overflow-x-auto min-h-screen">
                                 {/* <!-- Replace with your content --> */}
                                 
                                 <p className="mb-6 text-left font-semibold text-gray-900 text-2xl">Products List</p>
@@ -141,7 +141,7 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
@@ -160,7 +160,7 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
@@ -179,7 +179,7 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
@@ -198,7 +198,7 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
@@ -217,7 +217,7 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
@@ -236,7 +236,7 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
@@ -255,7 +255,7 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
@@ -274,7 +274,7 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">
@@ -293,7 +293,7 @@ function PembeliAllProducts() {
                                         <div className="text-left">
                                             <a onClick={() => openProductToBid()} className="text-md font-semibold leading-5 text-teal-600 mt-5 cursor-pointer hover:text-teal-500">Sepatu Nike Ijo ukuran 42</a>
                                             <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp880.000</p>
-                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                            <p className="mt-3 text-xs text-gray-500 font-normal">oleh: <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #1233</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">lokasi: <span className="font-bold text-gray-700 ">Bandung</span></p>
                                             <p className="mt-1 text-xs text-gray-500 font-normal">stok: <span className="font-bold text-gray-700 ">2</span></p>
                                             <div className="py-4 whitespace-nowrap text-sm text-gray-500">

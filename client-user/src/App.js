@@ -58,7 +58,7 @@ function App() {
             </Switch>
 
       {/* FOOTER */}
-      <footer className="relative max-h-screen border-2 border-gray-200 border-solid">
+      <footer className="fixed bottom-0 w-screen max-w-full min-w-max border-2 border-gray-200 border-solid">
         <div className="flex flex-row min-w-full h-48 bg-white ">
           <div className="min-h-full w-1/2 min-w-min pl-16 py-10">
             <p className="my-3 text-teal-600 font-bold">PT GarageKita Sukses Selalu</p>

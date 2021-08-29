@@ -45,21 +45,21 @@ export default function PembeliMyDeals(props) {
   return (
     <div>
       <div className="flex flex-row justify-between">
-        <p className="mb-1 text-left font-bold text-gray-900 text-xl">
-          Keranjang: <span className="font-normal">Product yang akan kamu beli dari Penjual</span>
+        <p className="mb-1 text-left font-bold text-teal-600 text-xl">
+          Keranjang: <span className="font-normal">Product yang dibeli dari Penjual</span>
         </p>
         <button
           onClick={() => changeMode('penjual')}
           className="flex flex-row cursor-pointer max-h-max h-4 text-teal-600 hover:text-teal-400 transition duration-150 ease-in-out"
         >
-          <p className="mb-1 text-left font-bold text-sm">Product yang akan kamu lepas</p>
+          <p className="mb-1 text-left font-bold text-sm">Product yang kamu lepas</p>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLineCap="round" strokeLineJoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
           </svg>
         </button>
       </div>
       <p className="mb-6 text-left font-normal text-gray-500 text-sm">
-        Kamu akan disambungkan ke 3rd party payment gateway untuk melanjutkan pembayaran.
+        Pembayaran diproses oleh 3rd party payment gateway.
       </p>
       <div className="mt-8">
         <div className="flow-root">
@@ -75,14 +75,14 @@ export default function PembeliMyDeals(props) {
                     <div>
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <h3>
-                          <Link to={`/deals/${deal.id}`}>{deal.product_name}</Link>
+                          <Link to={`/deals/${deal.id}`} className="font-bold">{deal.product_name}</Link>
                           <p className="mt-1 text-left text-xs text-gray-500 font-normal">
                             milik{' '}
-                            <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">{deal.seller_email}</span>
+                            <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">{deal.seller_email}</span>
                           </p>
                         </h3>
-                        <p className="ml-4">
-                          <span className="text-sm font-light text-gray-500">Jumlah yang kamu bayarkan:</span>Rp{deal.deal_price.toLocaleString()}
+                        <p className="ml-4 font-medium">
+                          Jumlah yang kamu bayarkan: Rp{deal.deal_price.toLocaleString()}
                         </p>
                       </div>
                     </div>
@@ -101,20 +101,29 @@ export default function PembeliMyDeals(props) {
                       </div>
                       <div className="flex flex-row">
                         {deal.payment_status === 'paid' ? (
-                          <button className="bg-blue-500 text-white font-bold py-2 px-4 mr-4 rounded opacity-50 cursor-not-allowed">
-                            Sudah Dibayar
-                          </button>
+                          <div className="flex flex-row items-center">
+                            <p className="text-right mr-3 text-gray-500 font-normal cursor-not-allowed">
+                              Lunas, dalam proses pengiriman
+                              {/* <br/> */}
+                              {/* <span className="text-gray-500 font-normal text-xs">Setelah sampai, akan muncul di "Tiba di Tujuan"</span> */}
+                            </p>
+                            <button className="text-teal-700 bg-teal-200 rounded-md px-5 py-3 cursor-pointer hover:bg-teal-300 font-normal transition duration-150 ease-in-out">
+                              Sudah sampai
+                            </button>
+                          </div>
                         ) : (
-                          <button
-                            onClick={(e) => handlePayment(e, deal.id, deal.deal_price)}
-                            className="text-white bg-teal-600 rounded-md mr-4 px-5 py-3 cursor-pointer hover:bg-teal-700 font-medium transition duration-150 ease-in-out"
-                          >
-                            Bayar Sekarang
-                          </button>
+                          <div>
+                            <button
+                              onClick={(e) => handlePayment(e, deal.id, deal.deal_price)}
+                              className="text-white bg-teal-600 rounded-md mr-4 px-5 py-3 cursor-pointer hover:bg-teal-700 font-medium transition duration-150 ease-in-out"
+                            >
+                              Bayar Sekarang
+                            </button>
+                            <button className="text-gray-700 bg-gray-200 rounded-md px-5 py-3 cursor-pointer hover:bg-gray-300 font-normal transition duration-150 ease-in-out">
+                              Batalkan
+                            </button>
+                          </div>
                         )}
-                        <button className="text-gray-700 bg-gray-200 rounded-md px-5 py-3 cursor-pointer hover:bg-gray-300 font-normal transition duration-150 ease-in-out">
-                          Batalkan
-                        </button>
                       </div>
                     </div>
                   </div>

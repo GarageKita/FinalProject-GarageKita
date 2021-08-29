@@ -4,13 +4,18 @@ import { Link } from 'react-router-dom'
 import PenjualLoggedInNavbar from '../components/Penjual-NavBar.js'
 import KategoriFilter from '../components/KategoriFilter.js'
 import DeleteOfferModal from '../components/Penjual-OfferDeleteModal.js'
-
 import EditFormOffer from '../pages/Penjual-FormOffer.js'
+import PenjualMyProduct from '../components/Penjual-MyProduct.js';
+import FormProduct from '../pages/Penjual-FormProduct.js';
 
 function PembeliMain() {
 
     const [ deleteOffer, setDeleteOffer ] = useState(false)
     const [ editOffer, setEditOffer ] = useState(false)
+
+    const [ currentPage, setCurrentPage ] = useState('');
+    const [ modalStatus, setModalStatus ] = useState(false);
+    const [ formType, setFormType ] = useState('');
 
     function triggerDeleteModal() {
         setDeleteOffer(prev => !prev)
@@ -23,6 +28,15 @@ function PembeliMain() {
     function dateFormatter (input_date) {
         let cleanTime = (new Date(input_date)).toGMTString()
         return cleanTime
+    }
+
+    function openFormProduct(formToLoad) {
+        setFormType(formToLoad);
+        setModalStatus(prev => !prev);
+    }
+    
+    function changePage(pageName) {
+        setCurrentPage(pageName);
     }
 
     const categories = [
@@ -59,6 +73,40 @@ function PembeliMain() {
         }
     ]
 
+    const mockProducts = [
+        {
+            "id": 1,
+            "name": "iPhone 11 RED – berfungsi baik, dipakai 1 tahun",
+            "price": 6500000,
+            "priceFloor": 6000000,
+            "description": "Retak di ujung kanan layar dan tombol home nggak bekerja, pakai assistive touch.",
+            "image_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=940&hei=1112&fmt=png-alpha&.v=1566956144763",
+            "stock": 1,
+            "category_id": 1,
+            "province_id": "a",
+            "city_id": "b",
+            "weight": 200,
+            "seller_id": 1,
+            "updatedAt": "2021-08-26T14:17:05.649Z",
+            "createdAt": "2021-08-26T14:17:05.649Z"
+        },
+        {
+            "id": 2,
+            "name": "Matador Duffel Bag Coklat",
+            "price": 580000,
+            "priceFloor": 550000,
+            "description": "Masih bagus banget, baru dipake 3 kali, ada sedikit jahitan lepas di samping tapi ga terlalu keliatan.",
+            "image_url": "https://dynamic.zacdn.com/0uuYkSuM95fcQwHk6rjII2CJzS8=/fit-in/346x500/filters:quality(90):fill(ffffff)/http://static.id.zalora.net/p/matador-7781-9607152-1.jpg",
+            "stock": 1,
+            "category_id": 1,
+            "province_id": "a",
+            "city_id": "b",
+            "weight": 50,
+            "seller_id": 2,
+            "updatedAt": "2021-08-26T14:17:05.649Z",
+            "createdAt": "2021-08-26T14:17:05.649Z"
+        },
+    ]
 
     return (
         <>
@@ -67,6 +115,9 @@ function PembeliMain() {
 
             { deleteOffer ? <DeleteOfferModal triggerDeleteModal={triggerDeleteModal} /> : null }
             { editOffer ? <EditFormOffer triggerEditModal={triggerEditModal} /> : null }
+            { modalStatus === true ?
+            <FormProduct openFormProduct={openFormProduct} categories={categories} formType={formType}></FormProduct>
+            : null }
 
             <div className="bg-white">
                 <div>
@@ -92,15 +143,40 @@ function PembeliMain() {
                             <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
                             {/* <!-- Filters --> */}
                             <form className="hidden lg:block">
+                            
+                            <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
+                                <a className="mt-2 mb-4">
+                                    <a onClick={() => openFormProduct('post')} className="text-rust-700 cursor-pointer w-40 bg-rust-200 hover:bg-rust-300 transition duration-150 ease-in-out px-4 py-2 rounded-md shadow-sm">
+                                    Buat Product baru
+                                    </a>
+                                </a>
 
-                                <KategoriFilter categories={categories} />
+                                <li className="my-2">
+                                    <Link to="/products/myproducts" href="#" className="text-rust-600 hover:text-rust-700">
+                                    Daftar Product saya
+                                    </Link>
+                                </li>
+
+                                <li className="my-2">
+                                    <Link to="/requests" className="text-rust-600 hover:text-rust-700">
+                                        Lihat Request tersedia
+                                    </Link>
+                                </li>
+                            </ul>
+
+                            {/* <KategoriFilter categories={categories} /> */}
 
                             </form>
 
                             {/* <!-- Product grid --> */}
                             <div className="lg:col-span-3 h-full min-w-full overflow-y-auto ">
                                 {/* <!-- TABLE MyBids - START --> */}
-                                
+
+                                {currentPage === 'myProducts'
+                                ?
+                                <PenjualMyProduct openFormProduct={openFormProduct} productList={mockProducts} changePage={changePage} />
+                                :
+                                <React.Fragment>
                                 <div className="flex flex-col">
                                     <div className="sm:-mx-6 lg:-mx-8">
                                         <div className=" align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -169,7 +245,8 @@ function PembeliMain() {
                                         </div>
                                     </div>
                                 </div>
-                                
+                                </React.Fragment>
+                                }
 
                                 {/* <!-- TABLE MyOffers - END --> */}
                             </div>

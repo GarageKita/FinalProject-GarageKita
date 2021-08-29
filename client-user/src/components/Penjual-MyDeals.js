@@ -9,15 +9,15 @@ export default function PembeliMyDeals(props) {
         <div>
             
             <div className="flex flex-row justify-between">
-                <p className="mb-1 text-left font-bold text-rust-600 text-xl">Keranjang: <span className="font-normal">Product yang akan kamu lepas ke Pembeli</span></p>
+                <p className="mb-1 text-left font-bold text-rust-600 text-xl">Keranjang: <span className="font-normal">Product yang kamu lepas ke Pembeli</span></p>
                 <a onClick={() => changeMode('pembeli')} className="flex flex-row cursor-pointer max-h-max h-4 text-teal-600 hover:text-teal-400 transition duration-150 ease-in-out">
-                    <p className="mb-1 text-left font-bold text-sm">Product yang akan kamu beli</p>
+                    <p className="mb-1 text-left font-bold text-sm">Product yang kamu beli</p>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </a>
             </div>
-            <p className="mb-6 text-left font-normal text-gray-500 text-sm">Kamu akan disambungkan ke 3rd party payment gateway untuk melanjutkan pembayaran.</p>
+            <p className="mb-6 text-left font-normal text-gray-500 text-sm">Pembayaran diproses oleh 3rd party payment gateway.</p>
 
                 <div className="mt-8">
                 <div className="flow-root">

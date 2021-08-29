@@ -43,7 +43,7 @@ function PembeliMain() {
                             <div className="grid grid-cols-1 ">
 
                             {/* <!-- Product grid --> */}
-                            <div className="lg:col-span-3 h-full w-full  ">
+                            <div className="lg:col-span-3 h-full w-full min-h-screen ">
                                 
                                 <div className="flex flex-col grid-cols-2">
                                     <div className="sm:-mx-6 lg:-mx-8">
@@ -58,7 +58,7 @@ function PembeliMain() {
                                         
                                         {/* <!-- CARD Individual MyOffers - START --> */}
                     
-                                        <section className="flex flex-row">
+                                        <section className="flex flex-row ">
 
                                             {/* <!-- PRODUCT CARD - START --> */}
                                             <div className="w-full relative flex text-left items-center bg-white pt-14 pb-8  rounded-xl border-gray-200 border border-solid sm:px-6 sm:pt-8 md:p-6 lg:p-8">

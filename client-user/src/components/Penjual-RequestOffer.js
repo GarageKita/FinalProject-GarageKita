@@ -1,11 +1,76 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+import FormProduct from '../pages/Penjual-FormProduct.js'
 
 function RequestOffer(props) {
 
     const { openRequestToOffer, mockRequests } = props
+    const [ modalStatus, setModalStatus ] = useState(false)
+    const [ formType, setFormType ] = useState('')
+
+    const categories = [
+        'Elektronik',
+        'Handphone & Tablet',
+        'Komputer',
+        'Otomotif',
+        'Mainan & Hobi',
+        'Buku & Alat Tulis',
+        'Kesehatan',
+        'Lain-lain'
+    ]
+
+    const products = [
+        {
+            "id": 3,
+            "name": "TV LG",
+            "price": 1000000,
+            "priceFloor": 980000,
+            "description": "masih bagus",
+            "image_url": "https://www.lg.com/id/images/tv/md05970757/gallery/medium01.jpg",
+            "stock": 1,
+            "category_id": 1,
+            "province_id": "a",
+            "city_id": "b",
+            "weight": 3,
+            "seller_id": 1,
+            "updatedAt": "2021-08-26T14:17:05.649Z",
+            "createdAt": "2021-08-26T14:17:05.649Z"
+        },
+        {
+            "id": 8,
+            "name": "Gelas IKEA",
+            "price": 40000,
+            "priceFloor": 37000,
+            "description": "ga pernah dipake, hadiah dr orang",
+            "image_url": "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/124/0712419_PE728838_S4.jpg",
+            "stock": 1,
+            "category_id": 1,
+            "province_id": "a",
+            "city_id": "b",
+            "weight": 3,
+            "seller_id": 1,
+            "updatedAt": "2021-07-22T14:17:05.649Z",
+            "createdAt": "2021-07-22T14:17:05.649Z"
+        },
+    ]
+
+    function openFormProduct(formToLoad) {
+        setFormType(formToLoad)
+        setModalStatus(prev => !prev)
+        // openRequestToOffer(null)
+    }
+
+
 
     return (
         <React.Fragment>
+
+            { modalStatus === true
+            ?
+            <FormProduct openFormProduct={openFormProduct} categories={categories} formType={formType}></FormProduct>
+            :
+            null
+            }
             
             <div className="fixed z-10 inset-0 overflow-y-auto" role="dialog" aria-modal="true">
                 <div className="flex min-h-screen text-center md:block md:px-2 lg:px-4" >
@@ -58,7 +123,7 @@ function RequestOffer(props) {
                                     <p className="text-2xl font-bold text-gray-700 sm:pr-12">
                                     <span className="text-2xl font-light">Budget: </span> Rp{mockRequests.budget}
                                     </p>
-                                <p className="mt-1 text-xs text-gray-500 font-normal">request dari <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Pembeli #9977</span></p>
+                                <p className="mt-1 text-xs text-gray-500 font-normal">request dari <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Pembeli #9977</span></p>
 
                                     <div className="mt-6">
                                         <p className="text-sm font-bold text-rust-600">Product Description</p>
@@ -74,6 +139,21 @@ function RequestOffer(props) {
                             <div>
                                 <section aria-labelledby="options-heading" className="mt-10">
                                     <form>
+
+                                        <div className="col-span-3 mb-4">
+                                            <div className="flex flex-row justify-between">
+                                                <label for="category" className="text-sm font-bold text-rust-600">Product yang kamu Offer</label>
+                                                <a onClick={() => openFormProduct('post')} className="text-rust-600 font-normal text-xs hover:underline cursor-pointer">Atau buat Product baru</a>
+                                            </div>
+                                            <select id="category" name="category" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm">
+                                                {products.map((product, i) => {
+                                                    return <option key={product.id}>{product.name}</option>
+                                                })}
+                                            </select>
+                                        </div>
+                                        
+                                        
+
                                         <input type="number" className="focus:outline-none focus:ring-1 focus:ring-offset-none focus:ring-rust-500 px-6 py-3 w-full rounded-md border border-solid border-gray-300" placeholder="Masukkan harga Offer untuk Request ini" />
                                         <button type="submit" className="mt-4 w-full bg-rust-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-rust-700 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rust-500">Submit Offer ke Pembeli #9977</button>
                                         <p className=" text-center mt-1 text-xs text-gray-500 font-normal">Setelah klik tombol Submit, harga Offer hanya bisa diedit lewat MyOffers.</p>

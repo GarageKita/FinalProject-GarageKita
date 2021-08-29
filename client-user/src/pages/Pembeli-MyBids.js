@@ -5,13 +5,19 @@ import LoggedInNavbar from '../components/Pembeli-NavBar.js';
 import KategoriFilter from '../components/KategoriFilter.js';
 import DeleteModal from '../components/Pembeli-BidDeleteModal.js';
 import EditFormBid from '../pages/Pembeli-FormBid.js';
+import FormRequest from '../pages/Pembeli-FormRequest.js';
 import { getCategories } from '../store/slices/categorySlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMyBids } from '../store/slices/bidSlice.js';
 
-function PembeliMain() {
+function PembeliMyBids() {
   const [deleteBid, setDeleteBid] = useState(false);
   const [editBid, setEditBid] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState('myBids');
+  const [modalStatus, setModalStatus] = useState(false);
+  const [formType, setFormType] = useState('');
+  const [requestToEdit, setRequestToEdit] = useState({});
 
   const dispatch = useDispatch();
 
@@ -26,9 +32,23 @@ function PembeliMain() {
   function triggerDeleteModal() {
     setDeleteBid((prev) => !prev);
   }
-
+  
   function triggerEditModal() {
     setEditBid((prev) => !prev);
+  }
+
+  function openFormRequest(formToLoad, request) {
+    if (request) setRequestToEdit(request);
+    setFormType(formToLoad);
+    setModalStatus((prev) => !prev);
+  }
+
+  function changePage(pageName) {
+    setCurrentPage(pageName);
+  }
+
+  function closeModal() {
+    setModalStatus((prev) => !prev);
   }
 
   //   const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
@@ -62,6 +82,15 @@ function PembeliMain() {
 
       {deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} /> : null}
       {editBid ? <EditFormBid triggerEditModal={triggerEditModal} /> : null}
+      {modalStatus === true ? (
+        <FormRequest
+          openFormRequest={openFormRequest}
+          categories={categories}
+          formType={formType}
+          closeModal={closeModal}
+          request={requestToEdit}
+        ></FormRequest>
+      ) : null}
 
       <div className="bg-white">
         <div>
@@ -90,7 +119,30 @@ function PembeliMain() {
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
                 {/* <!-- Filters --> */}
                 <form className="hidden lg:block">
-                  <KategoriFilter categories={categories} />
+
+                  <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
+                    <a className="mt-2 mb-4">
+                      <a
+                        onClick={() => openFormRequest('post')}
+                        className="text-teal-700 cursor-pointer w-40 bg-teal-200 hover:bg-teal-300 transition duration-150 ease-in-out px-4 py-2 rounded-md shadow-sm"
+                      >
+                        Buat Request baru
+                      </a>
+                    </a>
+
+                    <li className="my-2">
+                      <Link to="/myrequests" href="#" className="text-teal-600 hover:text-teal-700">
+                        Daftar Request saya
+                      </Link>
+                    </li>
+
+                    <li className="my-2">
+                      <Link to="/products" className="text-teal-600 hover:text-teal-700">
+                        Lihat Product tersedia
+                      </Link>
+                    </li>
+                  </ul>
+
                 </form>
 
                 {/* <!-- Product grid --> */}
@@ -177,4 +229,4 @@ function PembeliMain() {
   );
 }
 
-export default PembeliMain;
+export default PembeliMyBids;
