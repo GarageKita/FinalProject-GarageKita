@@ -6,9 +6,9 @@ import FormRequest from '../pages/Pembeli-FormRequest.js';
 import KategoriFilter from '../components/KategoriFilter.js';
 import ProductBidModal from '../components/Pembeli-ProductBid.js';
 
-import guitar from '../imgs/products/guitar.jpeg';
-import shoes from '../imgs/products/shoes.jpeg';
-import watch from '../imgs/products/watch.jpeg';
+// import guitar from '../imgs/products/guitar.jpeg';
+// import shoes from '../imgs/products/shoes.jpeg';
+// import watch from '../imgs/products/watch.jpeg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../store/slices/categorySlice.js';
 import { getProductById, getProducts } from '../store/slices/productSlice.js';
@@ -29,8 +29,6 @@ function PembeliAllProducts() {
     dispatch(getProducts());
     dispatch(getCategories());
   }, [dispatch]);
-
-  //   const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
 
   //   const mockProduct = [
   //     {
@@ -152,7 +150,7 @@ function PembeliAllProducts() {
                             >
                               {product.name}
                             </a>
-                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp. {product.price.toLocaleString('id-ID')}</p>
+                            <p className="my-2 text-sm text-gray-800 font-semibold leading-4">Rp{product.price.toLocaleString('id-ID')}</p>
                             <p className="mt-3 text-xs text-gray-500 font-normal">
                               oleh:{' '}
                               <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">

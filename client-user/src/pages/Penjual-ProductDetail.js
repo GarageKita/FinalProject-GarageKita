@@ -175,7 +175,7 @@ function PenjualProductDetail() {
                             <div className="bg-white text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
                               <dt className="text-sm font-medium text-gray-500">Harga</dt>
                               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                Rp. {product.price && product.price.toLocaleString('id-ID')}
+                                Rp{product.price && product.price.toLocaleString('id-ID')}
                               </dd>
                             </div>
                             <div className="bg-rust-50 text-left px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-2 sm:px-6">
@@ -208,7 +208,7 @@ function PenjualProductDetail() {
                                               />
                                             </svg>
                                             <span className="ml-3 font-bold flex-1 w-0 truncate">
-                                              Rp. {bid.offered_price && bid.offered_price.toLocaleString('id-ID')}
+                                              Rp{bid.offered_price && bid.offered_price.toLocaleString('id-ID')}
                                               <p className="mt-1 text-xs text-gray-500 font-normal">
                                                 dari{' '}
                                                 <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">

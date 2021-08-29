@@ -151,7 +151,7 @@ function PembeliMain() {
                                       </div>
                                     </td>
                                     <td className="whitespace-wrap text-left">
-                                      <div className="text-xs text-gray-500">Rp. {bid.offered_price.toLocaleString('id-ID')}</div>
+                                      <div className="text-xs text-gray-500">Rp{bid.offered_price.toLocaleString('id-ID')}</div>
                                     </td>
                                     <td className="whitespace-nowrap text-left">
                                       <div className="text-sm text-gray-500">{bid.qty}</div>

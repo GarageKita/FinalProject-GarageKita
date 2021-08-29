@@ -72,7 +72,7 @@ function PenjualMyProduct(props) {
                               >
                                 {product.name}
                               </Link>
-                              <div className="text-sm text-gray-500">Rp. {product.price.toLocaleString('id-ID')}</div>
+                              <div className="text-sm text-gray-500">Rp{product.price.toLocaleString('id-ID')}</div>
                             </div>
                           </div>
                         </td>
