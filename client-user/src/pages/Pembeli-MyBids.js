@@ -35,9 +35,9 @@ function PembeliMain() {
     setEditBid((prev) => !prev);
   }
 
-  function getBidDetail(bidId) {
-    dispatch(getBidById(bidId));
-  }
+  // function getBidDetail(bidId) {
+  //   dispatch(getBidById(bidId));
+  // }
 
   //   const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
 
@@ -141,9 +141,14 @@ function PembeliMain() {
                                       <div className="flex text-left">
                                         <div className="ml-4">
                                           <Link
-                                            to={`/bids/${bid.id}`}
+                                            to={{
+                                              pathname: `/bids/${bid.id}`,
+                                              state: {
+                                                bid: bid,
+                                              },
+                                            }}
                                             className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500"
-                                            onClick={() => getBidDetail(bid.id)}
+                                            // onClick={() => getBidDetail(bid.id)}
                                           >
                                             {bid.Product && bid.Product.name}
                                           </Link>

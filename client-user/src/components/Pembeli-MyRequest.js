@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getRequestById } from '../store/slices/requestSlice';
+// import { getRequestById } from '../store/slices/requestSlice';
 
 import DeleteModal from '../components/Pembeli-DeleteModal.js';
 import { getOffersByRequestId } from '../store/slices/offerSlice';
@@ -20,7 +20,7 @@ function PembeliMyRequest(props) {
   }
 
   const getRequestDetail = (requestId) => {
-    dispatch(getRequestById(requestId));
+    // dispatch(getRequestById(requestId));
     dispatch(getOffersByRequestId(requestId));
   };
 
@@ -63,7 +63,12 @@ function PembeliMyRequest(props) {
                           <div className="flex text-left">
                             <div className="ml-4">
                               <Link
-                                to={`/requests/${request.id}`}
+                                to={{
+                                  pathname: `/requests/${request.id}`,
+                                  state: {
+                                    request: request,
+                                  },
+                                }}
                                 className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500"
                                 onClick={() => getRequestDetail(request.id)}
                               >
@@ -86,7 +91,12 @@ function PembeliMyRequest(props) {
                         </td>
                         <td className="flex flex-col px-6 py-4 whitespace-nowrap text-center text-sm">
                           <Link
-                            to={`/requests/${request.id}`}
+                            to={{
+                              pathname: `/requests/${request.id}`,
+                              state: {
+                                request: request,
+                              },
+                            }}
                             className="text-teal-600 hover:text-teal-400 my-2 font-bold"
                             onClick={() => getRequestDetail(request.id)}
                           >
