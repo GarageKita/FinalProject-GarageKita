@@ -16,6 +16,8 @@ import PembeliPaymentSuccess from './pages/Pembeli-PaymentSuccess';
 import PenjualMain from './pages/Penjual-Main';
 import PenjualProductDetail from './pages/Penjual-ProductDetail';
 import PenjualAllRequests from './pages/Penjual-AllRequests';
+import PenjualMyOffers from './pages/Penjual-MyOffers';
+import PenjualIndividualOffer from './pages/Penjual-IndividualOffer';
 
 import MyDeals from './pages/Both-MyDeals';
 import IndividualDeal from './pages/Both-IndividualDeal';
@@ -34,6 +36,12 @@ function App() {
         <Route path="/requests" component={PenjualAllRequests} />
         <Route path="/myrequests" component={PembeliMain} />
 
+        <Route path="/requests/:id" component={PembeliRequestDetail} />
+        <Route path="/requests" component={PenjualAllRequests} />
+        <Route path="/myrequests" component={PembeliMain} />
+
+        <Route path="/bids/mybids" component={PembeliMyBids} />
+        <Route path="/bids/:bidID" component={PembeliIndividualBid} />
         <Route path="/products/myproducts" component={PenjualMain} />
         <Route path="/products/:id" component={PenjualProductDetail} />
         <Route path="/products" component={PembeliAllProducts} />
@@ -41,14 +49,16 @@ function App() {
         <Route path="/bids/mybids" component={PembeliMyBids} />
         <Route path="/bids/:bidID" component={PembeliIndividualBid} />
 
+        <Route path="/offers/myoffers" component={PenjualMyOffers} />
+        <Route path="/offers/:offerID" component={PenjualIndividualOffer} />
+
         <Route path="/deals/:id" component={IndividualDeal} />
         <Route path="/deals" component={MyDeals} />
         <Route path="/payments/success" component={PembeliPaymentSuccess} />
-        <Route path="/succeess-payment" component={SuccessPayment} />
       </Switch>
 
       {/* FOOTER */}
-      <footer className="relative max-h-screen border-2 border-gray-200 border-solid">
+      <footer className="bottom-0 w-screen max-w-full min-w-max border-2 border-gray-200 border-solid">
         <div className="flex flex-row min-w-full h-48 bg-white ">
           <div className="min-h-full w-1/2 min-w-min pl-16 py-10">
             <p className="my-3 text-teal-600 font-bold">PT GarageKita Sukses Selalu</p>

@@ -15,9 +15,11 @@ import PenjualMyDeals from '../components/Penjual-MyDeals.js';
 
 function MyDeals() {
   const dispatch = useDispatch();
+  // const initDeal = useSelector((state) => state.deal);
   // const [ deleteBid, setDeleteBid ] = useState(false)
   // const [ editBid, setEditBid ] = useState(false)
   const [currentMode, setCurrentMode] = useState('pembeli');
+  // const [mockDeals, setMockDeals] = useState([initDeal.dealsData]);
   const [mockDeals, setMockDeals] = useState([]);
   useEffect(() => {
     dispatch(getDeals()).then(({ payload }) => {
@@ -77,7 +79,12 @@ function MyDeals() {
         <div>
           <main className="pt-10 max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
-              <h1 className="text-3xl font-extrabold tracking-tight text-teal-700">MyDeals</h1>
+              <div className="flex flex-row">
+                {/* <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg> */}
+                <h1 className="text-3xl font-extrabold tracking-tight text-teal-700">MyDeals</h1>
+              </div>
               <div className="flex items-center">
                 <button type="button" className="p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden">
                   <span className="sr-only">Filters</span>
@@ -110,14 +117,14 @@ function MyDeals() {
                       </a>
                     </li>
 
-                    <li className="my-2">
+                    {/* <li className="my-2">
                       <Link to="/products" className="text-teal-600 hover:text-teal-700">
                         Tiba di Tujuan
                       </Link>
-                    </li>
+                    </li> */}
                   </ul>
 
-                  <KategoriFilter categories={categories} />
+                  {/* <KategoriFilter categories={categories} /> */}
                 </form>
 
                 {/* <!-- Product grid --> */}

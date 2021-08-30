@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postOffer } from '../store/slices/offerSlice';
+import FormProduct from '../pages/Penjual-FormProduct.js';
 
 function RequestOffer(props) {
   const { request, closeRequestModal } = props;
+
+  const { openRequestToOffer, mockRequests } = props;
+  const [modalStatus, setModalStatus] = useState(false);
+  const [formType, setFormType] = useState('');
 
   const [offered_price, setOfferedPrice] = useState('');
   // ! butuh pilih product atau post product buat dapetin product_id
@@ -17,8 +22,53 @@ function RequestOffer(props) {
     closeRequestModal();
   };
 
+  const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
+
+  const products = [
+    {
+      id: 3,
+      name: 'TV LG',
+      price: 1000000,
+      priceFloor: 980000,
+      description: 'masih bagus',
+      image_url: 'https://www.lg.com/id/images/tv/md05970757/gallery/medium01.jpg',
+      stock: 1,
+      category_id: 1,
+      province_id: 'a',
+      city_id: 'b',
+      weight: 3,
+      seller_id: 1,
+      updatedAt: '2021-08-26T14:17:05.649Z',
+      createdAt: '2021-08-26T14:17:05.649Z',
+    },
+    {
+      id: 8,
+      name: 'Gelas IKEA',
+      price: 40000,
+      priceFloor: 37000,
+      description: 'ga pernah dipake, hadiah dr orang',
+      image_url: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/124/0712419_PE728838_S4.jpg',
+      stock: 1,
+      category_id: 1,
+      province_id: 'a',
+      city_id: 'b',
+      weight: 3,
+      seller_id: 1,
+      updatedAt: '2021-07-22T14:17:05.649Z',
+      createdAt: '2021-07-22T14:17:05.649Z',
+    },
+  ];
+
+  function openFormProduct(formToLoad) {
+    setFormType(formToLoad);
+    setModalStatus((prev) => !prev);
+    // openRequestToOffer(null)
+  }
+
   return (
     <React.Fragment>
+      {modalStatus === true ? <FormProduct openFormProduct={openFormProduct} categories={categories} formType={formType}></FormProduct> : null}
+
       <div className="fixed z-10 inset-0 overflow-y-auto" role="dialog" aria-modal="true">
         <div className="flex min-h-screen text-center md:block md:px-2 lg:px-4">
           {/* <!--
@@ -97,6 +147,26 @@ function RequestOffer(props) {
                   <div>
                     <section aria-labelledby="options-heading" className="mt-10">
                       <form>
+                        <div className="col-span-3 mb-4">
+                          <div className="flex flex-row justify-between">
+                            <label for="category" className="text-sm font-bold text-rust-600">
+                              Product yang kamu Offer
+                            </label>
+                            <a onClick={() => openFormProduct('post')} className="text-rust-600 font-normal text-xs hover:underline cursor-pointer">
+                              Atau buat Product baru
+                            </a>
+                          </div>
+                          <select
+                            id="category"
+                            name="category"
+                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
+                          >
+                            {products.map((product, i) => {
+                              return <option key={product.id}>{product.name}</option>;
+                            })}
+                          </select>
+                        </div>
+
                         <input
                           type="number"
                           className="focus:outline-none focus:ring-1 focus:ring-offset-none focus:ring-rust-500 px-6 py-3 w-full rounded-md border border-solid border-gray-300"
