@@ -45,18 +45,20 @@ export const editOffer = createAsyncThunk('offer/put', async ({ id, payload }, t
       access_token: localStorage.access_token,
     },
   });
-  // thunkAPI.dispatch(getOffersByRequestId(request_id));
+  thunkAPI.dispatch(getMyOffers());
   return response;
 });
 
-export const deleteOffer = createAsyncThunk('offer/delete', async (offerId) => {
-  return await axios({
+export const deleteOffer = createAsyncThunk('offer/delete', async (offerId, thunkAPI) => {
+  const response = await axios({
     method: 'delete',
     url: baseURL + '/offers/' + offerId,
     headers: {
       access_token: localStorage.access_token,
     },
   });
+  thunkAPI.dispatch(getMyOffers());
+  return response;
 });
 
 const offerSlice = createSlice({
@@ -130,8 +132,8 @@ const offerSlice = createSlice({
     },
     [deleteOffer.fulfilled]: (state, { meta: { arg } }) => {
       state.loading = false;
-      state.myOffers = state.myOffers.filter((el) => el.id !== arg.id);
-      state.offersByRequestId = state.offersByRequestId.filter((el) => el.id !== arg.id);
+      // state.myOffers = state.myOffers.filter((el) => el.id !== arg.id);
+      // state.offersByRequestId = state.offersByRequestId.filter((el) => el.id !== arg.id);
     },
     [deleteOffer.rejected]: (state) => {
       state.loading = false;

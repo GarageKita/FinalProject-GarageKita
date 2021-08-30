@@ -38,6 +38,18 @@ export const cityById = createAsyncThunk('ongkir/cityById', async (cityId) => {
   });
 });
 
+export const ongkirCost = createAsyncThunk('ongkir/cost', async (payload) => {
+  console.log(payload);
+  return await axios({
+    method: 'post',
+    url: baseURL + '/ongkir/cost',
+    data: payload,
+    headers: {
+      key: '08116d670347b3667b53c90946e81a62',
+    },
+  });
+});
+
 const ongkirSlice = createSlice({
   name: 'ongkir',
   initialState: {
@@ -47,11 +59,29 @@ const ongkirSlice = createSlice({
     cityById: {},
     provinceById: {},
     loading: false,
+    ongkir: 0,
+    cityOrigin: '',
+    provinceOrigin: '',
+    typeOrigin: '',
   },
 
   reducers: {},
 
   extraReducers: {
+    [ongkirCost.pending]: (state) => {
+      state.loading = true;
+    },
+    [ongkirCost.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.ongkir = payload.data.results.results[0].costs[0].cost[0].value;
+      state.typeOrigin = payload.data.results.origin_details.type;
+      state.cityOrigin = payload.data.results.origin_details.city_name;
+      state.provinceOrigin = payload.data.results.origin_details.province;
+    },
+    [ongkirCost.rejected]: (state) => {
+      state.loading = false;
+    },
+
     [allProvinces.pending]: (state) => {
       state.loading = true;
     },

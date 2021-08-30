@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { postRequest, editRequest } from '../store/slices/requestSlice';
 
 function PembeliFormRequest(props) {
@@ -24,6 +25,7 @@ function PembeliFormRequest(props) {
       setQty(request.qty);
       setCategoryId(request.category_id);
       setCategoryName(request.Category.name);
+      console.log(request);
     }
   }, []);
 
@@ -37,12 +39,12 @@ function PembeliFormRequest(props) {
     if (requestId) {
       const { payload, error } = await dispatch(editRequest({ id: requestId, payload: { name, budget, budgetCeil, description, qty, category_id } }));
       if (!error) {
-        closeModal(payload.data.data.id);
+        closeModal(payload.data.data);
       }
     } else {
       const { payload, error } = await dispatch(postRequest({ name, budget, budgetCeil, description, qty, category_id }));
       if (!error) {
-        closeModal(payload.data.data.id);
+        closeModal(payload.data.data);
       }
     }
   };

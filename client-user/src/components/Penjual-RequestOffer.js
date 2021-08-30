@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postOffer } from '../store/slices/offerSlice';
 import FormProduct from '../pages/Penjual-FormProduct.js';
+// import { getProductById } from '../store/slices/productSlice';
 
 function RequestOffer(props) {
-  const { request, closeRequestModal } = props;
+  const { request, closeRequestModal, categories } = props;
 
-  const { openRequestToOffer, mockRequests } = props;
+  // const { openRequestToOffer, mockRequests } = props;
   const [modalStatus, setModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
 
   const [offered_price, setOfferedPrice] = useState('');
-  // ! butuh pilih product atau post product buat dapetin product_id
-  const { product_id, setProductId } = useState('');
+  const [product_id, setProductId] = useState('');
 
   const dispatch = useDispatch();
+
+  const { myProducts } = useSelector((state) => state.product);
+  const { provinces } = useSelector((state) => state.ongkir);
 
   const submitOffer = (e) => {
     e.preventDefault();
@@ -22,42 +25,40 @@ function RequestOffer(props) {
     closeRequestModal();
   };
 
-  const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
-
-  const products = [
-    {
-      id: 3,
-      name: 'TV LG',
-      price: 1000000,
-      priceFloor: 980000,
-      description: 'masih bagus',
-      image_url: 'https://www.lg.com/id/images/tv/md05970757/gallery/medium01.jpg',
-      stock: 1,
-      category_id: 1,
-      province_id: 'a',
-      city_id: 'b',
-      weight: 3,
-      seller_id: 1,
-      updatedAt: '2021-08-26T14:17:05.649Z',
-      createdAt: '2021-08-26T14:17:05.649Z',
-    },
-    {
-      id: 8,
-      name: 'Gelas IKEA',
-      price: 40000,
-      priceFloor: 37000,
-      description: 'ga pernah dipake, hadiah dr orang',
-      image_url: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/124/0712419_PE728838_S4.jpg',
-      stock: 1,
-      category_id: 1,
-      province_id: 'a',
-      city_id: 'b',
-      weight: 3,
-      seller_id: 1,
-      updatedAt: '2021-07-22T14:17:05.649Z',
-      createdAt: '2021-07-22T14:17:05.649Z',
-    },
-  ];
+  // const products = [
+  //   {
+  //     id: 3,
+  //     name: 'TV LG',
+  //     price: 1000000,
+  //     priceFloor: 980000,
+  //     description: 'masih bagus',
+  //     image_url: 'https://www.lg.com/id/images/tv/md05970757/gallery/medium01.jpg',
+  //     stock: 1,
+  //     category_id: 1,
+  //     province_id: 'a',
+  //     city_id: 'b',
+  //     weight: 3,
+  //     seller_id: 1,
+  //     updatedAt: '2021-08-26T14:17:05.649Z',
+  //     createdAt: '2021-08-26T14:17:05.649Z',
+  //   },
+  //   {
+  //     id: 8,
+  //     name: 'Gelas IKEA',
+  //     price: 40000,
+  //     priceFloor: 37000,
+  //     description: 'ga pernah dipake, hadiah dr orang',
+  //     image_url: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/124/0712419_PE728838_S4.jpg',
+  //     stock: 1,
+  //     category_id: 1,
+  //     province_id: 'a',
+  //     city_id: 'b',
+  //     weight: 3,
+  //     seller_id: 1,
+  //     updatedAt: '2021-07-22T14:17:05.649Z',
+  //     createdAt: '2021-07-22T14:17:05.649Z',
+  //   },
+  // ];
 
   function openFormProduct(formToLoad) {
     setFormType(formToLoad);
@@ -65,11 +66,31 @@ function RequestOffer(props) {
     // openRequestToOffer(null)
   }
 
+  function getProductId(productName) {
+    myProducts.forEach((product) => {
+      if (product.name == productName) {
+        setProductId(product.id);
+      }
+    });
+  }
+
+  function closeModal() {
+    setModalStatus((prev) => !prev);
+  }
+
   return (
     <React.Fragment>
-      {modalStatus === true ? <FormProduct openFormProduct={openFormProduct} categories={categories} formType={formType}></FormProduct> : null}
+      {modalStatus === true ? (
+        <FormProduct
+          openFormProduct={openFormProduct}
+          categories={categories}
+          provinces={provinces}
+          closeModal={closeModal}
+          formType={formType}
+        ></FormProduct>
+      ) : null}
 
-      <div className="fixed z-10 inset-0 overflow-y-auto" role="dialog" aria-modal="true">
+      <div className="fixed z-9 inset-0 overflow-y-auto" role="dialog" aria-modal="true">
         <div className="flex min-h-screen text-center md:block md:px-2 lg:px-4">
           {/* <!--
                     Background overlay, show/hide based on modal state.
@@ -160,8 +181,12 @@ function RequestOffer(props) {
                             id="category"
                             name="category"
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
+                            onChange={(e) => getProductId(e.target.value)}
                           >
-                            {products.map((product, i) => {
+                            <option selected disabled>
+                              -- pilih Product --
+                            </option>
+                            {myProducts.map((product, i) => {
                               return <option key={product.id}>{product.name}</option>;
                             })}
                           </select>

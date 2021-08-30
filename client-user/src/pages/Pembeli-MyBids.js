@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import LoggedInNavbar from '../components/Pembeli-NavBar.js';
-import KategoriFilter from '../components/KategoriFilter.js';
 import DeleteModal from '../components/Pembeli-BidDeleteModal.js';
 import EditFormBid from '../pages/Pembeli-FormBid.js';
 import FormRequest from '../pages/Pembeli-FormRequest.js';
@@ -19,7 +18,6 @@ function PembeliMyBids() {
   const [currentPage, setCurrentPage] = useState('myBids');
   const [modalStatus, setModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
-  const [requestToEdit, setRequestToEdit] = useState({});
 
   const dispatch = useDispatch();
 
@@ -45,8 +43,7 @@ function PembeliMyBids() {
   //   dispatch(getBidById(bidId));
   // }
 
-  function openFormRequest(formToLoad, request) {
-    if (request) setRequestToEdit(request);
+  function openFormRequest(formToLoad) {
     setFormType(formToLoad);
     setModalStatus((prev) => !prev);
   }
@@ -57,6 +54,10 @@ function PembeliMyBids() {
 
   function closeModal() {
     setModalStatus((prev) => !prev);
+  }
+
+  function closeDeleteModal() {
+    setDeleteBid((prev) => !prev);
   }
 
   //   const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
@@ -88,19 +89,12 @@ function PembeliMyBids() {
     <>
       <LoggedInNavbar />
 
-      {/* {deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} bidId={bidIdToDelete} /> : null}
+      {deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} bidId={bidIdToDelete} closeDeleteModal={closeDeleteModal} /> : null}
 
-      {editBid ? <EditFormBid triggerEditModal={triggerEditModal} bid={bidToEdit} /> : null} */}
-      {deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} /> : null}
-      {editBid ? <EditFormBid triggerEditModal={triggerEditModal} /> : null}
+      {editBid ? <EditFormBid triggerEditModal={triggerEditModal} bid={bidToEdit} /> : null}
+
       {modalStatus === true ? (
-        <FormRequest
-          openFormRequest={openFormRequest}
-          categories={categories}
-          formType={formType}
-          closeModal={closeModal}
-          request={requestToEdit}
-        ></FormRequest>
+        <FormRequest openFormRequest={openFormRequest} categories={categories} formType={formType} closeModal={closeModal}></FormRequest>
       ) : null}
 
       <div className="bg-white">

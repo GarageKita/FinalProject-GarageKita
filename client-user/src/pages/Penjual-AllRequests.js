@@ -20,6 +20,7 @@ function PenjualAllRequests() {
 
   const { requests, loading } = useSelector((state) => state.request);
   const { categories } = useSelector((state) => state.category);
+  const { provinces } = useSelector((state) => state.ongkir);
 
   useEffect(() => {
     dispatch(getRequests());
@@ -104,11 +105,17 @@ function PenjualAllRequests() {
       <PenjualLoggedInNavbar />
 
       {modalStatus === true ? (
-        <FormProduct openFormProduct={openFormProduct} categories={categories} formType={formType} closeModal={closeModal}></FormProduct>
+        <FormProduct
+          openFormProduct={openFormProduct}
+          categories={categories}
+          provinces={provinces}
+          formType={formType}
+          closeModal={closeModal}
+        ></FormProduct>
       ) : null}
 
       {requestModalStatus === true ? (
-        <RequestOfferModal openRequestToOffer={openRequestToOffer} request={request} closeRequestModal={closeRequestModal} />
+        <RequestOfferModal openRequestToOffer={openRequestToOffer} request={request} closeRequestModal={closeRequestModal} categories={categories} />
       ) : null}
 
       <div className="bg-white">

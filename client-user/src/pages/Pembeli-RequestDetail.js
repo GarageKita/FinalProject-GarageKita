@@ -8,6 +8,8 @@ import TolakOfferModal from '../components/Pembeli-TolakOfferModal.js';
 import CekOngkirModal from '../components/Pembeli-CekOngkirModal.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRequestById } from '../store/slices/requestSlice.js';
+import { ongkirCost } from '../store/slices/ongkirSlice.js';
+import { getMyAddress } from '../store/slices/addressSlice.js';
 
 function PembeliRequestDetail() {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -15,6 +17,7 @@ function PembeliRequestDetail() {
   const [statusOngkirModal, setStatusOngkirModal] = useState(false);
   const [requestIdToDelete, setRequestIdToDelete] = useState('');
   const [offerToReject, setOfferToReject] = useState('');
+  const [offerToCekOngkir, setOfferToCekOngkir] = useState('');
   const [requestToEdit, setRequestToEdit] = useState({});
 
   const [modalStatus, setModalStatus] = useState(false);
@@ -30,6 +33,10 @@ function PembeliRequestDetail() {
   const { offersByRequestId: offers } = useSelector((state) => state.offer);
   const { categories } = useSelector((state) => state.category);
 
+  useState(() => {
+    dispatch(getMyAddress());
+  });
+
   function openDeleteRequest(id) {
     setRequestIdToDelete(id);
     setDeleteModal((prev) => !prev);
@@ -41,10 +48,15 @@ function PembeliRequestDetail() {
     setModalStatus((prev) => !prev);
   }
 
-  function closeModal(formRequestId) {
-    dispatch(getRequestById(formRequestId));
+  function closeModal(formRequest) {
+    dispatch(getRequestById(formRequest.id));
     setModalStatus((prev) => !prev);
-    history.push('/requests/' + formRequestId);
+    history.push({
+      pathname: '/requests/' + formRequest.id,
+      state: {
+        request: formRequest,
+      },
+    });
   }
 
   function openTolakOfferModal(offer) {
@@ -56,12 +68,9 @@ function PembeliRequestDetail() {
     setTolakOfferModal((prev) => !prev);
   }
 
-  function openCekOngkirModal() {
+  function openCekOngkirModal(offer) {
+    setOfferToCekOngkir(offer);
     setStatusOngkirModal((prev) => !prev);
-  }
-
-  function openAcceptOfferModal() {
-    console.log('insert transaksi disini');
   }
 
   return (
@@ -84,7 +93,7 @@ function PembeliRequestDetail() {
         <TolakOfferModal openTolakOfferModal={openTolakOfferModal} offer={offerToReject} closeTolakOfferModal={closeTolakOfferModal} />
       ) : null}
 
-      {statusOngkirModal === true ? <CekOngkirModal openCekOngkirModal={openCekOngkirModal} /> : null}
+      {statusOngkirModal === true ? <CekOngkirModal openCekOngkirModal={openCekOngkirModal} offer={offerToCekOngkir} request={request} /> : null}
 
       <div className="bg-white">
         <div>
@@ -225,7 +234,7 @@ function PembeliRequestDetail() {
                                           Tolak Offer
                                         </a>
                                         <a
-                                          onClick={() => openCekOngkirModal()}
+                                          onClick={() => openCekOngkirModal(offer)}
                                           className="bg-teal-600 transition duration-150 ease-in-out cursor-pointer rounded-md px-5 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out"
                                         >
                                           Cek Ongkir
