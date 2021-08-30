@@ -15,9 +15,9 @@ function PembeliFormBid(props) {
     setOfferedPrice(bid.offered_price);
   }, []);
 
-  const submitEditBid = async (e, bidId) => {
+  const submitEditBid = async (e) => {
     e.preventDefault();
-    const { error } = await dispatch(editBid({ id: bidId, payload: { qty, offered_price } }));
+    const { error } = await dispatch(editBid({ id: bid.id, payload: { qty, offered_price } }));
     if (!error) {
       setQty(0);
       setOfferedPrice(0);
@@ -79,7 +79,7 @@ function PembeliFormBid(props) {
               <button
                 type="submit"
                 class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                onClick={(e) => submitEditBid(e, bid.id)}
+                onClick={(e) => submitEditBid(e)}
               >
                 Edit Bid
               </button>

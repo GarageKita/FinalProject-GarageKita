@@ -60,14 +60,16 @@ export const editBid = createAsyncThunk('bid/put', async ({ id, payload }, thunk
   return response;
 });
 
-export const deleteBid = createAsyncThunk('bid/delete', async (bidId) => {
-  return await axios({
+export const deleteBid = createAsyncThunk('bid/delete', async (bidId, thunkAPI) => {
+  const response = await axios({
     method: 'delete',
     url: baseURL + '/bids/' + bidId,
     headers: {
       access_token: localStorage.access_token,
     },
   });
+  thunkAPI.dispatch(getMyBids());
+  return response;
 });
 
 const bidSlice = createSlice({
@@ -81,25 +83,7 @@ const bidSlice = createSlice({
     bidsByProductId: [],
   },
 
-  reducers: {
-    // filterMyBids(state, { payload }) {
-    //   if (payload.length > 0) {
-    //     const filtered = [];
-    //     payload.forEach((category) => {
-    //       state.myBids = state.rawMyBids;
-    //       state.myBids = state.myBids.filter((product) => {
-    //         return product.Category.name == category;
-    //       });
-    //       state.myBids.forEach((el) => {
-    //         filtered.push(el);
-    //       });
-    //     });
-    //     state.myBids = filtered;
-    //   } else {
-    //     state.myBids = state.rawMyBids;
-    //   }
-    // },
-  },
+  reducers: {},
 
   extraReducers: {
     // get my bids
@@ -173,8 +157,7 @@ const bidSlice = createSlice({
     },
     [deleteBid.fulfilled]: (state, { meta: { arg } }) => {
       state.loading = false;
-      console.log(arg);
-      state.myBids = state.myBids.filter((el) => el.id !== arg);
+      // state.myBids = state.myBids.filter((el) => el.id !== arg);
     },
     [deleteBid.rejected]: (state) => {
       state.loading = false;

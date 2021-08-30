@@ -7,6 +7,7 @@ import FormProduct from '../pages/Penjual-FormProduct.js';
 import TolakBidModal from '../components/Penjual-TolakBidModal.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../store/slices/productSlice.js';
+import { postDeal } from '../store/slices/dealSlice.js';
 
 function PenjualProductDetail() {
   const [deleteProductModal, setDeleteProductModal] = useState(false);
@@ -31,6 +32,7 @@ function PenjualProductDetail() {
 
   useState(() => {
     console.log(bids);
+    console.log(product);
   }, [bids]);
 
   function openDeleteProduct(id) {
@@ -44,10 +46,15 @@ function PenjualProductDetail() {
     setModalStatus((prev) => !prev);
   }
 
-  function closeModal(formProductId) {
-    dispatch(getProductById(formProductId));
+  function closeModal(formProduct) {
+    dispatch(getProductById(formProduct.id));
     setModalStatus((prev) => !prev);
-    history.push('/products/' + formProductId);
+    history.push({
+      pathname: '/products/' + formProduct.id,
+      state: {
+        product: formProduct,
+      },
+    });
   }
 
   function openTolakBidModal(bid) {
@@ -57,6 +64,20 @@ function PenjualProductDetail() {
 
   function closeTolakBidModal() {
     setTolakBidModal((prev) => !prev);
+  }
+
+  // ! belum jalan yow
+  function acceptBid(bid) {
+    console.log(bid);
+    // dispatch(
+    //   postDeal({
+    //     comsumer_id: bid.consumer_id,
+    //     product_id: bid.product_id,
+    //     deal_price: bid.offered_price,
+    //     deal_qty: bid.qty,
+    //     request_id: offer.request_id,
+    //   })
+    // );
   }
 
   return (
@@ -227,8 +248,8 @@ function PenjualProductDetail() {
                                             Tolak Bid
                                           </a>
                                           <a
-                                            href="#"
                                             className="bg-rust-600 cursor-pointer rounded-md px-5 py-2 font-medium text-rust-50 hover:bg-rust-500 transition duration-150 ease-in-out"
+                                            onClick={() => acceptBid(bid)}
                                           >
                                             Terima Bid
                                           </a>

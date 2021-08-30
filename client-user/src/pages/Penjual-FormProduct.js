@@ -45,15 +45,19 @@ function PembeliFormRequest(props) {
   }, []);
 
   useEffect(() => {
-    citiesInProvince.forEach((el) => {
-      if (el.city_id == product.city_id) {
-        setCityName(el.city_name);
-      }
-    });
+    if (citiesInProvince.length > 0 && product) {
+      citiesInProvince.forEach((el) => {
+        if (el.city_id == product.city_id) {
+          setCityName(el.city_name);
+        }
+      });
+    }
   }, [citiesInProvince]);
 
   useEffect(() => {
-    dispatch(allCitiesInProvince(province_id));
+    if (province_id) {
+      dispatch(allCitiesInProvince(province_id));
+    }
   }, [province, province_id, dispatch]);
 
   const categoriesHandler = (e) => {
@@ -91,7 +95,7 @@ function PembeliFormRequest(props) {
         })
       );
       if (!error) {
-        closeModal(payload.data.data.id);
+        closeModal(payload.data.data);
       }
     } else {
       const { payload, error } = await dispatch(
@@ -108,7 +112,7 @@ function PembeliFormRequest(props) {
         })
       );
       if (!error) {
-        closeModal(payload.data.data.id);
+        closeModal(payload.data.data);
       }
     }
   };

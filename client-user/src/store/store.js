@@ -7,6 +7,7 @@ import dealReducer from './slices/dealSlice';
 import bidReducer from './slices/bidSlice';
 import productReducer from './slices/productSlice';
 import ongkirReducer from './slices/ongkirSlice';
+import addressReducer from './slices/addressSlice';
 
 const reducer = {
   user: userReducer,
@@ -17,6 +18,7 @@ const reducer = {
   bid: bidReducer,
   product: productReducer,
   ongkir: ongkirReducer,
+  address: addressReducer,
 };
 
 export default configureStore({
