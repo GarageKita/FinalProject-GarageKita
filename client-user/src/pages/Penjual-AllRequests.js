@@ -6,17 +6,14 @@ import FormProduct from '../pages/Penjual-FormProduct.js';
 import KategoriFilter from '../components/KategoriFilter.js';
 import RequestOfferModal from '../components/Penjual-RequestOffer.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../store/slices/productSlice.js';
 import { getCategories } from '../store/slices/categorySlice.js';
-import { getRequestById, getRequests } from '../store/slices/requestSlice.js';
+import { getRequests } from '../store/slices/requestSlice.js';
 
 function PenjualAllRequests() {
   const [currentPage, setCurrentPage] = useState('allProducts');
   const [modalStatus, setModalStatus] = useState(false);
   const [requestModalStatus, setRequestModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
-  const [requestId, setRequestId] = useState('');
-
   const [request, setRequest] = useState({});
 
   const dispatch = useDispatch();
@@ -97,10 +94,9 @@ function PenjualAllRequests() {
     setRequestModalStatus((prev) => !prev);
   }
 
-  function openRequestToOffer(requestId) {
-    setRequestId(requestId);
+  function openRequestToOffer(request) {
+    setRequest(request);
     setRequestModalStatus((prev) => !prev);
-    dispatch(getRequestById(requestId));
   }
 
   return (
@@ -112,7 +108,7 @@ function PenjualAllRequests() {
       ) : null}
 
       {requestModalStatus === true ? (
-        <RequestOfferModal openRequestToOffer={openRequestToOffer} id={requestId} closeRequestModal={closeRequestModal} />
+        <RequestOfferModal openRequestToOffer={openRequestToOffer} request={request} closeRequestModal={closeRequestModal} />
       ) : null}
 
       <div className="bg-white">
@@ -203,14 +199,13 @@ function PenjualAllRequests() {
                             <tbody className="bg-white divide-y divide-gray-200">
                               {!loading &&
                                 requests.map((request, index) => {
-                                  console.log(requests);
                                   return (
                                     <tr key={request.id}>
                                       <td className="px-2 py-4 leading-3">
                                         <div className="flex text-left">
                                           <div className="ml-4">
                                             <a
-                                              onClick={() => openRequestToOffer(request.id)}
+                                              onClick={() => openRequestToOffer(request)}
                                               className="cursor-pointer text-sm font-bold text-rust-600 hover:text-rust-500"
                                             >
                                               {request.name}
