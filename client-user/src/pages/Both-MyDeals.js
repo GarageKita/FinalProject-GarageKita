@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -103,18 +104,18 @@ function MyDeals() {
             <section aria-labelledby="products-heading" className="pt-6 pb-24">
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
                 {/* <!-- Filters --> */}
-                <form className="hidden lg:block">
+                {/* <form className="hidden lg:block"> */}
                   <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
-                    <a className="mt-2 mb-4">
-                      <a href="#" className="text-teal-600 hover:text-teal-700">
-                        Menunggu Pembayaran
-                      </a>
-                    </a>
+                    {/* <a className="mt-2 mb-4"> */}
+                      <button className="text-teal-600 hover:text-teal-700">
+                        <strong>Menunggu Pembayaran</strong>
+                      </button>
+                    {/* </a> */}
 
                     <li className="my-2">
-                      <a href="#" className="text-teal-600 hover:text-teal-700">
-                        Dalam Proses
-                      </a>
+                      <button className="text-teal-600 hover:text-teal-700">
+                        <strong>Dalam Proses</strong>
+                      </button>
                     </li>
 
                     {/* <li className="my-2">
@@ -125,7 +126,7 @@ function MyDeals() {
                   </ul>
 
                   {/* <KategoriFilter categories={categories} /> */}
-                </form>
+                {/* </form> */}
 
                 {/* <!-- Product grid --> */}
                 <div className="lg:col-span-3 h-full min-w-full overflow-y-auto ">

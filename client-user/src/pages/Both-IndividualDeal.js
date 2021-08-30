@@ -1,22 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { getDealsById } from '../store/slices/dealSlice';
+import { getDealsById, deleteBid } from '../store/slices/dealSlice';
 
 import LoggedInNavbar from '../components/Pembeli-NavBar.js'
 
 function PembeliMain() {
     const { id } = useParams();
+    const history = useHistory();
     const dispatch = useDispatch();
     const [deal, setDeal] = useState({});
 
     useEffect(() => {
-        console.log('deal === ', deal);
+        const midtransScriptUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
+        const clientKey = 'SB-Mid-client-TPkLr9_TH34idZS9';
+        let scriptTag = document.createElement('script');
+        scriptTag.src = midtransScriptUrl;
+        scriptTag.setAttribute('data-client-key', clientKey);
+        document.body.appendChild(scriptTag);
         dispatch(getDealsById(id)).then(({ payload }) => {
             const { data: initDealById } = payload.data;
             setDeal(initDealById);
         })
+
+        return () => {
+            document.body.removeChild(scriptTag);
+        };
+        
     }, []);
 
     function dateFormatter (input_date) {
@@ -26,6 +37,38 @@ function PembeliMain() {
         let cleanTime = (new Date(input_date)).toGMTString()
         return cleanTime
     }
+
+    const handlePayment = (e, id, price) => {
+        e.target.innerHTML = 'Please Wait';
+        fetch(`https://garagekita-dealtransaction.herokuapp.com/deals/payments/${id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            access_token: localStorage.getItem('access_token'),
+          },
+          body: JSON.stringify({
+            total_payment: price,
+          }),
+        })
+          .then((response) => response.json())
+          .then(({ data }) => {
+            window.snap.pay(data.token);
+          })
+          .catch((err) => {
+            console.log('error ketika payment', err);
+            e.target.innerHTML = 'Bayar Sekarang';
+          })
+          .finally(() => {
+            e.target.innerHTML = 'Bayar Sekarang';
+          });
+    };
+
+    const handleDeleteBid = (id) => {
+        console.log('masuk ke function handleDeleteBid id', id);
+        dispatch(deleteBid(id)).then(() => {
+            history.push('/deals');
+        });
+    };
     
     return (
         <>
@@ -90,11 +133,13 @@ function PembeliMain() {
 
                                                         <section aria-labelledby="information-heading" className="mt-1">
                                                             
-                                                            <p className="mt-1 text-xs text-gray-500 font-normal">milik <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Penjual #1233</span></p>
+                                                            <p className="mt-1 text-xs text-gray-500 font-normal">milik <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">{deal.seller_email}</span></p>
 
                                                             <div className="mt-6">
                                                                 <p className="text-sm font-bold text-teal-600">Product Description</p>
-                                                                <p className="text-sm font-normal text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec feugiat dignissim nisl, vitae cursus est luctus id. Nullam ullamcorper lacinia diam, nec feugiat risus aliquam at. In scelerisque placerat libero quis congue. Curabitur ornare sapien eros, pharetra maximus sapien porttitor sed.</p>
+                                                                <p className="text-sm font-normal text-gray-500">
+                                                                    {deal.description}
+                                                                </p>
                                                             </div>
 
                                                             <div className="border-t border-solid border-gray-200 mt-6 pt-2">
@@ -116,7 +161,7 @@ function PembeliMain() {
                                                                     <p className="text-sm font-bold text-teal-600">Harga Ongkir: <span className="text-sm font-normal text-gray-500">Rp39000</span></p>
                                                                 </div>
                                                                 <div className="mt-3">
-                                                                    <p className="text-sm font-bold text-teal-600">Waktu Deal: <span className="text-sm font-normal text-gray-500">{dateFormatter('2021-08-23T13:39:35.534Z')}</span></p>
+                                                                    <p className="text-sm font-bold text-teal-600">Waktu Deal: <span className="text-sm font-normal text-gray-500">{dateFormatter(deal.createdAt)}</span></p>
                                                                 </div>
                                                                 <div className="mt-3">
                                                                     <p className="text-sm font-bold text-teal-600">Status Deal:
@@ -144,48 +189,53 @@ function PembeliMain() {
                                                 {/* EDIT HARGA BID */}
                                                 <div>
                                                     <section aria-labelledby="options-heading" >
-                                                        <form>
-                                                            <div className="flex flex-row justify-between align-top">
-                                                                <p className="text-left mb-1 text-md font-semibold">Total harga Deal
-                                                                <span className="text-xs font-light"> (termasuk ongkos kirim)</span>
-                                                                </p>
-                                                            </div>
-                                                                <p className="text-left mb-3 text-xl font-bold">
-                                                                    Rp.{(deal.deal_price) ? deal.deal_price.toLocaleString() : ''}
-                                                                </p>
-                                                            {/* <input type="number" className="focus:outline-none focus:ring-1 focus:ring-offset-none focus:ring-teal-500 px-6 py-3 w-full rounded-md border border-solid border-gray-300" placeholder="Bid baru" /> */}
-                                                            {(deal.payment_status === 'paid') ?
-                                                                <button className="bg-blue-500 text-white font-bold py-2 px-4 mr-4 rounded opacity-50 cursor-not-allowed">
-                                                                    Sudah Dibayar
-                                                                </button>
-                                                            :
-                                                                <button type="submit" className="mt-4 w-full bg-teal-600 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-white hover:bg-teal-700 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
-                                                                    Bayar sekarang
-                                                                </button>
-                                                            }
-                                                            <p className=" text-center mt-1 text-xs text-gray-500 font-normal">
-                                                                {(deal.payment_status !== 'paid') ?
-                                                                    "Kamu akan dialihkan ke 3rd party payment gateway untuk pembayaran."
-                                                                :
-                                                                    ""
-                                                                }
+                                                        <div className="flex flex-row justify-between align-top">
+                                                            <p className="text-left mb-1 text-md font-semibold">Total harga Deal
+                                                            <span className="text-xs font-light"> (termasuk ongkos kirim)</span>
                                                             </p>
-                                                        </form>
+                                                        </div>
+                                                            <p className="text-left mb-3 text-xl font-bold">
+                                                                Rp.{(deal.deal_price) ? deal.deal_price.toLocaleString() : ''}
+                                                            </p>
+                                                        {/* <input type="number" className="focus:outline-none focus:ring-1 focus:ring-offset-none focus:ring-teal-500 px-6 py-3 w-full rounded-md border border-solid border-gray-300" placeholder="Bid baru" /> */}
+                                                        {(deal.payment_status === 'paid') ?
+                                                            <button className="bg-blue-500 text-white font-bold py-2 px-4 mr-4 rounded opacity-50 cursor-not-allowed">
+                                                                Sudah Dibayar
+                                                            </button>
+                                                        :
+                                                            <button onClick={(e) => handlePayment(e, deal.id, deal.deal_price)} className="mt-4 w-full bg-teal-600 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-white hover:bg-teal-700 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
+                                                                Bayar sekarang
+                                                            </button>
+                                                        }
+                                                        <p className=" text-center mt-1 text-xs text-gray-500 font-normal">
+                                                            {(deal.payment_status !== 'paid') ?
+                                                                "Kamu akan dialihkan ke 3rd party payment gateway untuk pembayaran."
+                                                            :
+                                                                ""
+                                                            }
+                                                        </p>                                                        
                                                     </section>
                                                 </div>
 
                                                 {/* DELETE BID */}
+                                                {(deal.payment_status !== 'paid') &&
                                                 <div>
                                                     <section aria-labelledby="options-heading" className="border-t border-solid border-gray-200 pt-4 mt-6" >
-                                                        <form>
-                                                            <p className="text-left mb-3 text-md font-semibold text-red-500">Batalkan Deal</p>
-                                                            <p className="text-left mt-1 text-sm text-gray-500 font-normal">Data Deal yang dihapus tidak bisa kembali.</p>
-                                                            
-                                                            <button type="submit" className="mt-4 w-full bg-gray-300 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">Batal Deal</button>
-                                                            <p className=" text-center mt-1 text-xs text-gray-500 font-normal">Email notifikasi pembatalan Bid akan dikirim ke Penjual.</p>
-                                                        </form>
+                                                        <p className="text-left mb-3 text-md font-semibold text-red-500">
+                                                            Batalkan Deal
+                                                        </p>
+                                                        <p className="text-left mt-1 text-sm text-gray-500 font-normal">
+                                                            Data Deal yang dihapus tidak bisa kembali.
+                                                        </p>                                                            
+                                                        <button onClick={() => handleDeleteBid(deal.id)} className="mt-4 w-full bg-gray-300 border border-transparent rounded-md py-2 px-8 flex items-center justify-center text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
+                                                            Batal Deal
+                                                        </button>
+                                                        <p className=" text-center mt-1 text-xs text-gray-500 font-normal">
+                                                            Email notifikasi pembatalan Bid akan dikirim ke Penjual.
+                                                        </p>
                                                     </section>
                                                 </div>
+                                                }
 
                                             </section>
 

@@ -23,6 +23,16 @@ export const getDealsById = createAsyncThunk('deals/getDealsById', async (id) =>
   });
 });
 
+export const deleteBid = createAsyncThunk('deals/deleteBid', async (id) => {
+  return await axios({
+    method: 'DELETE',
+    url: `${baseURL}/deals/${id}`,
+    headers: {
+      access_token: localStorage.getItem('access_token')
+    },
+  });
+});
+
 const dealSlice = createSlice({
   name: 'deals',
   initialState: {
@@ -55,6 +65,19 @@ const dealSlice = createSlice({
       state.dealsData = payload.data
     },
     [getDealsById.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
+    //delete bid
+    [deleteBid.pending]: (state) => {
+      state.loading = true;
+    },
+    [deleteBid.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.dealsData = payload.data
+    },
+    [deleteBid.rejected]: (state) => {
       state.loading = false;
       state.error = true;
     },
