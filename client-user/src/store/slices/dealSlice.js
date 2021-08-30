@@ -25,6 +25,26 @@ export const postDeal = createAsyncThunk('deals/post', async (payload) => {
   });
 });
 
+export const getDealsById = createAsyncThunk('deals/getDealsById', async (id) => {
+  return await axios({
+    method: 'GET',
+    url: `${baseURL}/deals/${id}`,
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+  });
+});
+
+export const deleteBid = createAsyncThunk('deals/deleteBid', async (id) => {
+  return await axios({
+    method: 'DELETE',
+    url: `${baseURL}/deals/${id}`,
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+  });
+});
+
 const dealSlice = createSlice({
   name: 'deals',
   initialState: {
@@ -55,6 +75,32 @@ const dealSlice = createSlice({
       state.loading = false;
     },
     [postDeal.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
+    //get deals by Id
+    [getDealsById.pending]: (state) => {
+      state.loading = true;
+    },
+    [getDealsById.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.dealsData = payload.data;
+    },
+    [getDealsById.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
+    //delete bid
+    [deleteBid.pending]: (state) => {
+      state.loading = true;
+    },
+    [deleteBid.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.dealsData = payload.data;
+    },
+    [deleteBid.rejected]: (state) => {
       state.loading = false;
       state.error = true;
     },

@@ -82,7 +82,7 @@ export default function PembeliMyDeals(props) {
                           </p>
                         </h3>
                         <p className="ml-4 font-medium">
-                          Jumlah yang kamu bayarkan: Rp{deal.deal_price.toLocaleString()}
+                          Jumlah yang kamu bayarkan: Rp. {deal.deal_price.toLocaleString()}
                         </p>
                       </div>
                     </div>
@@ -119,9 +119,8 @@ export default function PembeliMyDeals(props) {
                             >
                               Bayar Sekarang
                             </button>
-                            <button className="text-gray-700 bg-gray-200 rounded-md px-5 py-3 cursor-pointer hover:bg-gray-300 font-normal transition duration-150 ease-in-out">
-                              Batalkan
-                            </button>
+                            <button className="text-gray-700 bg-gray-200 rounded-md px-5 py-3 cursor-pointer hover:bg-gray-300 font-normal transition duration-150 ease-in-out"
+                            >Batalkan</button>
                           </div>
                         )}
                       </div>
