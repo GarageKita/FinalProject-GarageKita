@@ -4,6 +4,8 @@ import { getMyAddress } from '../store/slices/addressSlice';
 import { postDeal } from '../store/slices/dealSlice';
 import { ongkirCost } from '../store/slices/ongkirSlice';
 
+import FormAddressModal from '../components/Pembeli-FormAddressModal.js';
+
 function PembeliCekOngkirModal(props) {
   const { openCekOngkirModal, offer, request } = props;
 
@@ -12,6 +14,8 @@ function PembeliCekOngkirModal(props) {
   const [destination_id, setDestinationId] = useState('');
   const [courier, setCourier] = useState('');
   const [totalPrice, setTotalPrice] = useState('');
+  const [formAddress, setFormAddress] = useState(false);
+  const [formType, setFormType] = useState('post');
 
   const { myCityId } = useSelector((state) => state.address);
   const { ongkir, typeOrigin, cityOrigin, provinceOrigin } = useSelector((state) => state.ongkir);
@@ -57,22 +61,37 @@ function PembeliCekOngkirModal(props) {
   };
 
   function acceptOffer() {
-    // console.log(offer);
-    // console.log(request);
-    dispatch(
-      postDeal({
-        comsumer_id: request.consumer_id,
-        product_id: offer.product_id,
-        deal_price: totalPrice,
-        deal_qty: request.qty,
-        request_id: offer.request_id,
-      })
-    );
+    if (request) {
+      dispatch(
+        postDeal({
+          comsumer_id: request.consumer_id,
+          product_id: offer.product_id,
+          deal_price: totalPrice,
+          deal_qty: request.qty,
+          request_id: offer.request_id,
+        })
+      );
+    } else {
+      dispatch(
+        postDeal({
+          comsumer_id: offer.consumer_id,
+          product_id: offer.product_id,
+          deal_price: totalPrice,
+          deal_qty: offer.qty,
+        })
+      );
+    }
     openCekOngkirModal();
+  }
+
+  function triggerFormModal() {
+    setFormAddress((prev) => !prev);
   }
 
   return (
     <React.Fragment>
+      {formAddress === true ? <FormAddressModal triggerFormModal={triggerFormModal} formType={formType} /> : null}
+
       <div className="fixed z-10 inset-0 overflow-y-auto px-80" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -88,13 +107,18 @@ function PembeliCekOngkirModal(props) {
                 <div class="px-8 py-5 bg-white">
                   <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-4">
-                      <label for="address" class="block text-sm font-medium text-gray-700">
-                        Alamat Pengiriman
-                      </label>
+                      <div className="flex flex-row justify-between">
+                        <label for="address" className="block text-sm font-medium text-gray-700">
+                          Alamat Pengiriman
+                        </label>
+                        <a onClick={() => triggerFormModal()} className="text-xs text-teal-600 underline hover:text-teal-700 cursor-pointer">
+                          Tambah alamat baru
+                        </a>
+                      </div>
                       <select
                         name="address"
                         id="address"
-                        class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm py-2 px-3 border border-solid border-gray-300 rounded-md"
+                        className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm py-2 px-3 border border-solid border-gray-300 rounded-md"
                       >
                         <option>PT. GarageKita Sukses Selalu, Jl. Fase III no. 1, Jakarta Pusat, DKI Jakarta 10230</option>
                         <option>

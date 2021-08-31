@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { cityById } from './ongkirSlice';
 
 const baseURL = 'https://garage-kita.herokuapp.com';
 
-export const postAddress = createAsyncThunk('address/post', async ({ payload, productId }, thunkAPI) => {
-  console.log(payload, productId);
+export const postAddress = createAsyncThunk('address/post', async ({ payload }, thunkAPI) => {
+  console.log(payload);
   const response = await axios({
     method: 'post',
-    url: baseURL + '/address/' + productId,
+    url: baseURL + '/address',
     data: payload,
     headers: {
       access_token: localStorage.access_token,
@@ -17,14 +18,16 @@ export const postAddress = createAsyncThunk('address/post', async ({ payload, pr
   return response;
 });
 
-export const getMyAddress = createAsyncThunk('address/getMyAddress', async () => {
-  return await axios({
+export const getMyAddress = createAsyncThunk('address/getMyAddress', async (thunkAPI) => {
+  const response = await axios({
     method: 'get',
     url: baseURL + '/address/myaddress',
     headers: {
       access_token: localStorage.access_token,
     },
   });
+  // thunkAPI.dispatch(cityById())
+  return response;
 });
 
 export const editAddress = createAsyncThunk('address/put', async ({ id, payload }, thunkAPI) => {
@@ -57,6 +60,7 @@ const addressSlice = createSlice({
   initialState: {
     loading: false,
     error: false,
+    myAddresses: [],
     myCityId: '',
   },
 
@@ -69,7 +73,8 @@ const addressSlice = createSlice({
     },
     [getMyAddress.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.myCityId = payload.data.data[0].city_id;
+      state.myAddresses = payload.data.data;
+      state.myCityId = payload.data.data[0] ? payload.data.data[0].city_id : '';
     },
     [getMyAddress.rejected]: (state) => {
       state.loading = false;

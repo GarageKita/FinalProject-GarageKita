@@ -123,6 +123,12 @@ function PembeliMyDeals() {
 
                   <li className="my-2">
                     <a href="#" className="text-teal-600 hover:text-teal-700">
+                      Menunggu Pengiriman
+                    </a>
+                  </li>
+
+                  <li className="my-2">
+                    <a href="#" className="text-teal-600 hover:text-teal-700">
                       Riwayat Transaksi
                     </a>
                   </li>
