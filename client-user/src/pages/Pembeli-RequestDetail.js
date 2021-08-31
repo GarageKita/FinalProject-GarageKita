@@ -220,7 +220,7 @@ function PembeliRequestDetail() {
                                           Rp {offer.offered_price && offer.offered_price.toLocaleString('id-ID')}
                                           <p className="mt-1 text-xs text-gray-500 font-normal">
                                             dari{' '}
-                                            <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
+                                            <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">
                                               Penjual #{offer.seller_id}
                                             </span>
                                           </p>

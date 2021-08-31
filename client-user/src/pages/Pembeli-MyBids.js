@@ -153,27 +153,27 @@ function PembeliMyBids() {
                   {/* <!-- TABLE MyBids - START --> */}
 
                   <div className="flex flex-col">
-                    <div className="sm:-mx-6 lg:-mx-8">
-                      <div className=" align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className=" w-full ">
+                      <div className=" align-middle min-w-full ">
                         <p className="mb-6 text-left font-semibold text-gray-900 text-2xl">Daftar Bids saya</p>
 
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                           <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-teal-100">
                               <tr>
-                                <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Nama Product
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Harga Bid
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Jumlah
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Status
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Quick Actions
                                 </th>
                               </tr>
@@ -184,7 +184,7 @@ function PembeliMyBids() {
                                 return (
                                   <tr key={bid.id}>
                                     <td className="whitespace-nowrap py-3">
-                                      <div className="flex text-left">
+                                      <div className="flex">
                                         <div className="ml-4">
                                           <Link
                                             to={{
@@ -201,18 +201,18 @@ function PembeliMyBids() {
                                         </div>
                                       </div>
                                     </td>
-                                    <td className="whitespace-wrap text-left">
+                                    <td className="whitespace-wrap">
                                       <div className="text-xs text-gray-500">Rp{bid.offered_price.toLocaleString('id-ID')}</div>
                                     </td>
-                                    <td className="whitespace-nowrap text-left">
+                                    <td className="whitespace-nowrap">
                                       <div className="text-sm text-gray-500">{bid.qty}</div>
                                     </td>
-                                    <td className="whitespace-nowrap text-left text-sm text-gray-500">
+                                    <td className="whitespace-nowrap text-sm text-gray-500">
                                       <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
                                         {bid.status}
                                       </span>
                                     </td>
-                                    <td className="flex flex-row align-middle pt-3 space-x-4 whitespace-nowrap text-center text-sm">
+                                    <td className="flex flex-row align-middle pt-3 space-x-4 whitespace-nowrap text-sm">
                                       <a
                                         onClick={() => triggerEditModal(bid)}
                                         className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"

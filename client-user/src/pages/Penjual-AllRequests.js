@@ -176,9 +176,20 @@ function PenjualAllRequests() {
                   {/* <!-- Replace with your content --> */}
 
                   <div className="flex flex-col">
-                    <div className="sm:-mx-6 lg:-mx-8">
-                      <div className=" align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <p className="mb-6 text-left font-semibold text-gray-900 text-2xl">Requests List</p>
+                    <div className=" w-full ">
+                      <div className=" align-middle min-w-full ">
+
+                        <div className="flex flex-row justify-between">
+                          <p className="mb-6 text-left font-semibold text-gray-900 text-2xl">Requests List</p>
+                          
+                          <div className="flex flex-row justify-between align-middle items-center pb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <input type="text" className="text-sm h-10 border border-solid border-gray-300 rounded-xl px-3 py-1" placeholder="Search" />
+                          </div>
+
+                        </div>
 
                         {/* {!loading && requests.map(request => ( */}
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -227,7 +238,7 @@ function PenjualAllRequests() {
                                       <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm text-gray-500">{request.qty}</div>
                                       </td>
-                                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                      <td className="px-6 py-4 whitespace-nowrap text-left text-sm text-gray-500">
                                         <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
                                           {request.Category && request.Category.name}
                                         </span>
