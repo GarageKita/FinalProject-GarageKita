@@ -6,6 +6,8 @@ import { registerPost } from '../store/slices/userSlice';
 import MainLogo from '../imgs/GarageKita-logo.png';
 import EmailActivation from '../components/EmailActivation';
 
+import RegisterIllus from '../imgs/svg/Register.svg'
+
 function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -57,9 +59,12 @@ function Register() {
               </p>
             </div>
 
-            <form id="register-form" className="mt-8 space-y-6" onSubmit={(e) => register(e)}>
+            <img src={RegisterIllus} className=" w-96" />
+
+            <form id="register-form" className=" space-y-6" onSubmit={(e) => register(e)}>
               <input type="hidden" name="remember" value="true" />
               <div className="rounded-md shadow-sm -space-y-px">
+
                 <div>
                   <label htmlFor="register-email" className="sr-only">
                     Email address
@@ -76,6 +81,7 @@ function Register() {
                     onChange={(e) => emailBinding(e)}
                   />
                 </div>
+
                 <div>
                   <label htmlFor="register-password" className="sr-only">
                     Password
@@ -86,12 +92,30 @@ function Register() {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => passwordBinding(e)}
                   />
                 </div>
+
+                <div>
+                  <label htmlFor="register-password" className="sr-only">
+                    Confirm Password
+                  </label>
+                  <input
+                    id="register-password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Confirm Password"
+                    // value={password}
+                    // onChange={(e) => passwordBinding(e)}
+                  />
+                </div>
+
               </div>
 
               <div>

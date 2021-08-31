@@ -29,27 +29,31 @@ function PembeliMyRequest(props) {
       {deleteModal === true ? <DeleteModal openDeleteRequest={openDeleteRequest} id={requestIdToDelete} /> : null}
 
       <div className="flex flex-col">
-        <div className="sm:-mx-6 lg:-mx-8">
-          <div className=" align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div className=" w-full ">
+          <div className=" align-middle min-w-full ">
             <p className="mb-6 text-left font-semibold text-gray-900 text-2xl">Daftar Request saya</p>
 
-            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <div className="shadow border-b border-gray-200 sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-teal-100">
                   <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                       Nama & Budget
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
-                      Deskripsi
+                    <th scope="col" className="px-6 py-3 text-center  text-sm font-bold text-teal-600 uppercase tracking-wider">
+                      Jumlah Offer
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
-                      Jumlah
+                    <th scope="col" className="px-6 py-3 text-center whitespace-nowrap text-sm font-bold text-teal-600 uppercase tracking-wider">
+                      In-Budget<br/>
+                      <span className="lowercase font-normal text-xs">(Ada/Tidak)</span>
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
+                      Jumlah Request
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                       Kategori
                     </th>
-                    <th scope="col" className="px-8 py-3 text-left text-sm font-bold text-teal-600 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -60,7 +64,7 @@ function PembeliMyRequest(props) {
                     return (
                       <tr key={request.id}>
                         <td className="px-2 py-4 whitespace-nowrap">
-                          <div className="flex text-left">
+                          <div className="flex ">
                             <div className="ml-4">
                               <Link
                                 to={{
@@ -78,18 +82,21 @@ function PembeliMyRequest(props) {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-wrap text-left ">
-                          <div className="text-xs text-gray-500">{request.description}</div>
+                        <td className="px-6 py-2 whitespace-wrap  ">
+                          <div className="text-sm text-gray-500">3</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-2 whitespace-wrap  ">
+                          <div className="text-sm text-gray-500">Ada</div>
+                        </td>
+                        <td className="px-6 py-2 whitespace-nowrap">
                           <div className="text-sm text-gray-500">{request.qty}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
                             {request.Category.name}
                           </span>
                         </td>
-                        <td className="flex flex-col px-6 py-4 whitespace-nowrap text-center text-sm">
+                        <td className="flex flex-col px-6 py-2 whitespace-nowrap text-center text-sm">
                           <Link
                             to={{
                               pathname: `/requests/${request.id}`,
@@ -97,7 +104,7 @@ function PembeliMyRequest(props) {
                                 request: request,
                               },
                             }}
-                            className="text-teal-600 hover:text-teal-400 my-2 font-bold"
+                            className="text-teal-600 hover:text-teal-400 my-1 font-bold"
                             onClick={() => getRequestDetail(request.id)}
                           >
                             Lihat Tawaran

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import MainLogo from '../imgs/GarageKita-logo.png';
 import { loginPost } from '../store/slices/userSlice';
 
+import LoginIllus from '../imgs/svg/Login.svg'
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,7 +51,9 @@ function Login() {
               </p>
             </div>
 
-            <form id="login-form" className="mt-8 space-y-6" onSubmit={(e) => login(e)}>
+            <img src={LoginIllus} className=" w-96" />
+
+            <form id="login-form" className="space-y-6" onSubmit={(e) => login(e)}>
               <input type="hidden" name="remember" value="true" />
               <div className="rounded-md shadow-sm -space-y-px">
                 <div>
