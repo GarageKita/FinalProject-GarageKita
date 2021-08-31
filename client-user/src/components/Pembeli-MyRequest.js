@@ -40,12 +40,12 @@ function PembeliMyRequest(props) {
                     <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                       Nama & Budget
                     </th>
-                    <th scope="col" className="px-6 py-3 text-center  text-sm font-bold text-teal-600 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                       Jumlah Offer
                     </th>
                     <th scope="col" className="px-6 py-3 text-center whitespace-nowrap text-sm font-bold text-teal-600 uppercase tracking-wider">
                       In-Budget<br/>
-                      <span className="lowercase font-normal text-xs">(Ada/Tidak)</span>
+                      <span className="lowercase font-normal text-xs tracking-normal">(Ada/Tidak)</span>
                     </th>
                     <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                       Jumlah Request
@@ -85,9 +85,18 @@ function PembeliMyRequest(props) {
                         <td className="px-6 py-2 whitespace-wrap  ">
                           <div className="text-sm text-gray-500">3</div>
                         </td>
-                        <td className="px-6 py-2 whitespace-wrap  ">
-                          <div className="text-sm text-gray-500">Ada</div>
+                        <td className="px-6 py-2 whitespace-nowrap">
+                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-teal-600">
+                            Ada
+                          </span>
                         </td>
+
+                        {/* ––– Untuk yg TIDAK ada, bisa pakai yg di bawah ini: ––– */}
+                        {/* <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
+                            Tidak
+                          </span>
+                        </td> */}
                         <td className="px-6 py-2 whitespace-nowrap">
                           <div className="text-sm text-gray-500">{request.qty}</div>
                         </td>

@@ -152,7 +152,7 @@ function RequestOffer(props) {
                             <label for="category" className="text-sm font-bold text-rust-600">
                               Product yang kamu Offer
                             </label>
-                            <a onClick={() => openFormProduct('post')} className="text-rust-600 font-normal text-xs hover:underline cursor-pointer">
+                            <a onClick={() => openFormProduct('post')} className="text-rust-600 font-normal text-xs underline hover:text-rust-700 cursor-pointer">
                               Atau buat Product baru
                             </a>
                           </div>

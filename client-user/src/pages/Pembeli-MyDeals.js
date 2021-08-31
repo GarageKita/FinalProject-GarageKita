@@ -116,7 +116,7 @@ function PembeliMyDeals() {
 
                     <li className="my-2">
                       <a href="#" className="text-teal-600 hover:text-teal-700">
-                        Dalam Pengiriman
+                        Menunggu Pengiriman
                       </a>
                     </li>
 

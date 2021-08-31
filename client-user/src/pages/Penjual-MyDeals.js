@@ -108,15 +108,15 @@ function PenjualMyDeals() {
                 {/* <!-- Filters --> */}
                 <form className="hidden lg:block">
                   <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
-                    <a className="mt-2 mb-4">
-                      <a href="#" className="text-rust-600 hover:text-rust-700">
-                        Transaksi Berlangsung
-                      </a>
-                    </a>
-
                     <li className="my-2">
                       <a href="#" className="text-rust-600 hover:text-rust-700">
                         Siap Dikirim
+                      </a>
+                    </li>
+
+                    <li className="mt-2 mb-4">
+                      <a href="#" className="text-rust-600 hover:text-rust-700">
+                        Transaksi Berlangsung
                       </a>
                     </li>
 

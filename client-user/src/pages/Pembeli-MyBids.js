@@ -6,6 +6,10 @@ import KategoriFilter from '../components/KategoriFilter.js';
 import DeleteModal from '../components/Pembeli-BidDeleteModal.js';
 import EditFormBid from '../pages/Pembeli-FormBid.js';
 import FormRequest from '../pages/Pembeli-FormRequest.js';
+
+import CekOngkirModal from '../components/Pembeli-CekOngkirModal.js';
+
+
 import { getCategories } from '../store/slices/categorySlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBidById, getMyBids } from '../store/slices/bidSlice.js';
@@ -18,6 +22,8 @@ function PembeliMyBids() {
 
   const [currentPage, setCurrentPage] = useState('myBids');
   const [modalStatus, setModalStatus] = useState(false);
+  const [statusOngkirModal, setStatusOngkirModal] = useState(false);
+
   const [formType, setFormType] = useState('');
   const [requestToEdit, setRequestToEdit] = useState({});
 
@@ -59,6 +65,10 @@ function PembeliMyBids() {
     setModalStatus((prev) => !prev);
   }
 
+  function openCekOngkirModal() {
+    setStatusOngkirModal((prev) => !prev);
+  }
+
   //   const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
 
   //   const mockBids = [
@@ -88,6 +98,8 @@ function PembeliMyBids() {
     <>
       <LoggedInNavbar />
 
+
+      {statusOngkirModal === true ? <CekOngkirModal openCekOngkirModal={openCekOngkirModal} /> : null}
       {/* {deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} bidId={bidIdToDelete} /> : null}
 
       {editBid ? <EditFormBid triggerEditModal={triggerEditModal} bid={bidToEdit} /> : null} */}
@@ -170,16 +182,16 @@ function PembeliMyBids() {
                                 <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Nama Product
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Harga Bid
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Jumlah
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Status
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Quick Actions
                                 </th>
                               </tr>
@@ -190,8 +202,8 @@ function PembeliMyBids() {
                                 return (
                                   <tr key={bid.id}>
                                     <td className="whitespace-nowrap py-3">
-                                      <div className="flex">
-                                        <div className="ml-4">
+                                      <div className="flex justify-center">
+                                        <div>
                                           <Link
                                             to={{
                                               pathname: `/bids/${bid.id}`,
@@ -218,7 +230,9 @@ function PembeliMyBids() {
                                         {bid.status}
                                       </span>
                                     </td>
-                                    <td className="flex flex-row align-middle pt-3 space-x-4 whitespace-nowrap text-sm">
+
+                                    {/* KALAU BELUM ACCEPTED OLEH PENJUAL, MASUK SINI */}
+                                    {/* <td className="flex flex-row justify-center align-middle pt-3 space-x-4 whitespace-nowrap text-sm">
                                       <a
                                         onClick={() => triggerEditModal(bid)}
                                         className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"
@@ -231,7 +245,26 @@ function PembeliMyBids() {
                                       >
                                         Hapus
                                       </a>
+                                    </td> */}
+
+                                    {/* KALAU SUDAH ACCEPTED OLEH PENJUAL, MASUK SINI */}
+                                    <td className="flex flex-row pt-2 justify-center align-middle m-auto space-x-4 whitespace-nowrap text-sm">
+                                      
+                                        <a
+                                          onClick={() => openCekOngkirModal()}
+                                          className="bg-teal-600 cursor-pointer rounded-lg text-xs px-3 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out"
+                                        >
+                                          Cek Ongkir
+                                        </a>
+                                        <a
+                                          onClick={() => triggerDeleteModal(bid.id)}
+                                          className="bg-gray-200 cursor-pointer rounded-lg text-xs px-3 py-2 font-medium text-gray-500 hover:bg-gray-300 transition duration-150 ease-in-out"
+                                        >
+                                          Batalkan
+                                        </a>
+                                      
                                     </td>
+
                                   </tr>
                                 );
                               })}
