@@ -211,7 +211,7 @@ function PembeliRequestDetail() {
                                           Rp {offer.offered_price && offer.offered_price.toLocaleString('id-ID')}
                                           <p className="mt-1 text-xs text-gray-500 font-normal">
                                             dari{' '}
-                                            <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
+                                            <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">
                                               Penjual #{offer.seller_id}
                                             </span>
                                           </p>
@@ -226,7 +226,7 @@ function PembeliRequestDetail() {
                                         </a>
                                         <a
                                           onClick={() => openCekOngkirModal()}
-                                          className="bg-teal-600 transition duration-150 ease-in-out cursor-pointer rounded-md px-5 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out"
+                                          className="bg-teal-600 cursor-pointer rounded-md px-5 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out"
                                         >
                                           Cek Ongkir
                                         </a>

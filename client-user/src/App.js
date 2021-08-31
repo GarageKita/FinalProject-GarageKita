@@ -12,6 +12,7 @@ import PembeliAllProducts from './pages/Pembeli-AllProducts';
 import PembeliMyBids from './pages/Pembeli-MyBids';
 import PembeliIndividualBid from './pages/Pembeli-IndividualBid';
 import PembeliPaymentSuccess from './pages/Pembeli-PaymentSuccess';
+import PembeliMyAddresses from './pages/Pembeli-MyAddress';
 
 import PenjualMain from './pages/Penjual-Main';
 import PenjualProductDetail from './pages/Penjual-ProductDetail';
@@ -19,9 +20,13 @@ import PenjualAllRequests from './pages/Penjual-AllRequests';
 import PenjualMyOffers from './pages/Penjual-MyOffers';
 import PenjualIndividualOffer from './pages/Penjual-IndividualOffer';
 
-import MyDeals from './pages/Both-MyDeals';
+import PembeliMyDeals from './pages/Pembeli-MyDeals';
+import PenjualMyDeals from './pages/Penjual-MyDeals';
+
 import IndividualDeal from './pages/Both-IndividualDeal';
 import SuccessPayment from './pages/Success-Payment';
+
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   return (
@@ -52,9 +57,15 @@ function App() {
         <Route path="/offers/myoffers" component={PenjualMyOffers} />
         <Route path="/offers/:offerID" component={PenjualIndividualOffer} />
 
+        <Route exact path="/deals/pembeli" component={PembeliMyDeals} />
+        <Route exact path="/deals/penjual" component={PenjualMyDeals} />
         <Route path="/deals/:id" component={IndividualDeal} />
-        <Route path="/deals" component={MyDeals} />
+
+        <Route path="/address/myaddress" component={PembeliMyAddresses} />
+
         <Route path="/payments/success" component={PembeliPaymentSuccess} />
+
+        <Route component={PageNotFound} />
       </Switch>
 
       {/* FOOTER */}

@@ -126,7 +126,7 @@ function RequestOffer(props) {
                       </p>
                       <p className="mt-1 text-xs text-gray-500 font-normal">
                         request dari{' '}
-                        <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">
+                        <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
                           Pembeli #{request.consumer_id}
                         </span>
                       </p>

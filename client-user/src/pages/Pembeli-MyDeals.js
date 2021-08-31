@@ -7,13 +7,14 @@ import { getDeals } from '../store/slices/dealSlice';
 import LoggedInNavbar from '../components/Pembeli-NavBar.js';
 import KategoriFilter from '../components/KategoriFilter.js';
 
-import PembeliMyDeals from '../components/Pembeli-MyDeals.js';
-import PenjualMyDeals from '../components/Penjual-MyDeals.js';
+import PembeliMyDealsTable from '../components/Pembeli-MyDealsTable.js';
+
+import MyCartIllus from '../imgs/svg/MyCart.svg'
 
 // import DeleteModal from '../components/Pembeli-BidDeleteModal.js'
 // import EditFormBid from '../pages/Pembeli-FormBid.js'
 
-function MyDeals() {
+function PembeliMyDeals() {
   const dispatch = useDispatch();
   // const initDeal = useSelector((state) => state.deal);
   // const [ deleteBid, setDeleteBid ] = useState(false)
@@ -83,7 +84,9 @@ function MyDeals() {
                 {/* <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg> */}
-                <h1 className="text-3xl font-extrabold tracking-tight text-teal-700">MyDeals</h1>
+                <h1 className="text-3xl font-extrabold tracking-tight text-teal-700">
+                Mode Pembeli: <span className="font-normal">MyDeals</span>
+                </h1>
               </div>
               <div className="flex items-center">
                 <button type="button" className="p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden">
@@ -113,31 +116,31 @@ function MyDeals() {
 
                     <li className="my-2">
                       <a href="#" className="text-teal-600 hover:text-teal-700">
-                        Dalam Proses
+                        Dalam Pengiriman
                       </a>
                     </li>
 
-                    {/* <li className="my-2">
-                      <Link to="/products" className="text-teal-600 hover:text-teal-700">
-                        Tiba di Tujuan
-                      </Link>
-                    </li> */}
+                    <li className="my-2">
+                      <a href="#" className="text-teal-600 hover:text-teal-700">
+                        Riwayat Transaksi
+                      </a>
+                    </li>
+                  <img src={MyCartIllus} className="w-full" />
                   </ul>
 
                   {/* <KategoriFilter categories={categories} /> */}
+                  
                 </form>
 
                 {/* <!-- Product grid --> */}
                 <div className="lg:col-span-3 h-full min-w-full overflow-y-auto ">
                   {/* <!-- TABLE MyDeals - START --> */}
                   <div className="flex flex-col">
-                    <div className="sm:-mx-6 lg:-mx-8">
-                      <div className=" align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        {currentMode === 'pembeli' ? (
-                          <PembeliMyDeals mockDeals={mockDeals} changeMode={changeMode} />
-                        ) : (
-                          <PenjualMyDeals mockDeals={mockDeals} changeMode={changeMode} />
-                        )}
+                    <div className="w-full">
+                      <div className=" align-middle inline-block min-w-full ">
+                        
+                          <PembeliMyDealsTable mockDeals={mockDeals} changeMode={changeMode} />
+                        
                       </div>
                     </div>
                   </div>
@@ -152,4 +155,4 @@ function MyDeals() {
   );
 }
 
-export default MyDeals;
+export default PembeliMyDeals;

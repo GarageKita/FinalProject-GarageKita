@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function PembeliMyDeals(props) {
+export default function PembeliMyDealsTable(props) {
   useEffect(() => {
     const midtransScriptUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
     const clientKey = 'SB-Mid-client-TPkLr9_TH34idZS9';
@@ -46,17 +46,19 @@ export default function PembeliMyDeals(props) {
     <div>
       <div className="flex flex-row justify-between">
         <p className="mb-1 text-left font-bold text-teal-600 text-xl">
-          Keranjang: <span className="font-normal">Product yang dibeli dari Penjual</span>
+          Product yang dibeli dari Penjual
         </p>
-        <button
-          onClick={() => changeMode('penjual')}
-          className="flex flex-row cursor-pointer max-h-max h-4 text-teal-600 hover:text-teal-400 transition duration-150 ease-in-out"
+
+        <Link
+          to="/deals/penjual"
+          className="flex flex-row cursor-pointer max-h-max h-4 text-rust-600 hover:text-rust-400 transition duration-150 ease-in-out"
         >
-          <p className="mb-1 text-left font-bold text-sm">Product yang kamu lepas</p>
+          <p className="mb-1 text-left font-bold text-sm">Mode Penjual: MyDeals</p>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLineCap="round" strokeLineJoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
           </svg>
-        </button>
+        </Link>
+
       </div>
       <p className="mb-6 text-left font-normal text-gray-500 text-sm">
         Pembayaran diproses oleh 3rd party payment gateway.
