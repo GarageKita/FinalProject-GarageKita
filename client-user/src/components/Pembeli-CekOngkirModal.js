@@ -7,6 +7,7 @@ import { ongkirCost } from '../store/slices/ongkirSlice';
 import FormAddressModal from '../components/Pembeli-FormAddressModal.js';
 import { editBid } from '../store/slices/bidSlice';
 import { editOffer } from '../store/slices/offerSlice';
+import { editProduct } from '../store/slices/productSlice';
 
 function PembeliCekOngkirModal(props) {
   const { openCekOngkirModal, offer, request } = props;
@@ -64,6 +65,7 @@ function PembeliCekOngkirModal(props) {
   };
 
   function acceptOffer() {
+    // hapus request, kurangi stock produk yang dibeli
     if (request) {
       dispatch(
         postDeal({
@@ -107,6 +109,16 @@ function PembeliCekOngkirModal(props) {
         );
       });
     }
+    console.log(offer, 'accept offer');
+    dispatch(
+      editProduct({
+        id: offer.product_id,
+        payload: {
+          stock: offer.Product.stock - offer.qty,
+          product_id: offer.product_id,
+        },
+      })
+    );
 
     openCekOngkirModal();
   }

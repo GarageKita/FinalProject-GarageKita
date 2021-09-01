@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import DeleteModal from '../components/Pembeli-DeleteModal.js';
 import { getOffersByRequestId } from '../store/slices/offerSlice';
+import { getRequestById } from '../store/slices/requestSlice.js';
 
 function PembeliMyRequest(props) {
   const { openFormRequest, requestList } = props;
@@ -20,7 +21,7 @@ function PembeliMyRequest(props) {
   }
 
   const getRequestDetail = (requestId) => {
-    // dispatch(getRequestById(requestId));
+    dispatch(getRequestById(requestId));
     dispatch(getOffersByRequestId(requestId));
   };
 
@@ -64,7 +65,6 @@ function PembeliMyRequest(props) {
 
                 <tbody className="bg-white divide-y divide-gray-200">
                   {requestList.map((request, index) => {
-                    console.log(request);
                     return (
                       <tr key={request.id}>
                         <td className="px-2 py-4 whitespace-nowrap">

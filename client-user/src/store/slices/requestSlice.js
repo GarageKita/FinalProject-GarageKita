@@ -47,6 +47,7 @@ export const postRequest = createAsyncThunk('request/post', async (payload, thun
 });
 
 export const editRequest = createAsyncThunk('request/put', async (data, thunkAPI) => {
+  console.log(data);
   const response = await axios({
     method: 'put',
     url: baseURL + '/requests/' + data.id,

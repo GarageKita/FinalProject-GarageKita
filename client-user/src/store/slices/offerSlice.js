@@ -55,7 +55,7 @@ export const editOffer = createAsyncThunk('offer/put', async ({ id, request_id, 
       access_token: localStorage.access_token,
     },
   });
-  thunkAPI.dispatch(getMyOffers()).then(() => getOffersByRequestId(request_id));
+  thunkAPI.dispatch(getOffersByRequestId(request_id)).then(() => getMyOffers());
   return response;
 });
 
@@ -144,7 +144,7 @@ const offerSlice = createSlice({
     },
     [editOffer.fulfilled]: (state, { meta, payload }) => {
       state.loading = false;
-      state.offersByRequestId = state.offersByRequestId.filter((el) => el.id != meta.arg.id);
+      // state.offersByRequestId = state.offersByRequestId.filter((el) => el.id != meta.arg.id);
     },
     [editOffer.rejected]: (state) => {
       state.loading = false;
