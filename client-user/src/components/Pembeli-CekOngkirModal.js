@@ -4,21 +4,28 @@ import { getMyAddress } from '../store/slices/addressSlice';
 import { postDeal } from '../store/slices/dealSlice';
 import { ongkirCost } from '../store/slices/ongkirSlice';
 
+import FormAddressModal from '../components/Pembeli-FormAddressModal.js';
+import { editBid } from '../store/slices/bidSlice';
+import { editOffer } from '../store/slices/offerSlice';
+
 function PembeliCekOngkirModal(props) {
   const { openCekOngkirModal, offer, request } = props;
 
   const dispatch = useDispatch();
 
   const [destination_id, setDestinationId] = useState('');
+  const [address_id, setAddressId] = useState('');
   const [courier, setCourier] = useState('');
   const [totalPrice, setTotalPrice] = useState('');
+  const [formAddress, setFormAddress] = useState(false);
+  const [formType, setFormType] = useState('post');
 
-  const { myCityId } = useSelector((state) => state.address);
-  const { ongkir, typeOrigin, cityOrigin, provinceOrigin } = useSelector((state) => state.ongkir);
+  const { myAddresses, myCityId } = useSelector((state) => state.address);
+  const { ongkir, typeOrigin, cityOrigin, provinceOrigin, provinces } = useSelector((state) => state.ongkir);
 
-  useEffect(() => {
-    setDestinationId(myCityId);
-  }, []);
+  // useEffect(() => {
+  //   setDestinationId(myCityId);
+  // }, []);
 
   useEffect(() => {
     if (courier) {
@@ -57,23 +64,74 @@ function PembeliCekOngkirModal(props) {
   };
 
   function acceptOffer() {
-    // console.log(offer);
-    // console.log(request);
-    dispatch(
-      postDeal({
-        comsumer_id: request.consumer_id,
-        product_id: offer.product_id,
-        deal_price: totalPrice,
-        deal_qty: request.qty,
-        request_id: offer.request_id,
-      })
-    );
+    if (request) {
+      dispatch(
+        postDeal({
+          consumer_id: request.consumer_id,
+          product_id: offer.product_id,
+          deal_price: totalPrice,
+          deal_qty: request.qty,
+          request_id: offer.request_id,
+          address_id: address_id,
+        })
+      ).then(() => {
+        dispatch(
+          editOffer({
+            id: offer.id,
+            request_id: offer.request_id,
+            payload: {
+              status: 'deal',
+              product_id: offer.product_id,
+            },
+          })
+        );
+      });
+    } else {
+      dispatch(
+        postDeal({
+          consumer_id: offer.consumer_id,
+          product_id: offer.product_id,
+          deal_price: totalPrice,
+          deal_qty: offer.qty,
+          address_id: address_id,
+        })
+      ).then(() => {
+        dispatch(
+          editBid({
+            id: offer.id,
+            payload: {
+              status: 'deal',
+              product_id: offer.product_id,
+            },
+          })
+        );
+      });
+    }
+
     openCekOngkirModal();
+  }
+
+  function triggerFormModal() {
+    setFormAddress((prev) => !prev);
+  }
+
+  function addressHandler(e) {
+    const address = myAddresses.find((el) => el.address == e.target.value);
+    setDestinationId(address.city_id);
+    setAddressId(address.id);
+  }
+
+  function closeModal() {
+    setFormAddress((prev) => !prev);
   }
 
   return (
     <React.Fragment>
-      <div className="fixed z-10 inset-0 overflow-y-auto px-80" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      {formAddress === true ? (
+        <FormAddressModal triggerFormModal={triggerFormModal} formType={formType} provinces={provinces} closeModal={closeModal} />
+      ) : null}
+
+      <div className="fixed z-9 inset-0 overflow-y-auto px-80" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
@@ -88,22 +146,34 @@ function PembeliCekOngkirModal(props) {
                 <div class="px-8 py-5 bg-white">
                   <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-4">
-                      <label for="address" class="block text-sm font-medium text-gray-700">
-                        Alamat Pengiriman
-                      </label>
+                      <div className="flex flex-row justify-between">
+                        <label for="address" className="block text-sm font-medium text-gray-700">
+                          Alamat Pengiriman
+                        </label>
+                        <a onClick={() => triggerFormModal()} className="text-xs text-teal-600 underline hover:text-teal-700 cursor-pointer">
+                          Tambah alamat baru
+                        </a>
+                      </div>
                       <select
                         name="address"
                         id="address"
-                        class="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm py-2 px-3 border border-solid border-gray-300 rounded-md"
+                        className="mt-1 focus:ring-teal-500 focus:border-teal-500 block w-full shadow-sm sm:text-sm py-2 px-3 border border-solid border-gray-300 rounded-md"
+                        onChange={(e) => addressHandler(e)}
                       >
-                        <option>PT. GarageKita Sukses Selalu, Jl. Fase III no. 1, Jakarta Pusat, DKI Jakarta 10230</option>
+                        <option selected disabled>
+                          -- pilih alamat --
+                        </option>
+                        {myAddresses.map((el, i) => {
+                          return <option key={i}>{el.address}</option>;
+                        })}
+                        {/* <option>PT. GarageKita Sukses Selalu, Jl. Fase III no. 1, Jakarta Pusat, DKI Jakarta 10230</option>
                         <option>
                           Gracia Residence, Jl. Graha Raya Bintaro No.16, Pd. Kacang Bar., Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15226
                         </option>
                         <option>
                           Ciliwung 1 no. 76 Condet Cililitan Kramat Jati Jakarta Timur, Cililitan, Kramatjati, RT.10/RW.6, Cililitan, Kec. Kramat
                           jati, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13640
-                        </option>
+                        </option> */}
                       </select>
                     </div>
 

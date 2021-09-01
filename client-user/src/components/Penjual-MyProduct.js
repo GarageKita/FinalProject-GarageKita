@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import DeleteProductModal from '../components/Penjual-DeleteProductModal.js';
 import { getBidsByProductId } from '../store/slices/bidSlice';
+import { getProductById } from '../store/slices/productSlice.js';
 
 function PenjualMyProduct(props) {
   const { openFormProduct, productList } = props;
@@ -20,7 +21,7 @@ function PenjualMyProduct(props) {
   }
 
   const getProductDetail = (productId) => {
-    // dispatch(getProductById(productId));
+    dispatch(getProductById(productId));
     dispatch(getBidsByProductId(productId));
   };
 
@@ -41,8 +42,13 @@ function PenjualMyProduct(props) {
                       Nama & Harga
                     </th>
                     <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-rust-600 uppercase tracking-wider">
-                      Deskripsi
+                      Jumlah Bid
                     </th>
+                    {/* <th scope="col" className="px-6 py-3 text-center whitespace-nowrap text-sm font-bold text-rust-600 uppercase tracking-wider">
+                      In-Range
+                      <br />
+                      <span className="lowercase font-normal text-xs tracking-normal">(Ada/Tidak)</span>
+                    </th> */}
                     <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-rust-600 uppercase tracking-wider">
                       Stock
                     </th>
@@ -81,9 +87,20 @@ function PenjualMyProduct(props) {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-2 whitespace-wrap ">
-                          <div className="text-xs text-gray-500">{product.description}</div>
+                        <td className="px-6 py-2 whitespace-wrap  ">
+                          <div className="text-sm text-gray-500">{product.Bids && product.Bids.filter((bid) => bid.status != 'rejected').length}</div>
                         </td>
+
+                        {/* {product.Bids.filter((bid) => bid.status != 'rejected').length > 0 && product.inRange ? (
+                          <td className="px-6 py-2 whitespace-nowrap">
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-teal-600">Ada</span>
+                          </td>
+                        ) : (
+                          <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">Tidak</span>
+                          </td>
+                        )} */}
+
                         <td className="px-6 py-2 whitespace-nowrap">
                           <div className="text-sm text-gray-500">{product.stock}</div>
                         </td>

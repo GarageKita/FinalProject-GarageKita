@@ -22,14 +22,14 @@ function PembeliMain() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { bid } = location.state;
+  // const { bid } = location.state;
 
-  // const { bidById: bid, loading } = useSelector((state) => state.bid);
+  const { bidById: bid, loading } = useSelector((state) => state.bid);
 
   useEffect(() => {
-    // if (!loading) {
-    //   setOfferedPrice(bid.offered_price);
-    // }
+    if (!loading) {
+      setOfferedPrice(bid.offered_price);
+    }
     setOfferedPrice(bid.offered_price);
   }, [bid]);
 
@@ -43,9 +43,14 @@ function PembeliMain() {
     setDeleteBid((prev) => !prev);
   }
 
-  const submitEditBid = async (e, bidId) => {
+  const submitEditBid = async (e) => {
     e.preventDefault();
-    const { error } = await dispatch(editBid({ id: bid.id, payload: { offered_price } }));
+    const { error } = await dispatch(
+      editBid({
+        id: bid.id,
+        payload: { offered_price, product_id: bid.product_id },
+      })
+    );
     if (!error) {
       setOfferedPrice(0);
     }
@@ -107,69 +112,69 @@ function PembeliMain() {
                         <section className="flex flex-row">
                           {/* <!-- PRODUCT CARD - START --> */}
                           <div className="w-full flex text-left items-center bg-white pt-14 pb-8  rounded-xl border-gray-200 border border-solid sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                            {/* {!loading && ( */}
-                            <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
-                              <div className="aspect-w-2 aspect-h-3 shadow-lg rounded-lg bg-gray-100  sm:col-span-4 lg:col-span-5">
-                                <img src={bid.Product && bid.Product.image_url} alt="Product shot" className="object-center object-cover" />
-                              </div>
+                            {!loading && (
+                              <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
+                                <div className="aspect-w-2 aspect-h-3 shadow-lg rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
+                                  <img src={bid.Product && bid.Product.image_url} alt="Product shot" className="object-center object-cover" />
+                                </div>
 
-                              <div className="flex flex-col justify-between sm:col-span-8 lg:col-span-7">
-                                <div>
-                                  <h2 className="text-2xl cursor-pointer hover:text-gray-600 transition duration-150 ease-in-out font-bold text-gray-800 sm:pr-12">
-                                    {bid.Product && bid.Product.name}
-                                  </h2>
+                                <div className="flex flex-col justify-between sm:col-span-8 lg:col-span-7">
+                                  <div>
+                                    <h2 className="text-2xl cursor-pointer hover:text-gray-600 transition duration-150 ease-in-out font-bold text-gray-800 sm:pr-12">
+                                      {bid.Product && bid.Product.name}
+                                    </h2>
 
-                                  <section aria-labelledby="information-heading" className="mt-1">
-                                    <p className="mt-1 text-xs text-gray-500 font-normal">
-                                      milik{' '}
-                                      <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
-                                        Penjual #{bid.Product && bid.Product.seller_id}
-                                      </span>
-                                    </p>
+                                    <section aria-labelledby="information-heading" className="mt-1">
+                                      <p className="mt-1 text-xs text-gray-500 font-normal">
+                                        milik{' '}
+                                        <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
+                                          Penjual #{bid.Product && bid.Product.seller_id}
+                                        </span>
+                                      </p>
 
-                                    <div className="mt-6">
-                                      <p className="text-sm font-bold text-teal-600">Product Description</p>
-                                      <p className="text-sm font-normal text-gray-500">{bid.Product && bid.Product.description}</p>
-                                    </div>
+                                      <div className="mt-6">
+                                        <p className="text-sm font-bold text-teal-600">Product Description</p>
+                                        <p className="text-sm font-normal text-gray-500">{bid.Product && bid.Product.description}</p>
+                                      </div>
 
-                                    <div className="border-t border-solid border-gray-200 mt-6 pt-2">
-                                      <div className="mt-3">
-                                        <p className="text-lg font-bold text-gray-800">Detil Bid kamu</p>
-                                      </div>
-                                      <div className="mt-3">
-                                        <p className="text-sm font-bold text-teal-600">
-                                          Jumlah Bid: <span className="text-sm font-normal text-gray-500">1</span>
-                                        </p>
-                                      </div>
-                                      <div className="mt-3">
-                                        <p className="text-sm font-bold text-teal-600">
-                                          Harga Bid:{' '}
-                                          <span className="text-sm font-normal text-gray-500">
-                                            Rp{bid.offered_price && bid.offered_price.toLocaleString('id-ID')}
-                                          </span>
-                                        </p>
-                                      </div>
-                                      <div className="mt-3">
-                                        <p className="text-sm font-bold text-teal-600">
-                                          Waktu Bid: <span className="text-sm font-normal text-gray-500">{dateFormatter(bid.updatedAt)}</span>
-                                        </p>
-                                      </div>
-                                      <div className="mt-3">
-                                        <p className="text-sm font-bold text-teal-600">
-                                          Status Bid:
-                                          <span className="text-sm pl-2 text-gray-500">
-                                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600">
-                                              {bid.status}
+                                      <div className="border-t border-solid border-gray-200 mt-6 pt-2">
+                                        <div className="mt-3">
+                                          <p className="text-lg font-bold text-gray-800">Detil Bid kamu</p>
+                                        </div>
+                                        {/* <div className="mt-3">
+                                          <p className="text-sm font-bold text-teal-600">
+                                            Jumlah Bid: <span className="text-sm font-normal text-gray-500">1</span>
+                                          </p>
+                                        </div> */}
+                                        <div className="mt-3">
+                                          <p className="text-sm font-bold text-teal-600">
+                                            Harga Bid:{' '}
+                                            <span className="text-sm font-normal text-gray-500">
+                                              Rp{bid.offered_price && bid.offered_price.toLocaleString('id-ID')}
                                             </span>
-                                          </span>
-                                        </p>
+                                          </p>
+                                        </div>
+                                        <div className="mt-3">
+                                          <p className="text-sm font-bold text-teal-600">
+                                            Waktu Bid: <span className="text-sm font-normal text-gray-500">{dateFormatter(bid.updatedAt)}</span>
+                                          </p>
+                                        </div>
+                                        <div className="mt-3">
+                                          <p className="text-sm font-bold text-teal-600">
+                                            Status Bid:
+                                            <span className="text-sm pl-2 text-gray-500">
+                                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600">
+                                                {bid.status}
+                                              </span>
+                                            </span>
+                                          </p>
+                                        </div>
                                       </div>
-                                    </div>
-                                  </section>
+                                    </section>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            {/* )} */}
+                            )}
                           </div>
                           {/* <!-- PRODUCT CARD - END --> */}
 

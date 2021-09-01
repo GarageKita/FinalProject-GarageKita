@@ -19,6 +19,7 @@ function PembeliRequestDetail() {
   const [offerToReject, setOfferToReject] = useState('');
   const [offerToCekOngkir, setOfferToCekOngkir] = useState('');
   const [requestToEdit, setRequestToEdit] = useState({});
+  // const [offers, setOffers] = useState([]);
 
   const [modalStatus, setModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
@@ -35,7 +36,8 @@ function PembeliRequestDetail() {
 
   useState(() => {
     dispatch(getMyAddress());
-  });
+    // setOffers(request.Offers.filter((offer) => offer.status != 'rejected'));
+  }, []);
 
   function openDeleteRequest(id) {
     setRequestIdToDelete(id);

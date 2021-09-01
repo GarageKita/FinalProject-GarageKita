@@ -7,7 +7,8 @@ import EditFormOffer from '../pages/Penjual-FormOffer.js';
 import PenjualMyProduct from '../components/Penjual-MyProduct.js';
 import FormProduct from '../pages/Penjual-FormProduct.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyOffers } from '../store/slices/offerSlice.js';
+import { getMyOffers, getOfferById } from '../store/slices/offerSlice.js';
+import { getCategories } from '../store/slices/categorySlice.js';
 
 function PembeliMain() {
   const [deleteOffer, setDeleteOffer] = useState(false);
@@ -28,7 +29,8 @@ function PembeliMain() {
 
   useEffect(() => {
     dispatch(getMyOffers());
-  }, [dispatch]);
+    dispatch(getCategories());
+  }, []);
 
   function triggerDeleteModal(offerId) {
     setOfferIdToDelete(offerId);
@@ -60,6 +62,10 @@ function PembeliMain() {
 
   function closeDeleteModal() {
     setDeleteOffer((prev) => !prev);
+  }
+
+  function getOfferDetail(offerId) {
+    dispatch(getOfferById(offerId));
   }
 
   const mockOffers = [
@@ -245,6 +251,7 @@ function PembeliMain() {
                                                   },
                                                 }}
                                                 className="cursor-pointer text-sm font-bold text-rust-600 hover:text-rust-500"
+                                                onClick={() => getOfferDetail(offer.id)}
                                               >
                                                 {offer.Product && offer.Product.name}
                                               </Link>

@@ -5,18 +5,25 @@ import LoggedInNavbar from '../components/Pembeli-NavBar.js';
 import DeleteModal from '../components/Pembeli-BidDeleteModal.js';
 import EditFormBid from '../pages/Pembeli-FormBid.js';
 import FormRequest from '../pages/Pembeli-FormRequest.js';
+
+import CekOngkirModal from '../components/Pembeli-CekOngkirModal.js';
+
 import { getCategories } from '../store/slices/categorySlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBidById, getMyBids } from '../store/slices/bidSlice.js';
+import { getMyAddress } from '../store/slices/addressSlice.js';
 
 function PembeliMyBids() {
   const [deleteBid, setDeleteBid] = useState(false);
   const [editBid, setEditBid] = useState(false);
   const [bidToEdit, setBidToEdit] = useState({});
   const [bidIdToDelete, setBidIdToDelete] = useState({});
+  const [bidToCekOngkir, setBidToCekOngkir] = useState('');
 
   const [currentPage, setCurrentPage] = useState('myBids');
   const [modalStatus, setModalStatus] = useState(false);
+  const [statusOngkirModal, setStatusOngkirModal] = useState(false);
+
   const [formType, setFormType] = useState('');
 
   const dispatch = useDispatch();
@@ -25,9 +32,10 @@ function PembeliMyBids() {
   const { categories } = useSelector((state) => state.category);
 
   useEffect(() => {
+    dispatch(getMyAddress());
     dispatch(getMyBids());
     dispatch(getCategories());
-  }, [dispatch]);
+  }, []);
 
   function triggerDeleteModal(bidId) {
     setBidIdToDelete(bidId);
@@ -39,9 +47,9 @@ function PembeliMyBids() {
     setEditBid((prev) => !prev);
   }
 
-  // function getBidDetail(bidId) {
-  //   dispatch(getBidById(bidId));
-  // }
+  function getBidDetail(bidId) {
+    dispatch(getBidById(bidId));
+  }
 
   function openFormRequest(formToLoad) {
     setFormType(formToLoad);
@@ -58,6 +66,11 @@ function PembeliMyBids() {
 
   function closeDeleteModal() {
     setDeleteBid((prev) => !prev);
+  }
+  function openCekOngkirModal(bid) {
+    console.log(bid);
+    setBidToCekOngkir(bid);
+    setStatusOngkirModal((prev) => !prev);
   }
 
   //   const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
@@ -92,6 +105,8 @@ function PembeliMyBids() {
       {deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} bidId={bidIdToDelete} closeDeleteModal={closeDeleteModal} /> : null}
 
       {editBid ? <EditFormBid triggerEditModal={triggerEditModal} bid={bidToEdit} /> : null}
+
+      {statusOngkirModal === true ? <CekOngkirModal openCekOngkirModal={openCekOngkirModal} offer={bidToCekOngkir} /> : null}
 
       {modalStatus === true ? (
         <FormRequest openFormRequest={openFormRequest} categories={categories} formType={formType} closeModal={closeModal}></FormRequest>
@@ -164,16 +179,16 @@ function PembeliMyBids() {
                                 <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Nama Product
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Harga Bid
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Jumlah
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Status
                                 </th>
-                                <th scope="col" className="pr-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-teal-600 uppercase tracking-wider">
                                   Quick Actions
                                 </th>
                               </tr>
@@ -181,53 +196,76 @@ function PembeliMyBids() {
 
                             <tbody className="bg-white divide-y divide-gray-200">
                               {myBids.map((bid, index) => {
-                                return (
-                                  <tr key={bid.id}>
-                                    <td className="whitespace-nowrap py-3">
-                                      <div className="flex">
-                                        <div className="ml-4">
-                                          <Link
-                                            to={{
-                                              pathname: `/bids/${bid.id}`,
-                                              state: {
-                                                bid: bid,
-                                              },
-                                            }}
-                                            className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500"
-                                            // onClick={() => getBidDetail(bid.id)}
-                                          >
-                                            {bid.Product && bid.Product.name}
-                                          </Link>
+                                if (bid.status != 'deal') {
+                                  return (
+                                    <tr key={bid.id}>
+                                      <td className="whitespace-nowrap py-3">
+                                        <div className="flex justify-center">
+                                          <div>
+                                            <Link
+                                              to={{
+                                                pathname: `/bids/${bid.id}`,
+                                                state: {
+                                                  bid: bid,
+                                                },
+                                              }}
+                                              className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500"
+                                              onClick={() => getBidDetail(bid.id)}
+                                            >
+                                              {bid.Product && bid.Product.name}
+                                            </Link>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                    <td className="whitespace-wrap">
-                                      <div className="text-xs text-gray-500">Rp{bid.offered_price.toLocaleString('id-ID')}</div>
-                                    </td>
-                                    <td className="whitespace-nowrap">
-                                      <div className="text-sm text-gray-500">{bid.qty}</div>
-                                    </td>
-                                    <td className="whitespace-nowrap text-sm text-gray-500">
-                                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
-                                        {bid.status}
-                                      </span>
-                                    </td>
-                                    <td className="flex flex-row align-middle pt-3 space-x-4 whitespace-nowrap text-sm">
-                                      <a
-                                        onClick={() => triggerEditModal(bid)}
-                                        className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"
-                                      >
-                                        Edit
-                                      </a>
-                                      <a
-                                        onClick={() => triggerDeleteModal(bid.id)}
-                                        className="text-red-600 hover:text-red-400 font-medium cursor-pointer"
-                                      >
-                                        Hapus
-                                      </a>
-                                    </td>
-                                  </tr>
-                                );
+                                      </td>
+                                      <td className="whitespace-wrap">
+                                        <div className="text-xs text-gray-500">Rp{bid.offered_price.toLocaleString('id-ID')}</div>
+                                      </td>
+                                      <td className="whitespace-nowrap">
+                                        <div className="text-sm text-gray-500">{bid.qty}</div>
+                                      </td>
+                                      <td className="whitespace-nowrap text-sm text-gray-500">
+                                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
+                                          {bid.status}
+                                        </span>
+                                      </td>
+
+                                      {/* KALAU BELUM ACCEPTED OLEH PENJUAL, MASUK SINI */}
+
+                                      {bid.status != 'accepted' ? (
+                                        <td className="flex flex-row justify-center align-middle pt-3 space-x-4 whitespace-nowrap text-sm">
+                                          <a
+                                            onClick={() => triggerEditModal(bid)}
+                                            className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"
+                                          >
+                                            Edit
+                                          </a>
+                                          <a
+                                            onClick={() => triggerDeleteModal(bid.id)}
+                                            className="text-red-600 hover:text-red-400 font-medium cursor-pointer"
+                                          >
+                                            Hapus
+                                          </a>
+                                        </td>
+                                      ) : (
+                                        // {/* KALAU SUDAH ACCEPTED OLEH PENJUAL, MASUK SINI */}
+                                        <td className="flex flex-row pt-2 justify-center align-middle m-auto space-x-4 whitespace-nowrap text-sm">
+                                          <a
+                                            onClick={() => openCekOngkirModal(bid)}
+                                            className="bg-teal-600 cursor-pointer rounded-lg text-xs px-3 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out"
+                                          >
+                                            Cek Ongkir
+                                          </a>
+                                          <a
+                                            onClick={() => triggerDeleteModal(bid.id)}
+                                            className="bg-gray-200 cursor-pointer rounded-lg text-xs px-3 py-2 font-medium text-gray-500 hover:bg-gray-300 transition duration-150 ease-in-out"
+                                          >
+                                            Batalkan
+                                          </a>
+                                        </td>
+                                      )}
+                                    </tr>
+                                  );
+                                }
                               })}
                             </tbody>
                           </table>

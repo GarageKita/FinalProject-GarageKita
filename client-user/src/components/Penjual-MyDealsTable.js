@@ -90,7 +90,7 @@ export default function PenjualMyDealsTable(props) {
                                             <p className="mt-1 text-left text-xs text-gray-500 font-normal">di-Bid oleh <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Pembeli #2121</span></p>
                                         </h3>
                                         <p className="ml-4">
-                                            <span className="text-sm font-light text-gray-500">Jumlah yang akan kamu terima: </span>RpRp21000000
+                                            <span className="text-sm font-light text-gray-500">Jumlah yang akan kamu terima: </span>Rp21000000
                                         </p>
                                     </div>
                                 </div>

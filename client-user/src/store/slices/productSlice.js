@@ -55,7 +55,10 @@ export const editProduct = createAsyncThunk('product/put', async ({ id, payload 
       access_token: localStorage.access_token,
     },
   });
-  thunkAPI.dispatch(getMyProducts()).then(() => thunkAPI.dispatch(getProducts()));
+  thunkAPI
+    .dispatch(getMyProducts())
+    .then(() => thunkAPI.dispatch(getProductById(payload.product_id)))
+    .then(() => thunkAPI.dispatch(getProducts()));
   return response;
 });
 

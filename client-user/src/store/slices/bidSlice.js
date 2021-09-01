@@ -56,7 +56,10 @@ export const editBid = createAsyncThunk('bid/put', async ({ id, payload }, thunk
       access_token: localStorage.access_token,
     },
   });
-  thunkAPI.dispatch(getBidById(id)).then(() => thunkAPI.dispatch(getMyBids()));
+  thunkAPI
+    .dispatch(getBidsByProductId(payload.product_id))
+    .then(() => thunkAPI.dispatch(getBidById(id)))
+    .then(() => thunkAPI.dispatch(getMyBids()));
   return response;
 });
 
@@ -91,6 +94,7 @@ const bidSlice = createSlice({
       state.loading = true;
     },
     [getMyBids.fulfilled]: (state, { payload }) => {
+      // console.log(payload.data.data);
       state.loading = false;
       state.rawMyBids = state.myBids = payload.data.data;
     },
@@ -105,6 +109,7 @@ const bidSlice = createSlice({
       state.loading = true;
     },
     [getBidById.fulfilled]: (state, { payload }) => {
+      console.log(payload.data.data);
       state.loading = false;
       state.bidById = payload.data.data;
     },
@@ -144,7 +149,7 @@ const bidSlice = createSlice({
     },
     [editBid.fulfilled]: (state, { meta, payload }) => {
       state.loading = false;
-      state.bidsByProductId = state.bidsByProductId.filter((el) => el.id != meta.arg.id);
+      // state.bidsByProductId = state.bidsByProductId.filter((el) => el.id != meta.arg.id);
     },
     [editBid.rejected]: (state) => {
       state.loading = false;
