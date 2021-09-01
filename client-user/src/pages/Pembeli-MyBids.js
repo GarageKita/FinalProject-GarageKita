@@ -35,7 +35,7 @@ function PembeliMyBids() {
     dispatch(getMyAddress());
     dispatch(getMyBids());
     dispatch(getCategories());
-  }, [dispatch]);
+  }, []);
 
   function triggerDeleteModal(bidId) {
     setBidIdToDelete(bidId);
@@ -196,74 +196,76 @@ function PembeliMyBids() {
 
                             <tbody className="bg-white divide-y divide-gray-200">
                               {myBids.map((bid, index) => {
-                                return (
-                                  <tr key={bid.id}>
-                                    <td className="whitespace-nowrap py-3">
-                                      <div className="flex justify-center">
-                                        <div>
-                                          <Link
-                                            to={{
-                                              pathname: `/bids/${bid.id}`,
-                                              state: {
-                                                bid: bid,
-                                              },
-                                            }}
-                                            className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500"
-                                            onClick={() => getBidDetail(bid.id)}
-                                          >
-                                            {bid.Product && bid.Product.name}
-                                          </Link>
+                                if (bid.status != 'deal') {
+                                  return (
+                                    <tr key={bid.id}>
+                                      <td className="whitespace-nowrap py-3">
+                                        <div className="flex justify-center">
+                                          <div>
+                                            <Link
+                                              to={{
+                                                pathname: `/bids/${bid.id}`,
+                                                state: {
+                                                  bid: bid,
+                                                },
+                                              }}
+                                              className="cursor-pointer text-sm font-bold text-teal-600 hover:text-teal-500"
+                                              onClick={() => getBidDetail(bid.id)}
+                                            >
+                                              {bid.Product && bid.Product.name}
+                                            </Link>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                    <td className="whitespace-wrap">
-                                      <div className="text-xs text-gray-500">Rp{bid.offered_price.toLocaleString('id-ID')}</div>
-                                    </td>
-                                    <td className="whitespace-nowrap">
-                                      <div className="text-sm text-gray-500">{bid.qty}</div>
-                                    </td>
-                                    <td className="whitespace-nowrap text-sm text-gray-500">
-                                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
-                                        {bid.status}
-                                      </span>
-                                    </td>
-
-                                    {/* KALAU BELUM ACCEPTED OLEH PENJUAL, MASUK SINI */}
-
-                                    {bid.status != 'accepted' ? (
-                                      <td className="flex flex-row justify-center align-middle pt-3 space-x-4 whitespace-nowrap text-sm">
-                                        <a
-                                          onClick={() => triggerEditModal(bid)}
-                                          className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"
-                                        >
-                                          Edit
-                                        </a>
-                                        <a
-                                          onClick={() => triggerDeleteModal(bid.id)}
-                                          className="text-red-600 hover:text-red-400 font-medium cursor-pointer"
-                                        >
-                                          Hapus
-                                        </a>
                                       </td>
-                                    ) : (
-                                      // {/* KALAU SUDAH ACCEPTED OLEH PENJUAL, MASUK SINI */}
-                                      <td className="flex flex-row pt-2 justify-center align-middle m-auto space-x-4 whitespace-nowrap text-sm">
-                                        <a
-                                          onClick={() => openCekOngkirModal(bid)}
-                                          className="bg-teal-600 cursor-pointer rounded-lg text-xs px-3 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out"
-                                        >
-                                          Cek Ongkir
-                                        </a>
-                                        <a
-                                          onClick={() => triggerDeleteModal(bid.id)}
-                                          className="bg-gray-200 cursor-pointer rounded-lg text-xs px-3 py-2 font-medium text-gray-500 hover:bg-gray-300 transition duration-150 ease-in-out"
-                                        >
-                                          Batalkan
-                                        </a>
+                                      <td className="whitespace-wrap">
+                                        <div className="text-xs text-gray-500">Rp{bid.offered_price.toLocaleString('id-ID')}</div>
                                       </td>
-                                    )}
-                                  </tr>
-                                );
+                                      <td className="whitespace-nowrap">
+                                        <div className="text-sm text-gray-500">{bid.qty}</div>
+                                      </td>
+                                      <td className="whitespace-nowrap text-sm text-gray-500">
+                                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
+                                          {bid.status}
+                                        </span>
+                                      </td>
+
+                                      {/* KALAU BELUM ACCEPTED OLEH PENJUAL, MASUK SINI */}
+
+                                      {bid.status != 'accepted' ? (
+                                        <td className="flex flex-row justify-center align-middle pt-3 space-x-4 whitespace-nowrap text-sm">
+                                          <a
+                                            onClick={() => triggerEditModal(bid)}
+                                            className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"
+                                          >
+                                            Edit
+                                          </a>
+                                          <a
+                                            onClick={() => triggerDeleteModal(bid.id)}
+                                            className="text-red-600 hover:text-red-400 font-medium cursor-pointer"
+                                          >
+                                            Hapus
+                                          </a>
+                                        </td>
+                                      ) : (
+                                        // {/* KALAU SUDAH ACCEPTED OLEH PENJUAL, MASUK SINI */}
+                                        <td className="flex flex-row pt-2 justify-center align-middle m-auto space-x-4 whitespace-nowrap text-sm">
+                                          <a
+                                            onClick={() => openCekOngkirModal(bid)}
+                                            className="bg-teal-600 cursor-pointer rounded-lg text-xs px-3 py-2 font-medium text-teal-50 hover:bg-teal-500 transition duration-150 ease-in-out"
+                                          >
+                                            Cek Ongkir
+                                          </a>
+                                          <a
+                                            onClick={() => triggerDeleteModal(bid.id)}
+                                            className="bg-gray-200 cursor-pointer rounded-lg text-xs px-3 py-2 font-medium text-gray-500 hover:bg-gray-300 transition duration-150 ease-in-out"
+                                          >
+                                            Batalkan
+                                          </a>
+                                        </td>
+                                      )}
+                                    </tr>
+                                  );
+                                }
                               })}
                             </tbody>
                           </table>

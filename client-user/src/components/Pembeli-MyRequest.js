@@ -21,7 +21,7 @@ function PembeliMyRequest(props) {
 
   const getRequestDetail = (requestId) => {
     // dispatch(getRequestById(requestId));
-    // dispatch(getOffersByRequestId(requestId));
+    dispatch(getOffersByRequestId(requestId));
   };
 
   useEffect(() => {}, []);

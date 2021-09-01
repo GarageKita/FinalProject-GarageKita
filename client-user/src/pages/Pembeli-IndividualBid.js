@@ -43,7 +43,7 @@ function PembeliMain() {
     setDeleteBid((prev) => !prev);
   }
 
-  const submitEditBid = async (e, bidId) => {
+  const submitEditBid = async (e) => {
     e.preventDefault();
     const { error } = await dispatch(
       editBid({
@@ -141,11 +141,11 @@ function PembeliMain() {
                                         <div className="mt-3">
                                           <p className="text-lg font-bold text-gray-800">Detil Bid kamu</p>
                                         </div>
-                                        <div className="mt-3">
+                                        {/* <div className="mt-3">
                                           <p className="text-sm font-bold text-teal-600">
                                             Jumlah Bid: <span className="text-sm font-normal text-gray-500">1</span>
                                           </p>
-                                        </div>
+                                        </div> */}
                                         <div className="mt-3">
                                           <p className="text-sm font-bold text-teal-600">
                                             Harga Bid:{' '}

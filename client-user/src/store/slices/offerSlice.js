@@ -26,7 +26,7 @@ export const getMyOffers = createAsyncThunk('offer/getMyOffers', async () => {
   });
 });
 
-export const getOffersByRequestId = createAsyncThunk('offer/getById', async (requestId) => {
+export const getOffersByRequestId = createAsyncThunk('offer/getByRequestId', async (requestId) => {
   return await axios({
     method: 'get',
     url: baseURL + '/offers/' + requestId,
@@ -36,7 +36,17 @@ export const getOffersByRequestId = createAsyncThunk('offer/getById', async (req
   });
 });
 
-export const editOffer = createAsyncThunk('offer/put', async ({ id, payload }, thunkAPI) => {
+export const getOfferById = createAsyncThunk('offer/getById', async (id) => {
+  return await axios({
+    method: 'get',
+    url: baseURL + '/offers/checkoffer/' + id,
+    headers: {
+      access_token: localStorage.access_token,
+    },
+  });
+});
+
+export const editOffer = createAsyncThunk('offer/put', async ({ id, request_id, payload }, thunkAPI) => {
   const response = await axios({
     method: 'put',
     url: baseURL + '/offers/' + id,
@@ -45,7 +55,7 @@ export const editOffer = createAsyncThunk('offer/put', async ({ id, payload }, t
       access_token: localStorage.access_token,
     },
   });
-  thunkAPI.dispatch(getMyOffers());
+  thunkAPI.dispatch(getMyOffers()).then(() => getOffersByRequestId(request_id));
   return response;
 });
 
@@ -66,6 +76,7 @@ const offerSlice = createSlice({
   initialState: {
     loading: false,
     error: false,
+    offerById: {},
     myOffers: [],
     offersByRequestId: [],
   },
@@ -97,6 +108,20 @@ const offerSlice = createSlice({
       state.offersByRequestId = payload.data.data.filter((offer) => offer.status !== 'rejected');
     },
     [getOffersByRequestId.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
+    // get offer by id
+    [getOfferById.pending]: (state) => {
+      state.offerById = {};
+      state.loading = true;
+    },
+    [getOfferById.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.offerById = payload.data.data;
+    },
+    [getOfferById.rejected]: (state) => {
       state.loading = false;
       state.error = true;
     },

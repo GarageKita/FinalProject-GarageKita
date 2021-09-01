@@ -19,7 +19,7 @@ function PembeliRequestDetail() {
   const [offerToReject, setOfferToReject] = useState('');
   const [offerToCekOngkir, setOfferToCekOngkir] = useState('');
   const [requestToEdit, setRequestToEdit] = useState({});
-  const [offers, setOffers] = useState([]);
+  // const [offers, setOffers] = useState([]);
 
   const [modalStatus, setModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
@@ -31,12 +31,12 @@ function PembeliRequestDetail() {
   const { request } = location.state;
 
   // const { requestById: request, loading } = useSelector((state) => state.request);
-  // const { offersByRequestId: offers } = useSelector((state) => state.offer);
+  const { offersByRequestId: offers } = useSelector((state) => state.offer);
   const { categories } = useSelector((state) => state.category);
 
   useState(() => {
     dispatch(getMyAddress());
-    setOffers(request.Offers.filter((offer) => offer.status != 'rejected'));
+    // setOffers(request.Offers.filter((offer) => offer.status != 'rejected'));
   }, []);
 
   function openDeleteRequest(id) {
