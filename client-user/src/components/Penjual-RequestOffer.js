@@ -70,6 +70,7 @@ function RequestOffer(props) {
     myProducts.forEach((product) => {
       if (product.name == productName) {
         setProductId(product.id);
+        setOfferedPrice(product.price);
       }
     });
   }
@@ -173,7 +174,10 @@ function RequestOffer(props) {
                             <label for="category" className="text-sm font-bold text-rust-600">
                               Product yang kamu Offer
                             </label>
-                            <a onClick={() => openFormProduct('post')} className="text-rust-600 font-normal text-xs underline hover:text-rust-700 cursor-pointer">
+                            <a
+                              onClick={() => openFormProduct('post')}
+                              className="text-rust-600 font-normal text-xs underline hover:text-rust-700 cursor-pointer"
+                            >
                               Atau buat Product baru
                             </a>
                           </div>

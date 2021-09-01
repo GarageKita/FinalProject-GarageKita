@@ -128,6 +128,7 @@ const productSlice = createSlice({
       state.loading = true;
     },
     [getProducts.fulfilled]: (state, { payload }) => {
+      console.log(payload.data.data);
       state.loading = false;
       state.rawProducts = state.products = payload.data.data;
     },

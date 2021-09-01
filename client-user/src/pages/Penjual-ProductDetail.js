@@ -87,15 +87,6 @@ function PenjualProductDetail() {
         }
       });
     });
-    dispatch(
-      editProduct({
-        id: bid.product_id,
-        payload: {
-          stock: bid.Product.stock - bid.qty,
-          product_id: bid.product_id,
-        },
-      })
-    );
     // dispatch(
     //   postDeal({
     //     comsumer_id: bid.consumer_id,

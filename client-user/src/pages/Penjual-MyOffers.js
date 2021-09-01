@@ -270,18 +270,24 @@ function PembeliMain() {
                                           </span>
                                         </td>
                                         <td className="flex flex-row align-middle pt-3 space-x-4 whitespace-nowrap text-center text-sm">
-                                          <a
-                                            onClick={() => triggerEditModal(offer)}
-                                            className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"
-                                          >
-                                            Edit
-                                          </a>
-                                          <a
-                                            onClick={() => triggerDeleteModal(offer.id)}
-                                            className="text-red-600 hover:text-red-400 font-medium cursor-pointer"
-                                          >
-                                            Hapus
-                                          </a>
+                                          {offer.status != 'deal' && (
+                                            <>
+                                              {offer.status != 'rejected' && (
+                                                <a
+                                                  onClick={() => triggerEditModal(offer)}
+                                                  className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"
+                                                >
+                                                  Edit
+                                                </a>
+                                              )}
+                                              <a
+                                                onClick={() => triggerDeleteModal(offer.id)}
+                                                className="text-red-600 hover:text-red-400 font-medium cursor-pointer"
+                                              >
+                                                Hapus
+                                              </a>
+                                            </>
+                                          )}
                                         </td>
                                       </tr>
                                     );
