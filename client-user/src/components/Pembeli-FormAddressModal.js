@@ -287,7 +287,7 @@ function FormAddressModal(props) {
         </div>
       </React.Fragment>
     );
-  }
+  } 
 }
 
 export default FormAddressModal;
