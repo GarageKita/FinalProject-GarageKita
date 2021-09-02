@@ -39,7 +39,7 @@ function Register() {
     <>
       {registered && <EmailActivation />}
 
-      <div id="register-section" className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div id="register-section" className="min-h-full h-full mb-48 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md space-y-8">
           <Link to="/">
             <img className="mx-auto w-64" src={MainLogo} alt="GarageKita Logo" />

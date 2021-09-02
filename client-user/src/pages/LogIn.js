@@ -43,7 +43,7 @@ function Login() {
 
   return (
     <>
-      <div id="login-section" className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div id="login-section" className="min-h-full h-full flex items-center justify-center mb-48 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md space-y-8">
           <Link to="/">
             <img className="mx-auto w-64" src={MainLogo} alt="GarageKita Logo" />

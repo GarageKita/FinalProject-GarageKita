@@ -73,7 +73,7 @@ function ProductBid(props) {
                       <p className="text-2xl text-gray-700">Rp{product.price && product.price.toLocaleString('id-ID')}</p>
                       <p className="mt-1 text-xs text-gray-500 font-normal">
                         oleh{' '}
-                        <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">
+                        <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">
                           Penjual #{product.seller_id}
                         </span>
                       </p>
