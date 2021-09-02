@@ -4,6 +4,7 @@ import axios from 'axios';
 const baseURL = 'https://garage-kita.herokuapp.com';
 
 export const postProduct = createAsyncThunk('product/post', async (payload, thunkAPI) => {
+  console.log(payload);
   const response = await axios({
     method: 'post',
     url: baseURL + '/products',

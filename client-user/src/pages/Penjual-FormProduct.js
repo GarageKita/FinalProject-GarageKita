@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { allCitiesInProvince } from '../store/slices/ongkirSlice';
 import { editProduct, postProduct } from '../store/slices/productSlice';
+import FormAddressModal from '../components/Pembeli-FormAddressModal.js';
 
 function PembeliFormRequest(props) {
   const { openFormProduct, categories, provinces, formType, closeModal, product } = props;
@@ -9,6 +10,7 @@ function PembeliFormRequest(props) {
   const dispatch = useDispatch();
 
   const { citiesInProvince } = useSelector((state) => state.ongkir);
+  const { myAddresses } = useSelector((state) => state.address);
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -22,6 +24,9 @@ function PembeliFormRequest(props) {
   const [city_name, setCityName] = useState('');
   const [category_id, setCategoryId] = useState(0);
   const [category_name, setCategoryName] = useState('');
+  const [destination_id, setDestinationId] = useState('');
+  const [address_id, setAddressId] = useState('');
+  const [formAddress, setFormAddress] = useState(false);
 
   useEffect(() => {
     if (formType === 'put') {
@@ -75,6 +80,21 @@ function PembeliFormRequest(props) {
     setCityId(city.city_id);
   };
 
+  function addressHandler(e) {
+    const address = myAddresses.find((el) => el.address == e.target.value);
+    setCityId(address.city_id);
+    setProvinceId(address.province_id);
+    setAddressId(address.id);
+  }
+
+  function triggerFormModal() {
+    setFormAddress((prev) => !prev);
+  }
+
+  function closeAddressModal() {
+    setFormAddress((prev) => !prev);
+  }
+
   const submitPostProduct = async (e, productId) => {
     e.preventDefault();
     if (productId) {
@@ -120,7 +140,11 @@ function PembeliFormRequest(props) {
   if (formType === 'post') {
     return (
       <React.Fragment>
-        <div className="fixed z-10 inset-0 overflow-y-auto px-28" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        {formAddress === true ? (
+          <FormAddressModal triggerFormModal={triggerFormModal} formType={formType} provinces={provinces} closeModal={closeAddressModal} />
+        ) : null}
+
+        <div className="fixed z-9 inset-0 overflow-y-auto px-28" aria-labelledby="modal-title" role="dialog" aria-modal="true">
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
@@ -257,27 +281,26 @@ function PembeliFormRequest(props) {
                       </div> */}
 
                       <div className="col-span-6 sm:col-span-6">
-                        
                         <div className="flex flex-row justify-between">
                           <label for="province" className="block text-sm font-medium text-gray-700">
                             Alamat
                           </label>
-                          <p className="text-rust-600 underline hover:text-rust-400 text-xs cursor-pointer">
-                            Atau tambahkan alamat baru
-                          </p>
+                          <a onClick={() => triggerFormModal()} className="text-rust-600 underline hover:text-rust-400 text-xs cursor-pointer">
+                            Tambah alamat baru
+                          </a>
                         </div>
-                        
+
                         <select
                           id="address"
                           name="address"
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
-                          onChange={(e) => provinceHandler(e)}
+                          onChange={(e) => addressHandler(e)}
                         >
                           <option selected disabled>
                             -- pilih alamat --
                           </option>
-                          {provinces.map((el, i) => {
-                            return <option key={i}>{el.province}</option>;
+                          {myAddresses.map((el, i) => {
+                            return <option key={i}>{el.address}</option>;
                           })}
                         </select>
                       </div>

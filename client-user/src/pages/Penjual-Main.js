@@ -10,6 +10,7 @@ import KategoriFilter from '../components/KategoriFilter.js';
 import { getMyProducts } from '../store/slices/productSlice.js';
 import { getCategories } from '../store/slices/categorySlice.js';
 import { allProvinces } from '../store/slices/ongkirSlice.js';
+import { getMyAddress } from '../store/slices/addressSlice.js';
 
 function PembeliMain() {
   const [currentPage, setCurrentPage] = useState('myProducts');
@@ -27,7 +28,8 @@ function PembeliMain() {
     dispatch(getMyProducts());
     dispatch(getCategories());
     dispatch(allProvinces());
-  }, [dispatch]);
+    dispatch(getMyAddress());
+  }, []);
 
   // const mockProducts = [
   //         {
