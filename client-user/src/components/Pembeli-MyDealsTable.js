@@ -1,9 +1,13 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { updateShipping } from '../store/slices/dealSlice';
 
 export default function PembeliMyDealsTable(props) {
+  const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     const midtransScriptUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
     const clientKey = 'SB-Mid-client-TPkLr9_TH34idZS9';
@@ -41,6 +45,20 @@ export default function PembeliMyDealsTable(props) {
         e.target.innerHTML = 'Bayar Sekarang';
       });
   };
+  const updateShippingStatus = (data) => {
+    const { shipping_status, payment_status, id } = data;    
+    if (payment_status === 'paid' && shipping_status === 'delivering') {
+      const payload = { 
+        id: id,
+        data: {
+          shipping_status: 'completed' 
+        }
+      };
+      dispatch(updateShipping(payload)).then(() => {
+        history.push('/products');
+      });
+    }
+  }
 
   return (
     <div>
@@ -55,7 +73,7 @@ export default function PembeliMyDealsTable(props) {
         >
           <p className="mb-1 text-left font-bold text-sm">Mode Penjual: MyDeals</p>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLineCap="round" strokeLineJoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
           </svg>
         </Link>
 
@@ -80,7 +98,7 @@ export default function PembeliMyDealsTable(props) {
                           <Link to={`/deals/${deal.id}`} className="font-bold">{deal.product_name}</Link>
                           <p className="mt-1 text-left text-xs text-gray-500 font-normal">
                             milik{' '}
-                            <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">{deal.seller_email}</span>
+                            <span className="font-bold text-rust-600 hover:text-rust-500 hover:underline cursor-pointer">Penjual #{deal.seller_id}</span>
                           </p>
                         </h3>
                         <p className="ml-4 font-medium">
@@ -103,15 +121,27 @@ export default function PembeliMyDealsTable(props) {
                       </div>
                       <div className="flex flex-row">
                         {deal.payment_status === 'paid' ? (
-                          <div className="flex flex-row items-center">
-                            <p className="text-right mr-3 text-gray-500 font-normal cursor-not-allowed">
-                              Lunas, dalam proses pengiriman
-                              {/* <br/> */}
-                              {/* <span className="text-gray-500 font-normal text-xs">Setelah sampai, akan muncul di "Tiba di Tujuan"</span> */}
-                            </p>
-                            <button className="text-teal-700 bg-teal-200 rounded-md px-5 py-3 cursor-pointer hover:bg-teal-300 font-normal transition duration-150 ease-in-out">
-                              Sudah sampai
-                            </button>
+                          <div className="flex flex-row items-center">                            
+                            {
+                              (deal.shipping_status === 'undeliver') ? 
+                                <p className="text-right mr-3 text-gray-500 font-normal cursor-not-allowed">
+                                  Lunas, menunggu proses pengiriman dari seller
+                                </p>
+                              :
+                              (deal.shipping_status === 'delivering') ?
+                                <> 
+                                  <p className="text-right mr-3 text-gray-500 font-normal cursor-not-allowed">
+                                    Lunas, barang sedang dikirim oleh kurir
+                                  </p>
+                                  <button onClick={() => updateShippingStatus(deal)} className="text-teal-700 bg-teal-200 rounded-md px-5 py-3 cursor-pointer hover:bg-teal-300 font-normal transition duration-150 ease-in-out">
+                                    Sudah sampai
+                                  </button>
+                                </>
+                              :
+                              <p className="text-right mr-3 text-gray-500 font-normal cursor-not-allowed">
+                                Lunas, Transaksi Selesai
+                              </p>                                
+                            }
                           </div>
                         ) : (
                           <div>
@@ -121,8 +151,8 @@ export default function PembeliMyDealsTable(props) {
                             >
                               Bayar Sekarang
                             </button>
-                            <button className="text-gray-700 bg-gray-200 rounded-md px-5 py-3 cursor-pointer hover:bg-gray-300 font-normal transition duration-150 ease-in-out"
-                            >Batalkan</button>
+                            {/* <button className="text-gray-700 bg-gray-200 rounded-md px-5 py-3 cursor-pointer hover:bg-gray-300 font-normal transition duration-150 ease-in-out"
+                            >Batalkan</button> */}
                           </div>
                         )}
                       </div>

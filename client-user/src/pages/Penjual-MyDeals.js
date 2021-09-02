@@ -1,31 +1,19 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDeals } from '../store/slices/dealSlice';
-
+import { useDispatch } from 'react-redux';
+import { getSellerTransaction } from '../store/slices/dealSlice';
 import PenjualLoggedInNavbar from '../components/Penjual-NavBar.js';
-import KategoriFilter from '../components/KategoriFilter.js';
-
 import PenjualMyDealsTable from '../components/Penjual-MyDealsTable.js';
-
 import MyCartIllusPenjual from '../imgs/svg/MyCartPenjual.svg'
-
-// import DeleteModal from '../components/Pembeli-BidDeleteModal.js'
-// import EditFormBid from '../pages/Pembeli-FormBid.js'
 
 function PenjualMyDeals() {
   const dispatch = useDispatch();
-  // const initDeal = useSelector((state) => state.deal);
-  // const [ deleteBid, setDeleteBid ] = useState(false)
-  // const [ editBid, setEditBid ] = useState(false)
   const [currentMode, setCurrentMode] = useState('pembeli');
-  // const [mockDeals, setMockDeals] = useState([initDeal.dealsData]);
   const [mockDeals, setMockDeals] = useState([]);
   useEffect(() => {
-    dispatch(getDeals()).then(({ payload }) => {
+    dispatch(getSellerTransaction()).then(({ payload }) => {
       const { data: initData } = payload.data;
-      console.log('initData from dispatch parent', initData);
       setMockDeals(initData);
     });
   }, []);
@@ -34,56 +22,15 @@ function PenjualMyDeals() {
     setCurrentMode(toMode);
   }
 
-  const categories = ['Elektronik', 'Handphone & Tablet', 'Komputer', 'Otomotif', 'Mainan & Hobi', 'Buku & Alat Tulis', 'Kesehatan', 'Lain-lain'];
-
-  // const mockDeals = [
-  //     {
-  //         "id": 6,
-  //         "consumer_id": 5,
-  //         "product_id": 1,
-  //         "deal_price": 100000,
-  //         "deal_qty": 1,
-  //         "updatedAt": "2021-08-24T05:30:18.105Z",
-  //         "createdAt": "2021-08-24T05:30:18.105Z",
-  //         "payment_status": "awaiting"
-  //     },
-  //     {
-  //         "id": 6,
-  //         "consumer_id": 5,
-  //         "product_id": 1,
-  //         "deal_price": 100000,
-  //         "deal_qty": 1,
-  //         "updatedAt": "2021-08-24T05:30:18.105Z",
-  //         "createdAt": "2021-08-24T05:30:18.105Z",
-  //         "payment_status": "awaiting"
-  //     },
-  //     {
-  //         "id": 6,
-  //         "consumer_id": 5,
-  //         "product_id": 1,
-  //         "deal_price": 100000,
-  //         "deal_qty": 1,
-  //         "updatedAt": "2021-08-24T05:30:18.105Z",
-  //         "createdAt": "2021-08-24T05:30:18.105Z",
-  //         "payment_status": "awaiting"
-  //     },
-
-  // ]
-
   return (
     <>
       <PenjualLoggedInNavbar />
-      {/* { deleteBid ? <DeleteModal triggerDeleteModal={triggerDeleteModal} /> : null }
-            { editBid ? <EditFormBid triggerEditModal={triggerEditModal} /> : null } */}
 
       <div className="bg-white">
         <div>
           <main className="pt-10 max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
-              <div className="flex flex-row">
-                {/* <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-rust-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg> */}
+              <div className="flex flex-row">                
                 <h1 className="text-3xl font-extrabold tracking-tight text-rust-700">
                 Mode Penjual: <span className="font-normal">MyDeals</span>
                 </h1>
@@ -106,7 +53,6 @@ function PenjualMyDeals() {
             <section aria-labelledby="products-heading" className="pt-6 pb-24">
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
                 {/* <!-- Filters --> */}
-                <form className="hidden lg:block">
                   <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
                     <li className="my-2">
                       <a href="#" className="text-rust-600 hover:text-rust-700">
@@ -125,13 +71,8 @@ function PenjualMyDeals() {
                         Riwayat Pengiriman
                       </a>
                     </li>
-                  <img src={MyCartIllusPenjual} className="w-full" />
-                  </ul>
-
-                  {/* <KategoriFilter categories={categories} /> */}
-                  
-                </form>
-
+                    <img src={MyCartIllusPenjual} className="w-full" />
+                  </ul>                  
                 {/* <!-- Product grid --> */}
                 <div className="lg:col-span-3 h-full min-w-full overflow-y-auto ">
                   {/* <!-- TABLE MyDeals - START --> */}

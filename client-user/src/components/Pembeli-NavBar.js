@@ -6,10 +6,12 @@ import MainLogo from '../imgs/GarageKita-logo.png';
 import PembeliDropdownMenu from './Pembeli-DropdownMenu.js';
 
 function PembeliNavBar() {
-  const user = useSelector((state) => state.user.email);
+  // const user = useSelector((state) => state.user.email);
+  const user = (localStorage.getItem('loggedInEmail')) ? localStorage.getItem('loggedInEmail') : '';
 
   const logout = () => {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('loggedInEmail');
   };
 
   return (
