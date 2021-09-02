@@ -23,7 +23,7 @@ function PembeliPaymentSuccess() {
                     <svg xmlns="http://www.w3.org/2000/svg" className="mt-1 mr-2 h-5 w-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                     </svg>
-                    <Link to="/deals" className="mb-3 font-semibold text-lg">Kembali ke MyDeals</Link>
+                    <Link to="/deals/pembeli" className="mb-3 font-semibold text-lg">Kembali ke MyDeals</Link>
                 </div>
                 </p>
 
