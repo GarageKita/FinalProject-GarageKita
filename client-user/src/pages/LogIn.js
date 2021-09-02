@@ -27,6 +27,7 @@ function Login() {
     e.preventDefault();
     const { error } = await dispatch(loginPost({ email, password }));
     if (!error) {
+      localStorage.setItem('loggedInEmail', email);
       history.push('/myrequests');
     }
   };

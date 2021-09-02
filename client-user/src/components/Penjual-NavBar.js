@@ -6,10 +6,12 @@ import MainLogo from '../imgs/GarageKita-logo.png';
 import PenjualDropdownMenu from './Penjual-DropdownMenu.js';
 
 function PenjualNavBar() {
-  const user = useSelector((state) => state.user.email);
+  // const user = useSelector((state) => state.user.email);
+  const user = (localStorage.getItem('loggedInEmail')) ? localStorage.getItem('loggedInEmail') : '';
 
   const logout = () => {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('loggedInEmail');
   };
 
   return (

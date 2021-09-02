@@ -6,7 +6,7 @@ const baseURL = 'https://garage-kita.herokuapp.com';
 export const getDeals = createAsyncThunk('deals/getDeals', async () => {
   return await axios({
     method: 'GET',
-    url: `${baseURL}/deals`,
+    url: `${baseURL}/deals/me`,
     headers: {
       access_token: localStorage.getItem('access_token'),
     },
@@ -35,7 +35,28 @@ export const getDealsById = createAsyncThunk('deals/getDealsById', async (id) =>
   });
 });
 
-export const deleteBid = createAsyncThunk('deals/deleteBid', async (id) => {
+export const getSellerTransaction = createAsyncThunk('deals/getSellerTransaction', async () => {
+  return await axios({
+    method: 'GET',
+    url: `${baseURL}/deals/seller`,
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+  });
+});
+
+export const updateShipping = createAsyncThunk('deals/updateShipping', async ({ id, data }) => {
+  return await axios({
+    method: 'PATCH',
+    url: `https://garagekita-dealtransaction.herokuapp.com/deals/shipping/${id}`,
+    data: data,
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+  });
+});
+
+export const deleteDeal = createAsyncThunk('deals/deleteDeal', async (id) => {
   return await axios({
     method: 'DELETE',
     url: `${baseURL}/deals/${id}`,
@@ -93,14 +114,40 @@ const dealSlice = createSlice({
     },
 
     //delete bid
-    [deleteBid.pending]: (state) => {
+    [deleteDeal.pending]: (state) => {
       state.loading = true;
     },
-    [deleteBid.fulfilled]: (state, { payload }) => {
+    [deleteDeal.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.dealsData = payload.data;
     },
-    [deleteBid.rejected]: (state) => {
+    [deleteDeal.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+    
+    //get seller deal
+    [getSellerTransaction.pending]: (state) => {
+      state.loading = true;
+    },
+    [getSellerTransaction.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.dealsData = payload.data;
+    },
+    [getSellerTransaction.rejected]: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
+    // Update shipping
+    [updateShipping.pending]: (state) => {
+      state.loading = true;
+    },
+    [updateShipping.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.dealsData = payload.data;
+    },
+    [updateShipping.rejected]: (state) => {
       state.loading = false;
       state.error = true;
     },
