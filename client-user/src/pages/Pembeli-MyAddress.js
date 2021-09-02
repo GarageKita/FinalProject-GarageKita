@@ -66,7 +66,7 @@ function PembeliMyAddresses() {
       ) : null}
       {deleteAddress === true ? <DeleteAddressModal triggerDeleteModal={triggerDeleteModal} /> : null}
 
-      <div className="bg-white">
+      <div className="bg-white mb-48">
         <div>
           <main className="pt-10 max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-center justify-between pt-24 pb-6 border-b border-gray-200">
@@ -138,18 +138,24 @@ function PembeliMyAddresses() {
                                   <div className="text-sm text-gray-500">Provinsi Gitu</div>
                                 </td> */}
 
-                                      <td className="flex flex-col py-2 whitespace-nowrap text-center text-sm">
+                                      <td className="flex flex-row justify-center my-2 space-x-2 py-2 whitespace-nowrap text-center text-sm">
                                         <a
                                           onClick={() => triggerFormModal('put', el)}
                                           className="text-gray-500 cursor-pointer hover:text-gray-400  font-medium"
                                         >
-                                          Edit
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                          </svg>
+                                          {/* Edit */}
                                         </a>
                                         <a
-                                          className="text-red-600 cursor-pointer hover:text-red-400 my-1 font-medium"
+                                          className="text-red-600 cursor-pointer hover:text-red-400 font-medium"
                                           onClick={() => triggerDeleteModal()}
                                         >
-                                          Hapus
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                          </svg>
+                                          {/* Hapus */}
                                         </a>
                                       </td>
                                     </tr>

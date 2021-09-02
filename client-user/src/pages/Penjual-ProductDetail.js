@@ -197,10 +197,10 @@ function PenjualProductDetail() {
                       </div>
                     </div>
 
-                    <div className="flex flex-row justify-between pt-2 pb-5 sm:px-6">
+                    <div className="flex flex-row justify-between pt-2 pb-5 ">
                       <div className="flex flex-col">
-                        <div>
-                          <img className="w-72" src={product.image_url} />
+                        <div className="mr-3">
+                          <img className="w-72 rounded-lg" src={product.image_url} />
                         </div>
                       </div>
 

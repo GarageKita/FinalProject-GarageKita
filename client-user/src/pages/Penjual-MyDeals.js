@@ -76,7 +76,7 @@ function PenjualMyDeals() {
                 {/* <!-- Product grid --> */}
                 <div className="lg:col-span-3 h-full min-w-full overflow-y-auto ">
                   {/* <!-- TABLE MyDeals - START --> */}
-                  <div className="flex flex-col">
+                  <div className="flex flex-col mb-48">
                     <div className="w-full">
                       <div className=" align-middle inline-block min-w-full ">
                         
