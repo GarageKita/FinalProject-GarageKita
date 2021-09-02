@@ -3,9 +3,10 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import MainLogo from '../imgs/GarageKita-logo.png';
-import { loginPost } from '../store/slices/userSlice';
+import { googleOAuth, loginPost } from '../store/slices/userSlice';
 
 import LoginIllus from '../imgs/svg/Login.svg'
+import { GoogleLogin } from 'react-google-login'
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -29,6 +30,15 @@ function Login() {
       history.push('/myrequests');
     }
   };
+
+  const responseGoogle = async (response) => {
+    // console.log('GOOGLE ', response)
+
+    const { error } = await dispatch(googleOAuth({ token: response.tokenId }));
+    if (!error) {
+      history.push('/myrequests');
+    }
+  }
 
   return (
     <>
@@ -118,6 +128,17 @@ function Login() {
 
             <div id="login-oauth-section">
               <p className="mt-4 text-center font-bold text-sm text-teal-600">Atau log in dengan:</p>
+            </div>
+
+            <div>
+              <GoogleLogin
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                clientId="414012416093-teneo9ioknqvqnqkfgqdvf91ec4pgl7f.apps.googleusercontent.com"
+                buttonText="Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
+              />
             </div>
             {/* <div className="flex items-center justify-center">
                                 <g-signin-button className="g-signin-button"
