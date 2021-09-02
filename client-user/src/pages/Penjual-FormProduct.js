@@ -148,7 +148,7 @@ function PembeliFormRequest(props) {
                         />
                       </div>
 
-                      <div className="col-span-6 sm:col-span-2">
+                      <div className="col-span-6 sm:col-span-3">
                         <label for="budget" className="block text-sm font-medium text-gray-700">
                           Price
                         </label>
@@ -176,7 +176,7 @@ function PembeliFormRequest(props) {
                         />
                       </div> */}
 
-                      <div className="col-span-6 sm:col-span-2">
+                      <div className="col-span-6 sm:col-span-3">
                         <label for="weight" className="block text-sm font-medium text-gray-700">
                           Berat (gram)
                         </label>
@@ -191,7 +191,7 @@ function PembeliFormRequest(props) {
                         />
                       </div>
 
-                      <div className="col-span-6 sm:col-span-2">
+                      <div className="col-span-6 sm:col-span-3">
                         <label for="weight" className="block text-sm font-medium text-gray-700">
                           Image URL
                         </label>
@@ -212,7 +212,7 @@ function PembeliFormRequest(props) {
                         </label>
                         <textarea
                           type="text"
-                          rows="5"
+                          rows="2"
                           name="description"
                           id="description"
                           className="mt-1 focus:ring-rust-500 focus:border-rust-500 block w-full shadow-sm sm:text-sm p-2 border border-solid border-gray-300 rounded-md"
@@ -221,7 +221,7 @@ function PembeliFormRequest(props) {
                         />
                       </div>
 
-                      <div className="col-span-3">
+                      {/* <div className="col-span-3">
                         <label className="text-sm font-medium text-gray-700">Image</label>
                         <div className=" flex justify-center px-6 pt-4 pb-4 border-2 border-gray-300 border-dashed rounded-md">
                           <div className=" text-center">
@@ -238,36 +238,43 @@ function PembeliFormRequest(props) {
                                 for="file-upload"
                                 className="relative cursor-pointer bg-white rounded-md text-xs font-medium text-rust-600 hover:text-rust-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-rust-500"
                               >
-                                {/* <span>Unggah foto produk kamu</span> */}
+                                <span>Unggah foto produk kamu</span>
                                 <input
                                   id="file-upload"
                                   name="file-upload"
                                   type="file"
                                   multiple
                                   accept="image/*"
-                                  // className="sr-only"
+                                  className="sr-only"
                                   onChange={(e) => console.log(e.target.value)}
                                 />
                               </label>
-                              {/* <p className="pl-1 text-xs">atau: drag & drop</p> */}
+                              <p className="pl-1 text-xs">atau: drag & drop</p>
                             </div>
                             <p className="text-xs text-gray-500">PNG atau JPG maksimal 10MB</p>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
 
-                      <div className="col-span-6 sm:col-span-3">
-                        <label for="province" className="block text-sm font-medium text-gray-700">
-                          Provinsi
-                        </label>
+                      <div className="col-span-6 sm:col-span-6">
+                        
+                        <div className="flex flex-row justify-between">
+                          <label for="province" className="block text-sm font-medium text-gray-700">
+                            Alamat
+                          </label>
+                          <p className="text-rust-600 underline hover:text-rust-400 text-xs cursor-pointer">
+                            Atau tambahkan alamat baru
+                          </p>
+                        </div>
+                        
                         <select
-                          id="province"
-                          name="province"
+                          id="address"
+                          name="address"
                           className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-rust-500 focus:border-rust-500 sm:text-sm"
                           onChange={(e) => provinceHandler(e)}
                         >
                           <option selected disabled>
-                            -- pilih provinsi --
+                            -- pilih alamat --
                           </option>
                           {provinces.map((el, i) => {
                             return <option key={i}>{el.province}</option>;
@@ -275,7 +282,7 @@ function PembeliFormRequest(props) {
                         </select>
                       </div>
 
-                      <div className="col-span-6 sm:col-span-3">
+                      {/* <div className="col-span-6 sm:col-span-3">
                         <label for="city" className="block text-sm font-medium text-gray-700">
                           Kota
                         </label>
@@ -293,7 +300,7 @@ function PembeliFormRequest(props) {
                               return <option key={i}>{el.city_name}</option>;
                             })}
                         </select>
-                      </div>
+                      </div> */}
 
                       <div className="col-span-3 sm:col-span-3">
                         <label for="category" className="block text-sm font-medium text-gray-700">
