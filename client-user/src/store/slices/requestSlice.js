@@ -118,6 +118,21 @@ const requestSlice = createSlice({
         state.myRequests = state.rawMyRequests;
       }
     },
+
+    liveSearchRequests(state, { payload }) {
+      state.requests = state.rawRequests;
+      if (payload && payload != ' ') {
+        let searchRequests = [];
+        state.requests.forEach((el, i) => {
+          let index = el.name.toLowerCase().indexOf(payload);
+          if (index != -1) {
+            searchRequests.push(state.requests[i]);
+          }
+        });
+        if (searchRequests.length > 0) state.requests = searchRequests;
+        else state.requests = [];
+      }
+    },
   },
 
   extraReducers: {
@@ -201,5 +216,5 @@ const requestSlice = createSlice({
   },
 });
 
-export const { filterAllRequests, filterMyRequests } = requestSlice.actions;
+export const { filterAllRequests, filterMyRequests, liveSearchRequests } = requestSlice.actions;
 export default requestSlice.reducer;
