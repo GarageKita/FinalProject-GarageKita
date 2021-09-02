@@ -11,7 +11,7 @@ import ProductBidModal from '../components/Pembeli-ProductBid.js';
 // import watch from '../imgs/products/watch.jpeg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../store/slices/categorySlice.js';
-import { getProducts } from '../store/slices/productSlice.js';
+import { getProducts, liveSearch } from '../store/slices/productSlice.js';
 
 function PembeliAllProducts() {
   const [currentPage, setCurrentPage] = useState('allProducts');
@@ -19,6 +19,7 @@ function PembeliAllProducts() {
   const [productModalStatus, setProductModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
   const [product, setProduct] = useState('');
+  const [keyword, setKeyword] = useState('');
 
   const dispatch = useDispatch();
 
@@ -29,6 +30,11 @@ function PembeliAllProducts() {
     dispatch(getProducts());
     dispatch(getCategories());
   }, [dispatch]);
+
+  function searchKeyword(e) {
+    setKeyword(e.target.value);
+    dispatch(liveSearch(e.target.value));
+  }
 
   //   const mockProduct = [
   //     {
@@ -81,7 +87,6 @@ function PembeliAllProducts() {
         <div>
           <main className="pt-10 max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
-              
               <div className="flex flex-row w-full justify-between">
                 <h1 className="text-3xl font-extrabold tracking-tight text-teal-700">
                   Mode Pembeli: <span className="font-normal">All Products</span>
@@ -91,9 +96,14 @@ function PembeliAllProducts() {
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
-                  <input type="text" className="text-sm h-10 border border-solid border-gray-300 rounded-xl px-3 py-1" placeholder="Search" />
+                  <input
+                    value={keyword}
+                    onChange={(e) => searchKeyword(e)}
+                    type="text"
+                    className="text-sm h-10 border border-solid border-gray-300 rounded-xl px-3 py-1"
+                    placeholder="Search"
+                  />
                 </div>
-
               </div>
 
               <div className="flex items-center">

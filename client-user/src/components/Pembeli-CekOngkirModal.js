@@ -110,15 +110,15 @@ function PembeliCekOngkirModal(props) {
       });
     }
     console.log(offer, 'accept offer');
-    dispatch(
-      editProduct({
-        id: offer.product_id,
-        payload: {
-          stock: offer.Product.stock - offer.qty,
-          product_id: offer.product_id,
-        },
-      })
-    );
+    // dispatch(
+    //   editProduct({
+    //     id: offer.product_id,
+    //     payload: {
+    //       stock: offer.Product.stock - offer.qty,
+    //       product_id: offer.product_id,
+    //     },
+    //   })
+    // );
 
     openCekOngkirModal();
   }

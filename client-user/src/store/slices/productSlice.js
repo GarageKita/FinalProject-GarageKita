@@ -48,6 +48,7 @@ export const getMyProducts = createAsyncThunk('product/getMyProducts', async () 
 });
 
 export const editProduct = createAsyncThunk('product/put', async ({ id, payload }, thunkAPI) => {
+  console.log(payload);
   const response = await axios({
     method: 'put',
     url: baseURL + '/products/' + id,
@@ -56,10 +57,7 @@ export const editProduct = createAsyncThunk('product/put', async ({ id, payload 
       access_token: localStorage.access_token,
     },
   });
-  thunkAPI
-    .dispatch(getMyProducts())
-    .then(() => thunkAPI.dispatch(getProductById(payload.product_id)))
-    .then(() => thunkAPI.dispatch(getProducts()));
+  thunkAPI.dispatch(getMyProducts()).then(() => thunkAPI.dispatch(getProductById(payload.product_id)));
   return response;
 });
 
@@ -119,6 +117,21 @@ const productSlice = createSlice({
         state.myProducts = filtered;
       } else {
         state.myProducts = state.rawMyProducts;
+      }
+    },
+
+    liveSearch(state, { payload }) {
+      state.products = state.rawProducts;
+      if (payload && payload != ' ') {
+        let searchProducts = [];
+        state.products.forEach((el, i) => {
+          let index = el.name.toLowerCase().indexOf(payload);
+          if (index != -1) {
+            searchProducts.push(state.products[i]);
+          }
+        });
+        if (searchProducts.length > 0) state.products = searchProducts;
+        else state.products = [];
       }
     },
   },
@@ -205,5 +218,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { filterProducts, filterMyProducts } = productSlice.actions;
+export const { filterProducts, filterMyProducts, liveSearch } = productSlice.actions;
 export default productSlice.reducer;

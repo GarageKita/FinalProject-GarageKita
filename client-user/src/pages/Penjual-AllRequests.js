@@ -7,7 +7,7 @@ import KategoriFilter from '../components/KategoriFilter.js';
 import RequestOfferModal from '../components/Penjual-RequestOffer.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../store/slices/categorySlice.js';
-import { getRequests } from '../store/slices/requestSlice.js';
+import { getRequests, liveSearchRequests } from '../store/slices/requestSlice.js';
 
 function PenjualAllRequests() {
   const [currentPage, setCurrentPage] = useState('allProducts');
@@ -15,6 +15,7 @@ function PenjualAllRequests() {
   const [requestModalStatus, setRequestModalStatus] = useState(false);
   const [formType, setFormType] = useState('');
   const [request, setRequest] = useState({});
+  const [keyword, setKeyword] = useState('');
 
   const dispatch = useDispatch();
 
@@ -26,6 +27,11 @@ function PenjualAllRequests() {
     dispatch(getRequests());
     dispatch(getCategories());
   }, [dispatch]);
+
+  function searchKeyword(e) {
+    setKeyword(e.target.value);
+    dispatch(liveSearchRequests(e.target.value));
+  }
 
   //     const mockRequests = [
   //         {
@@ -122,20 +128,23 @@ function PenjualAllRequests() {
         <div>
           <main className="pt-10 max-w-7xl mx-auto px-4 lg:px-8">
             <div className="flex items-baseline flex-row justify-between pt-24 pb-6 border-b border-gray-200">
-
               <div className="flex flex-row w-full justify-between">
-
                 <h1 className="text-3xl font-extrabold tracking-tight text-rust-700">
                   Mode Penjual: <span className="font-normal">All Requests</span>
                 </h1>
-                
+
                 <div className="flex flex-row align-middle items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
-                  <input type="text" className="text-sm h-10 border border-solid border-gray-300 rounded-xl px-3 py-1" placeholder="Search" />
+                  <input
+                    value={keyword}
+                    onChange={(e) => searchKeyword(e)}
+                    type="text"
+                    className="text-sm h-10 border border-solid border-gray-300 rounded-xl px-3 py-1"
+                    placeholder="Search"
+                  />
                 </div>
-
               </div>
 
               <div className="flex items-center">
@@ -190,17 +199,15 @@ function PenjualAllRequests() {
                   <div className="flex flex-col mb-48">
                     <div className=" w-full ">
                       <div className=" align-middle min-w-full ">
-
                         <div className="flex flex-row justify-between">
                           <p className="mb-6 text-left font-semibold text-gray-900 text-2xl">Requests List</p>
-                          
+
                           {/* <div className="flex flex-row justify-between align-middle items-center pb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                             <input type="text" className="text-sm h-10 border border-solid border-gray-300 rounded-xl px-3 py-1" placeholder="Search" />
                           </div> */}
-
                         </div>
 
                         {/* {!loading && requests.map(request => ( */}

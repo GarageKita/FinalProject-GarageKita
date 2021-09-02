@@ -37,6 +37,7 @@ function PenjualProductDetail() {
   }
 
   function openFormProduct(formToLoad, product) {
+    console.log(product);
     if (product) setProductToEdit(product);
     setFormType(formToLoad);
     setModalStatus((prev) => !prev);
@@ -73,19 +74,21 @@ function PenjualProductDetail() {
         },
       })
     ).then(() => {
-      bids.forEach((el) => {
-        if (el.id != bid.id) {
-          dispatch(
-            editBid({
-              id: el.id,
-              payload: {
-                status: 'rejected',
-                product_id: bid.product_id,
-              },
-            })
-          );
-        }
-      });
+      if (bid.Product.stock - bid.qty == 0) {
+        bids.forEach((el) => {
+          if (el.id != bid.id) {
+            dispatch(
+              editBid({
+                id: el.id,
+                payload: {
+                  status: 'rejected',
+                  product_id: bid.product_id,
+                },
+              })
+            );
+          }
+        });
+      }
     });
     // dispatch(
     //   postDeal({

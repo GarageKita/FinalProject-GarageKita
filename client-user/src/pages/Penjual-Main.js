@@ -68,6 +68,7 @@ function PembeliMain() {
   // ]
 
   function openFormProduct(formToLoad, product) {
+    console.log(product);
     if (product) setProductToEdit(product);
     setFormType(formToLoad);
     setModalStatus((prev) => !prev);
