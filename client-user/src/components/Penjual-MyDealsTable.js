@@ -57,7 +57,7 @@ export default function PenjualMyDealsTable(props) {
                         <Link to={`/deals/${deal.id}`} className="font-bold">{deal.product_name}</Link>
                         <p className="mt-1 text-left text-xs text-gray-500 font-normal">
                           di-Bid oleh 
-                          <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer">Pembeli #{deal.consumer_id}</span>
+                          <span className="font-bold text-teal-600 hover:text-teal-500 hover:underline cursor-pointer"> Pembeli #{deal.consumer_id}</span>
                         </p>
                         </h3>
                         <p className="ml-4">

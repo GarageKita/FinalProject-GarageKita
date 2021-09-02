@@ -209,7 +209,7 @@ function PembeliMain() {
                     <PenjualMyProduct openFormProduct={openFormProduct} productList={myProducts} changePage={changePage} />
                   ) : (
                     <React.Fragment>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col mb-48">
                         <div className="sm:-mx-6 lg:-mx-8">
                           <div className=" align-middle inline-block min-w-full sm:px-6 lg:px-8">
                             <p className="mb-6 text-left font-semibold text-gray-900 text-2xl">Daftar Offers saya</p>
@@ -218,19 +218,19 @@ function PembeliMain() {
                               <table className="min-w-full divide-y divide-gray-200">
                                 <thead className="bg-rust-100">
                                   <tr>
-                                    <th scope="col" className="px-6 py-3 text-left text-sm font-bold text-rust-600 uppercase tracking-wider">
+                                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-rust-600 uppercase tracking-wider">
                                       Nama Product
                                     </th>
-                                    <th scope="col" className="pr-6 py-3 text-left text-sm font-bold text-rust-600 uppercase tracking-wider">
+                                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-rust-600 uppercase tracking-wider">
                                       Harga Offer
                                     </th>
-                                    <th scope="col" className="pr-6 py-3 text-left text-sm font-bold text-rust-600 uppercase tracking-wider">
+                                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-rust-600 uppercase tracking-wider">
                                       Waktu Offer
                                     </th>
-                                    <th scope="col" className="pr-6 py-3 text-left text-sm font-bold text-rust-600 uppercase tracking-wider">
+                                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-rust-600 uppercase tracking-wider">
                                       Status
                                     </th>
-                                    <th scope="col" className="pr-6 py-3 text-left text-sm font-bold text-rust-600 uppercase tracking-wider">
+                                    <th scope="col" className="px-6 py-3 text-center text-sm font-bold text-rust-600 uppercase tracking-wider">
                                       Quick Actions
                                     </th>
                                   </tr>
@@ -240,9 +240,9 @@ function PembeliMain() {
                                   {myOffers.map((offer, index) => {
                                     return (
                                       <tr key={offer.id}>
-                                        <td className="whitespace-nowrap py-3">
-                                          <div className="flex text-left">
-                                            <div className="ml-4">
+                                        <td className="py-3 px-12">
+                                          <div className="flex text-center">
+                                            <div className="text-center">
                                               <Link
                                                 to={{
                                                   pathname: `/offers/${offer.id}`,
@@ -258,18 +258,18 @@ function PembeliMain() {
                                             </div>
                                           </div>
                                         </td>
-                                        <td className="whitespace-wrap text-left">
+                                        <td className="whitespace-wrap">
                                           <div className="text-xs text-gray-500">{offer.offered_price.toLocaleString('id-ID')}</div>
                                         </td>
-                                        <td className="whitespace-nowrap text-left">
+                                        <td className="whitespace-nowrap">
                                           <div className="text-sm text-gray-500">{dateFormatter(offer.createdAt)}</div>
                                         </td>
-                                        <td className="whitespace-nowrap text-left text-sm text-gray-500">
+                                        <td className="whitespace-nowrap text-sm text-gray-500">
                                           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-500">
                                             {offer.status}
                                           </span>
                                         </td>
-                                        <td className="flex flex-row align-middle pt-3 space-x-4 whitespace-nowrap text-center text-sm">
+                                        <td className="flex flex-row justify-center pt-3 space-x-3 whitespace-nowrap text-center text-sm">
                                           {offer.status != 'deal' && (
                                             <>
                                               {offer.status != 'rejected' && (
@@ -277,14 +277,20 @@ function PembeliMain() {
                                                   onClick={() => triggerEditModal(offer)}
                                                   className="text-gray-500 cursor-pointer hover:text-gray-400 font-medium"
                                                 >
-                                                  Edit
+                                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                  </svg>
+                                                  {/* Edit */}
                                                 </a>
                                               )}
                                               <a
                                                 onClick={() => triggerDeleteModal(offer.id)}
                                                 className="text-red-600 hover:text-red-400 font-medium cursor-pointer"
                                               >
-                                                Hapus
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                                {/* Hapus */}
                                               </a>
                                             </>
                                           )}

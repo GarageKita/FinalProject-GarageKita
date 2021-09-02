@@ -133,7 +133,7 @@ function Login() {
 
             <div>
               <GoogleLogin
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                className="group relative w-full mt-4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                 clientId="414012416093-teneo9ioknqvqnqkfgqdvf91ec4pgl7f.apps.googleusercontent.com"
                 buttonText="Google"
                 onSuccess={responseGoogle}
