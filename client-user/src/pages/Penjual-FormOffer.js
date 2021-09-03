@@ -35,7 +35,7 @@ function PenjualFormOffer(props) {
           </span>
 
           <div className="inline-block align-bottom bg-white min-w-full rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-            <p className="mt-6 mb-4 mx-8 text-left font-semibold text-gray-900 text-2xl">Edit Offer saya: iPhone 11 RED</p>
+            <p className="mt-6 mb-4 mx-8 text-left font-semibold text-gray-900 text-2xl">Edit Offer saya:</p>
 
             <form action="#" method="POST">
               <div class="shadow overflow-hidden sm:rounded-md">
