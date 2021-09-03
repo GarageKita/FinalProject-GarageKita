@@ -1,10 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 
 import MainImage from '../imgs/main.jpg'
 import MainLogo from '../imgs/GarageKita-logo.png'
-import { Link } from 'react-router-dom'
+import MobileNav from '../components/Landing-MobileNav.js'
 
 function Landing() {
+
+    const [mobileNavStatus, setMobileNavStatus] = useState(false)
+
+    function triggerMobileNav () {
+        setMobileNavStatus(prev => !prev)
+    }
+
     return (
         <>
             {/* MAIN LANDING PAGE - PALING ATAS */}
@@ -24,7 +32,7 @@ function Landing() {
                                     <img className="h-8 w-auto sm:h-10" src={MainLogo} alt="Main logo GarageKita"/>
                                 </Link>
                                 <div className="-mr-2 flex items-center md:hidden">
-                                <button type="button" className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
+                                <button onClick={() => triggerMobileNav()} type="button" className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500" aria-expanded="false">
                                     <span className="sr-only">Open main menu</span>
                                     {/* <!-- Heroicon name: outline/menu --> */}
                                     <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -46,6 +54,12 @@ function Landing() {
                         </nav>
                         </div>    
                     </div>
+
+                    {/* <!--
+                    Mobile menu, show/hide based on menu open state.
+                    --> */}
+
+                    {mobileNavStatus ? <MobileNav triggerMobileNav={triggerMobileNav} /> : null}
 
                     <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
                         <div className="sm:text-center lg:text-left">
